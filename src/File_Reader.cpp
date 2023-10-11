@@ -6,6 +6,10 @@
 
 File_Reader::File_Reader(const std::string &file_name) {
     this->file_name_ = file_name;
+    std::vector<std::vector<std::string>> data;
+    if (read_file(data)) {
+        data_ = data;
+    }
 }
 
 bool File_Reader::read_file(std::vector<std::vector<std::string>> &data) {

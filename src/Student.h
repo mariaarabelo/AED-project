@@ -8,12 +8,13 @@
 #include <string>
 #include <vector>
 #include "UC.h"
+#include <utility>
 
 class Student {
     private:
     std::string student_code_;
     std::string student_name_;
-    std::vector<Class> enrolled_classes_;
+    std::vector<std::pair<UC, Class>> enrolled_classes_;
 
     public:
     Student(const std::string& student_name, const std::string& student_code);

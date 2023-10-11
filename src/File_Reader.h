@@ -10,13 +10,16 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include "Class.h"
+#include "UC.h"
 
 class File_Reader {
 private:
     std::string file_name_;
-public:
-    File_Reader(const std::string &file_name);
+    std::vector<std::vector<std::string>> data_;
     bool read_file(std::vector<std::vector<std::string>> &data);
+public:
+    explicit File_Reader(const std::string &file_name);
 };
 
 
