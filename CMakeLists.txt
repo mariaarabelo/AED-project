@@ -7,4 +7,6 @@ add_executable(AED_project
         src/main.cpp
         src/Student.h
         src/UC.cpp
-        src/Class.cpp)
+        src/Class.cpp
+        src/Student.cpp
+        src/File_Reader.cpp)
