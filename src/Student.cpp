@@ -5,33 +5,33 @@
 #include "Student.h"
 
 Student::Student(const std::string& student_name, const std::string& student_code){
-    this->s_name = student_name;
-    this->s_code = student_code;
+    this->student_name_ = student_name;
+    this->student_code_ = student_code;
 }
 
 std::string Student::student_code() const {
-    return s_code;
+    return student_code_;
 }
 
 std::string Student::student_name() const {
-    return s_name;
+    return student_name_;
 }
 
 std::vector<Class> Student::enrolled_classes() const {
-    return e_classes;
+    return enrolled_classes_;
 }
 
 std::string  &Student::student_name() {
-    auto &s = this->s_name;
+    auto &s = this->student_name_;
     return s;
 }
 
 std::string &Student::student_code() {
-    auto &s = this->s_code;
+    auto &s = this->student_code_;
     return s;
 }
 
 std::vector<Class> &Student::enrolled_classes() {
-    auto &e = this->e_classes;
+    auto &e = this->enrolled_classes_;
     return e;
 }

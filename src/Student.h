@@ -11,9 +11,9 @@
 
 class Student {
     private:
-    std::string s_code;
-    std::string s_name;
-    std::vector<Class> e_classes;
+    std::string student_code_;
+    std::string student_name_;
+    std::vector<Class> enrolled_classes_;
 
     public:
     Student(const std::string& student_name, const std::string& student_code);

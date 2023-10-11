@@ -11,10 +11,11 @@
 
 class UC {
 private:
-    std::string uc_code;
+    std::string uc_;
     std::vector<Class> classes;
 public:
     UC(const std::string &uc_code, const std::vector<Class> &classes);
+    std::string uc_code const()
 };
 
 
