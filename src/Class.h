@@ -6,15 +6,13 @@
 #define AED_PROJECT_CLASS_H
 
 #include <string>
+#include <vector>
+#include "Lecture.h"
 
 class Class {
     private:
-    std::string class_code;
-    std::string uc_code;
-    std::string weekday;
-    std::string start_hour;
-    int duration;
-    std::string type;
+    std::string class_code_;
+    std::vector<Lecture> lectures_;
 };
 
 
