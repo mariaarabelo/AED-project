@@ -5,15 +5,20 @@
 #include "Student.h"
 
 Student::Student(const std::string& student_name, const std::string& student_code,
-                 const std::vector<std::pair<std::string,
-                 std::string>> &codes,const std::vector<UC> &ucs){
+        std::vector<std::pair<std::string, std::string>> *codes, const std::vector<UC *> *ucs){
     this->student_name_ = student_name;
     this->student_code_ = student_code;
     enrolled_classes_ = new std::vector<std::pair<UC *, Class *>>;
-    for (const auto &code : codes) {
-
+    for (const auto &code : *codes) {
+        std::string uc_code = code.first;
+        std::string class_code = code.second;
+        for (const auto &uc : *ucs) {
+            if (uc_code == uc->uc_code()) {
+                std::pair<UC *, Class *> p(uc, uc->get_class(class_code));
+                enrolled_classes_->push_back(p);
+            }
+        }
     }
-
 }
 
 std::string Student::student_code() const {

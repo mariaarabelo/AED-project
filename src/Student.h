@@ -17,8 +17,8 @@ class Student {
     std::vector<std::pair<UC *, Class *>> *enrolled_classes_;
 
     public:
-    Student(const std::string& student_name, const std::string& student_code, const std::vector<std::pair<std::string,
-            std::string>> &codes,const std::vector<UC> &ucs);
+    Student(const std::string& student_name, const std::string& student_code, std::vector<std::pair<std::string, std::string>>
+            *codes, const std::vector<UC *> *ucs);
     std::string student_code() const;
     std::string student_name() const;
     std::vector<std::pair<UC *, Class *>> *enrolled_classes() const;

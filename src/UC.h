@@ -17,7 +17,7 @@ public:
     UC(const std::string &uc_code, const std::vector<Class> &classes);
     std::vector<Class> *classes() const;
     std::string uc_code() const;
-    Class get_class(const std::string &class_) const;
+    Class *get_class(const std::string &class_) const;
     ~UC();
 };
 

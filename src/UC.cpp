@@ -22,7 +22,7 @@ std::vector<Class> *UC::classes() const {
 }
 
 
-Class UC::get_class(const std::string &class_) const {
+Class *UC::get_class(const std::string &class_) const {
     for (const auto &c : *classes_) {
         if (class_ == c.class_code()) return c;
     }
