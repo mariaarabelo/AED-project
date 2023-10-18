@@ -10,9 +10,14 @@
 #include "Lecture.h"
 
 class Class {
-    private:
+private:
     std::string class_code_;
-    std::vector<Lecture> lectures_;
+    std::vector<Lecture> *lectures_;
+public:
+    Class(const std::string &class_code, const std::vector<Lecture> &lectures);
+    std::string class_code() const;
+    void printLectures() const;
+    ~Class();
 };
 
 
