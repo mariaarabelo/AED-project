@@ -8,15 +8,10 @@
 #include <string>
 
 int main(int argc, char *argv[]) {
-    std::vector<std::vector<std::string>> d;
-    File_Reader f("../dataset/classes_per_uc.csv");
-    f.read_file(d);
-    for (const auto& a : d) {
-        for (auto b : a) {
-            std::cout << b;
-        }
-        std::cout << "\n";
+    File_Reader f("../dataset/classes.csv");
+    std::vector<Lecture> l = f.instatiateLectures();
+    for (auto& a : l) {
+        a.printLecture();
     }
-
     return 0;
 }
