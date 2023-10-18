@@ -20,3 +20,7 @@ void Lecture::printLecture() {
     start_hour_ << "\n" << duration_ << "\n" <<
     type_ << "\n";
 }
+
+std::string Lecture::class_code() const{
+    return class_code_;
+}

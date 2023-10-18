@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include "File_Reader.h"
+#include "Class.h"
 #include <vector>
 #include <string>
 
@@ -13,5 +14,6 @@ int main(int argc, char *argv[]) {
     for (auto& a : l) {
         a.printLecture();
     }
+    Class c("1LEIC12", l);
     return 0;
 }

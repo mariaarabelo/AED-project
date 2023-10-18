@@ -14,7 +14,7 @@ private:
     std::string class_code_;
     std::vector<Lecture> lectures_;
 public:
-    //Class(std::string class_code_, )
+    Class(const std::string &class_code, const std::vector<Lecture> &lectures);
 };
 
 
