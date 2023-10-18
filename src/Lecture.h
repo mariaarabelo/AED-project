@@ -19,9 +19,13 @@ private:
 public:
     Lecture(std::string class_code, std::string uc_code, std::string weekday, std::string start_hour, std::string duration,
             std::string type);
-    void printLecture();
+    void printLecture() const;
     std::string class_code() const;
-
+    std::string uc_code() const;
+    std::string weekday() const;
+    std::string start_hour() const;
+    std::string duration() const;
+    std::string type() const;
 };
 
 

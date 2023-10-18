@@ -10,21 +10,24 @@
 
 UC::UC(const std::string &uc_code, const std::vector<Class> &classes) {
     this->uc_code_ = uc_code;
-    this->classes_ = classes;
+    classes_ = new std::vector<Class>{classes};
 }
 
 std::string UC::uc_code()  const{
     return uc_code_;
 }
 
-std::vector<Class> UC::classes() const {
+std::vector<Class> *UC::classes() const {
     return classes_;
 }
 
-std::string &UC::uc_code() {
-    return this->uc_code_;
+
+Class UC::get_class(const std::string &class_) const {
+    for (const auto &c : *classes_) {
+        if (class_ == c.class_code()) return c;
+    }
 }
 
-std::vector<Class> &UC::classes() {
-    return this->classes_;
+UC::~UC() {
+    delete(classes_);
 }
