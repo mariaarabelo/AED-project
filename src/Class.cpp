@@ -27,3 +27,13 @@ void Class::printLectures() const{
         l.printLecture();
     }
 }
+
+Lecture Class::getLecture(const std::string &code) const {
+    for (const auto &l : *lectures_) {
+        if (l.uc_code() == code) return l;
+    }
+}
+
+const std::vector<Lecture> &Class::lectures() const {
+    return *lectures_;
+}
