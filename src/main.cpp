@@ -12,6 +12,5 @@ int main(int argc, char *argv[]) {
     File_Reader f("../dataset/classes.csv");
     std::vector<Lecture> l = f.instatiateLectures();
     Class c("1LEIC12", l);
-    c.printLectures();
     return 0;
 }

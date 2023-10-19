@@ -12,6 +12,7 @@
 #include <iostream>
 #include "Class.h"
 #include "UC.h"
+#include "Student.h"
 
 class File_Reader {
 private:
@@ -21,7 +22,7 @@ private:
 public:
     explicit File_Reader(const std::string &file_name);
     std::vector<Lecture> instatiateLectures();
+    std::vector<Student> instantiateStudents();
 };
-
 
 #endif //AED_PROJECT_FILE_READER_H
