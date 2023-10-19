@@ -15,7 +15,7 @@ Schedule::Schedule(const Student &student, const std::vector<Lecture> &lectures)
 }
 
 Schedule::Schedule(const Class &c) {
-
+    this->lectures_ = c.lectures();
 }
 
 const std::vector<Lecture> &Schedule::get_lectures() const {

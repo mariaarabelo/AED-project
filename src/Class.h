@@ -18,6 +18,7 @@ public:
     std::string class_code() const;
     void printLectures() const;
     Lecture getLecture(const std::string &code) const;
+    const std::vector<Lecture> &lectures() const;
     ~Class();
 };
 

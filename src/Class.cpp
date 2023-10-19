@@ -33,3 +33,7 @@ Lecture Class::getLecture(const std::string &code) const {
         if (l.uc_code() == code) return l;
     }
 }
+
+const std::vector<Lecture> &Class::lectures() const {
+    return *lectures_;
+}
