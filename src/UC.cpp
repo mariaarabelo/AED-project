@@ -8,9 +8,11 @@
 #include <vector>
 
 
-UC::UC(const std::string &uc_code, const std::list<std::shared_ptr<Class>> &classes) {
+UC::UC(const std::string &uc_code, const std::list<std::shared_ptr<Class>> &classes,
+       const std::list<std::shared_ptr<Student>> &enrolled_students) {
     this->uc_code_ = uc_code;
     this->classes_ = classes;
+    this->enrolled_students_ = enrolled_students;
 }
 
 std::string UC::uc_code()  const{

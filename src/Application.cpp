@@ -59,8 +59,11 @@ void Application::instantiateUCs(std::map<std::string, std::list<std::string>> *
                 classPtrs.push_back(std::make_shared<Class>(a));
             }
         }
-        UC u(p.first, classPtrs);
-        ucs_->push_back(u);
+        for (const auto &s : *students_) {
+
+        }
+        //UC u(p.first, classPtrs);
+        //ucs_->push_back(u);
     }
 }
 
