@@ -12,14 +12,14 @@
 class Class {
 private:
     std::string class_code_;
-    std::vector<Lecture> *lectures_;
+    std::vector<Lecture> lectures_;
 public:
-    Class(const std::string &class_code, const std::vector<Lecture> *lectures);
+    Class(const std::string &class_code, const std::vector<Lecture> &lectures);
+    Class(const Class &c);
     std::string class_code() const;
     void printLectures() const;
     Lecture getLecture(const std::string &code) const;
     const std::vector<Lecture> &lectures() const;
-    ~Class();
 };
 
 

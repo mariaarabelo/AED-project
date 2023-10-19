@@ -27,15 +27,14 @@ Application::Application() {
 }
 
 Application::~Application() {
-    delete lectures_;
-    delete students_;
-    delete classes_;
     delete ucs_;
+    delete classes_;
+    delete students_;
+    delete lectures_;
 }
 
 void Application::instantiateClasses(std::map<std::string, std::list<std::string>> * classes) {
     std::list<std::string> allClassCodes;
-
     for (const auto &p : *classes) {
         for (const auto &c : p.second) {
             auto it = std::find(allClassCodes.begin(), allClassCodes.end(), c);
@@ -45,23 +44,23 @@ void Application::instantiateClasses(std::map<std::string, std::list<std::string
         }
 
     }
-
+    //PROBLEM HAPPENS WITH THIS FOR LOOP
     for (const auto &classCode : allClassCodes) {
-        Class c(classCode, lectures_);
-        classes_->push_back(c);
+        classes_->emplace_back(classCode, *lectures_);
     }
 }
 
 void Application::instantiateUCs(std::map<std::string, std::list<std::string>> *classes) {
     for (const auto &p : *classes) {
-        std::list<Class *> classPtrs;
+        std::list<std::shared_ptr<Class>> classPtrs;
         for (auto &a : *classes_) {
             auto it = std::find(p.second.begin(), p.second.end(), a.class_code());
             if (it != p.second.end()) {
-                classPtrs.push_back(&a);
+                classPtrs.push_back(std::make_shared<Class>(a));
             }
         }
         UC u(p.first, classPtrs);
+        ucs_->push_back(u);
     }
 }
 
