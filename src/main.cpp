@@ -9,10 +9,10 @@
 #include "Schedule.h"
 #include <vector>
 #include <string>
+#include "Application.h"
 
 int main(int argc, char *argv[]) {
-    File_Reader f1("../dataset/classes.csv");
-    std::vector<Lecture> l = f1.instatiateLectures();
+    Application application;
     File_Reader f2("../dataset/students_classes.csv");
     std::vector<Student> students = f2.instantiateStudents();
     std::cout << students.at(0).student_name() << "\n";

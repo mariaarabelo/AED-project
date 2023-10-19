@@ -21,8 +21,8 @@ private:
     bool read_file(std::vector<std::vector<std::string>> &data);
 public:
     explicit File_Reader(const std::string &file_name);
-    std::vector<Lecture> instatiateLectures();
-    std::vector<Student> instantiateStudents();
+    void instatiateLectures(std::vector<Lecture> *lectures);
+    void instantiateStudents(std::vector<Student> *students);
 };
 
 #endif //AED_PROJECT_FILE_READER_H
