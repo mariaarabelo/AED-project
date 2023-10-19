@@ -11,4 +11,5 @@ add_executable(AED_project
         src/Student.h
         src/Student.cpp
         src/UC.cpp
-        src/Schedule.h)
+        src/Schedule.h
+        src/Schedule.cpp)

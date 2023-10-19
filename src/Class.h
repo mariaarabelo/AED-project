@@ -17,6 +17,7 @@ public:
     Class(const std::string &class_code, const std::vector<Lecture> &lectures);
     std::string class_code() const;
     void printLectures() const;
+    Lecture getLecture(const std::string &code) const;
     ~Class();
 };
 
