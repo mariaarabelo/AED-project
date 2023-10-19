@@ -7,18 +7,19 @@
 
 #include <string>
 #include <vector>
+#include <list>
 #include "Class.h"
 
 class UC {
 private:
     std::string uc_code_;
-    std::vector<Class> *classes_;
+    std::list<Class *> classes_;
 public:
-    UC(const std::string &uc_code, std::vector<Class> &classes);
-    std::vector<Class> *classes() const;
+    UC(const std::string &uc_code, const std::list<Class *> &classes);
+    const std::list<Class *> &classes() const;
+    void removeClass(Class *c);
+    void printClasses();
     std::string uc_code() const;
-    Class &get_class(const std::string &class_) const;
-    ~UC();
 };
 
 

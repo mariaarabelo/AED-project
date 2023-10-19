@@ -9,6 +9,7 @@
 #include "Class.h"
 #include "Student.h"
 #include "Lecture.h"
+#include "UC.h"
 
 class Schedule {
 private:
@@ -16,6 +17,7 @@ private:
 public:
     Schedule(const Student &student, const std::vector<Lecture> &lectures);
     explicit Schedule(const Class &c);
+    //explicit Schedule(const UC &uc);
     const std::vector<Lecture> &get_lectures() const;
 
 };

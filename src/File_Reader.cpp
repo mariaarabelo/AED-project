@@ -25,12 +25,11 @@ bool File_Reader::read_file(std::vector<std::vector<std::string>> &data) {
     return true;
 }
 
-std::vector<Lecture> File_Reader::instatiateLectures() {
+void File_Reader::instatiateLectures(std::vector<Lecture> *lectures) {
     //TODO
     //need to improve the error thrown
     if (!file_.is_open()) throw std::runtime_error("File does not exist");
     std::string line;
-    std::vector<Lecture> res;
     while(std::getline(file_, line)) {
         std::istringstream iss(line);
         std::string value;
@@ -40,16 +39,14 @@ std::vector<Lecture> File_Reader::instatiateLectures() {
         }
         Lecture l(v.at(0), v.at(1), v.at(2),v.at(3),
                   v.at(4), v.at(5));
-        res.push_back(l);
+        lectures->push_back(l);
     }
     file_.close();
-    return res;
 }
 
-std::vector<Student> File_Reader::instantiateStudents() {
+void File_Reader::instantiateStudents(std::vector<Student> *students) {
     if (!file_.is_open()) throw std::runtime_error("File does not exist");
     std::string line;
-    std::vector<Student> res;
     std::map<std::pair<std::string, std::string>, std::vector<std::pair<std::string, std::string>>> student_classes;
     std::map<std::string, std::string> student_name;
     while(std::getline(file_, line)) {
@@ -73,8 +70,28 @@ std::vector<Student> File_Reader::instantiateStudents() {
     for (const auto &i : student_classes) {
         std::pair<std::string, std::string> code_name = i.first;
         Student s(code_name.second, code_name.first, i.second);
-        res.push_back(s);
+        students->push_back(s);
     }
     file_.close();
-    return res;
 }
+
+void File_Reader::classListing(std::map<std::string, std::list<std::string>> *c) {
+    if (!file_.is_open()) throw std::runtime_error("File does not exist");
+    std::string line;
+    while(std::getline(file_, line)) {
+        std::istringstream iss(line);
+        std::string value;
+        std::vector<std::string> v;
+        while (std::getline(iss, value, ',')) {
+            v.push_back(value);
+        }
+        auto it = c->find(v.at(0));
+        if (it == c->end()) {
+            c->insert({v.at(0), {v.at(1)}});
+        } else {
+            it->second.push_back(v.at(1));
+        }
+    }
+    file_.close();
+}
+

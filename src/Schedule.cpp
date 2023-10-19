@@ -21,3 +21,12 @@ Schedule::Schedule(const Class &c) {
 const std::vector<Lecture> &Schedule::get_lectures() const {
     return lectures_;
 }
+
+
+//TODO: reimplement this constructor
+/*
+Schedule::Schedule(const UC &uc) {
+    for (const auto &c : *uc.classes()) {
+        lectures_.push_back(c.getLecture(uc.uc_code()));
+    }
+}*/
