@@ -8,9 +8,9 @@
 #include <vector>
 
 
-UC::UC(const std::string &uc_code, const std::vector<Class> &classes) {
+UC::UC(const std::string &uc_code, std::vector<Class> &classes) {
     this->uc_code_ = uc_code;
-    classes_ = new std::vector<Class>{classes};
+    classes_ = &classes;
 }
 
 std::string UC::uc_code()  const{
@@ -22,8 +22,8 @@ std::vector<Class> *UC::classes() const {
 }
 
 
-Class *UC::get_class(const std::string &class_) const {
-    for (const auto &c : *classes_) {
+Class &UC::get_class(const std::string &class_) const {
+    for (auto &c : *classes_) {
         if (class_ == c.class_code()) return c;
     }
 }
