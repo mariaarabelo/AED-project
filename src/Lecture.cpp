@@ -44,3 +44,7 @@ std::string Lecture::duration() const {
 std::string Lecture::type() const {
     return type_;
 }
+
+Lecture::Lecture(const Lecture &l) {
+    this->class_code_;
+}

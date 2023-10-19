@@ -9,6 +9,8 @@
 #include <utility>
 #include <list>
 #include <algorithm>
+#include <memory>
+#include <iostream>
 #include "Lecture.h"
 #include "File_Reader.h"
 #include "UC.h"

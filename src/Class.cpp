@@ -4,12 +4,11 @@
 
 #include "Class.h"
 
-Class::Class(const std::string &class_code, const std::vector<Lecture> *lectures) {
+Class::Class(const std::string &class_code, const std::vector<Lecture> &lectures) {
     class_code_ = class_code;
-    lectures_ = new std::vector<Lecture>;
-    for (const auto &l : *lectures) {
+    for (const auto &l : lectures) {
         if (l.class_code() == class_code_) {
-            lectures_->push_back(l);
+            lectures_.push_back(l);
         }
     }
 }
@@ -18,22 +17,23 @@ std::string Class::class_code() const {
     return class_code_;
 }
 
-Class::~Class() {
-    delete(lectures_);
-}
-
 void Class::printLectures() const{
-    for (const auto &l : *lectures_) {
+    for (const auto &l : lectures_) {
         l.printLecture();
     }
 }
 
 Lecture Class::getLecture(const std::string &code) const {
-    for (const auto &l : *lectures_) {
+    for (const auto &l : lectures_) {
         if (l.uc_code() == code) return l;
     }
 }
 
 const std::vector<Lecture> &Class::lectures() const {
-    return *lectures_;
+    return lectures_;
+}
+
+Class::Class(const Class &c) {
+    this->lectures_ = c.lectures_;
+    this->class_code_ = c.class_code_;
 }
