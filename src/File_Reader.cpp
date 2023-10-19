@@ -74,3 +74,24 @@ void File_Reader::instantiateStudents(std::vector<Student> *students) {
     }
     file_.close();
 }
+
+void File_Reader::classListing(std::map<std::string, std::list<std::string>> *c) {
+    if (!file_.is_open()) throw std::runtime_error("File does not exist");
+    std::string line;
+    while(std::getline(file_, line)) {
+        std::istringstream iss(line);
+        std::string value;
+        std::vector<std::string> v;
+        while (std::getline(iss, value, ',')) {
+            v.push_back(value);
+        }
+        auto it = c->find(v.at(0));
+        if (it == c->end()) {
+            c->insert({v.at(0), {v.at(1)}});
+        } else {
+            it->second.push_back(v.at(1));
+        }
+    }
+    file_.close();
+}
+

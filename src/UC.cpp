@@ -8,26 +8,25 @@
 #include <vector>
 
 
-UC::UC(const std::string &uc_code, std::vector<Class> &classes) {
+UC::UC(const std::string &uc_code, const std::list<Class *> &classes) {
     this->uc_code_ = uc_code;
-    classes_ = &classes;
+    this->classes_ = classes;
 }
 
 std::string UC::uc_code()  const{
     return uc_code_;
 }
 
-std::vector<Class> *UC::classes() const {
+const std::list<Class *> &UC::classes() const {
     return classes_;
 }
 
-
-Class &UC::get_class(const std::string &class_) const {
-    for (auto &c : *classes_) {
-        if (class_ == c.class_code()) return c;
-    }
+void UC::removeClass(Class *c) {
+    classes_.remove(c);
 }
 
-UC::~UC() {
-    delete(classes_);
+void UC::printClasses() {
+    for (const auto &c : classes_) {
+        std::cout << c->class_code();
+    }
 }

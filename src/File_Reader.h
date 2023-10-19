@@ -9,6 +9,9 @@
 #include <string>
 #include <fstream>
 #include <sstream>
+#include <utility>
+#include <list>
+#include <map>
 #include <iostream>
 #include "Class.h"
 #include "UC.h"
@@ -23,6 +26,7 @@ public:
     explicit File_Reader(const std::string &file_name);
     void instatiateLectures(std::vector<Lecture> *lectures);
     void instantiateStudents(std::vector<Student> *students);
+    void classListing(std::map<std::string, std::list<std::string>> *c);
 };
 
 #endif //AED_PROJECT_FILE_READER_H
