@@ -74,7 +74,17 @@ void Application::instantiateUCs(std::map<std::string, std::list<std::string>> *
 }
 
 void Application::test() {
-    UC *u = &ucs_->at(1);
-    //Class *c = &classes_->at(1);
-    u->printEnrolledStudents();
+    printStudentsEnrolledInYear(1);
+}
+
+void Application::printStudentsEnrolledInYear(int year) {
+    for (const auto &s : *students_) {
+        for (const auto &c : s.enrolled_classes()) {
+            std::string y = c.second.substr(0,1);
+            if (std::stoi(y) == year) {
+                s.printStudent();
+                break;
+            }
+        }
+    }
 }
