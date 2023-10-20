@@ -24,6 +24,7 @@ public:
     void removeClass(const std::shared_ptr<Class> &c);
     void printClasses();
     const std::list<std::shared_ptr<Student>> &enrolled_students() const;
+    void printEnrolledStudents();
     std::string uc_code() const;
 };
 

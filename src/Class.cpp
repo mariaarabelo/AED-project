@@ -4,12 +4,21 @@
 
 #include "Class.h"
 
-Class::Class(const std::string &class_code, const std::vector<Lecture> &lectures) {
+Class::Class(const std::string &class_code, const std::vector<Lecture> &lectures, const std::vector<Student>  &students) {
     class_code_ = class_code;
     for (const auto &l : lectures) {
         if (l.class_code() == class_code_) {
             lectures_.push_back(l);
         }
+    }
+    for (const auto &s : students) {
+        std::list<std::string> ucs;
+        for (const auto &c : s.enrolled_classes()) {
+            if (c.second  == class_code) {
+                ucs.push_back(c.first);
+            }
+        }
+        enrolled_students_.emplace_back(std::make_shared<Student>(s), ucs);
     }
 }
 
@@ -33,7 +42,9 @@ const std::vector<Lecture> &Class::lectures() const {
     return lectures_;
 }
 
-Class::Class(const Class &c) {
-    this->lectures_ = c.lectures_;
-    this->class_code_ = c.class_code_;
+void Class::printEnrolledStudents() const {
+    for (const auto &p : enrolled_students_) {
+        p.first->printStudent();
+    }
 }
+

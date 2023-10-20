@@ -36,3 +36,9 @@ void UC::printClasses() {
 const std::list<std::shared_ptr<Student>> &UC::enrolled_students() const {
     return enrolled_students_;
 }
+
+void UC::printEnrolledStudents() {
+    for (const auto &s : enrolled_students_) {
+        s->printStudent();
+    }
+}

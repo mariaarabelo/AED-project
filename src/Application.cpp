@@ -46,7 +46,7 @@ void Application::instantiateClasses(std::map<std::string, std::list<std::string
     }
     //PROBLEM HAPPENS WITH THIS FOR LOOP
     for (const auto &classCode : allClassCodes) {
-        classes_->emplace_back(classCode, *lectures_);
+        classes_->emplace_back(classCode, *lectures_, *students_);
     }
 }
 
@@ -74,7 +74,17 @@ void Application::instantiateUCs(std::map<std::string, std::list<std::string>> *
 }
 
 void Application::test() {
-    UC *u = &ucs_->at(1);
-    Schedule s(*u);
-    s.printSchedule();
+    printStudentsEnrolledInYear(1);
+}
+
+void Application::printStudentsEnrolledInYear(int year) {
+    for (const auto &s : *students_) {
+        for (const auto &c : s.enrolled_classes()) {
+            std::string y = c.second.substr(0,1);
+            if (std::stoi(y) == year) {
+                s.printStudent();
+                break;
+            }
+        }
+    }
 }

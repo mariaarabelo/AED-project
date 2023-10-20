@@ -7,17 +7,21 @@
 
 #include <string>
 #include <vector>
+#include <memory>
+#include <list>
 #include "Lecture.h"
+#include "Student.h"
 
 class Class {
 private:
     std::string class_code_;
     std::vector<Lecture> lectures_;
+    std::vector<std::pair<std::shared_ptr<Student>,std::list<std::string>>> enrolled_students_;
 public:
-    Class(const std::string &class_code, const std::vector<Lecture> &lectures);
-    Class(const Class &c);
+    Class(const std::string &class_code, const std::vector<Lecture> &lectures, const std::vector<Student>  &students);
     std::string class_code() const;
     void printLectures() const;
+    void printEnrolledStudents() const;
     Lecture getLecture(const std::string &code) const;
     const std::vector<Lecture> &lectures() const;
 };

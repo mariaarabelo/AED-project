@@ -30,6 +30,7 @@ private:
     std::vector<UC> *ucs_;
     void instantiateClasses(std::map<std::string, std::list<std::string>> * classes);
     void instantiateUCs(std::map<std::string, std::list<std::string>> * classes);
+    void printStudentsEnrolledInYear(int year);
 };
 
 
