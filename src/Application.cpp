@@ -74,7 +74,7 @@ void Application::instantiateUCs(std::map<std::string, std::list<std::string>> *
 }
 
 void Application::test() {
-    UC *u = &ucs_->at(0);
-    Schedule s(*u->enrolled_students().front(), *lectures_);
+    UC *u = &ucs_->at(1);
+    Schedule s(*u);
     s.printSchedule();
 }

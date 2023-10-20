@@ -77,6 +77,12 @@ void Schedule::printSchedule() const {
     }
 }
 
+Schedule::Schedule(const UC &uc) {
+    for (const auto &c : uc.classes()) {
+        lectures_.push_back(c->getLecture(uc.uc_code()));
+    }
+}
+
 
 //TODO: reimplement this constructor
 /*

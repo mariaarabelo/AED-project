@@ -19,7 +19,7 @@ private:
 public:
     Schedule(const Student &student, const std::vector<Lecture> &lectures);
     explicit Schedule(const Class &c);
-    //explicit Schedule(const UC &uc);
+    explicit Schedule(const UC &uc);
     const std::vector<Lecture> &get_lectures() const;
     void printSchedule() const;
 
