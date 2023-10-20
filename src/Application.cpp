@@ -77,7 +77,7 @@ void Application::test() {
     printStudentsEnrolledInYear(1);
 }
 
-void Application::printStudentsEnrolledInYear(int year) {
+void Application::printStudentsEnrolledInYear(const int &year) {
     for (const auto &s : *students_) {
         for (const auto &c : s.enrolled_classes()) {
             std::string y = c.second.substr(0,1);
