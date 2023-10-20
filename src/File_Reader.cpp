@@ -25,11 +25,13 @@ bool File_Reader::read_file(std::vector<std::vector<std::string>> &data) {
     return true;
 }
 
-void File_Reader::instatiateLectures(std::vector<Lecture> *lectures) {
+std::vector<Lecture> File_Reader::instatiateLectures() {
     //TODO
     //need to improve the error thrown
+    std::vector<Lecture> lectures;
     if (!file_.is_open()) throw std::runtime_error("File does not exist");
     std::string line;
+    std::getline(file_, line);
     while(std::getline(file_, line)) {
         std::istringstream iss(line);
         std::string value;
@@ -39,9 +41,10 @@ void File_Reader::instatiateLectures(std::vector<Lecture> *lectures) {
         }
         Lecture l(v.at(0), v.at(1), v.at(2),v.at(3),
                   v.at(4), v.at(5));
-        lectures->push_back(l);
+        lectures.push_back(l);
     }
     file_.close();
+    return lectures;
 }
 
 void File_Reader::instantiateStudents(std::vector<Student> *students) {

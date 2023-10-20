@@ -8,7 +8,7 @@ Application::Application() {
     //instantiate lectures
     File_Reader f1("../dataset/classes.csv");
     lectures_ = new std::vector<Lecture>;
-    f1.instatiateLectures(lectures_);
+    *lectures_ = f1.instatiateLectures();
 
     //instantiate students
     File_Reader f2("../dataset/students_classes.csv");
@@ -75,9 +75,6 @@ void Application::instantiateUCs(std::map<std::string, std::list<std::string>> *
 
 void Application::test() {
     UC *u = &ucs_->at(0);
-    std::cout << u->uc_code() << "\n";
-    u->printClasses();
-    for (const auto &s : u->enrolled_students())  {
-        s->printStudent();
-    }
+    Schedule s(*u->enrolled_students().front(), *lectures_);
+    s.printSchedule();
 }

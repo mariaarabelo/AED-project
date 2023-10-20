@@ -4,8 +4,8 @@
 
 #include "Lecture.h"
 
-Lecture::Lecture(std::string class_code, std::string uc_code, std::string weekday, std::string start_hour, std::string duration,
-                 std::string type) {
+Lecture::Lecture(const std::string &class_code, const  std::string &uc_code, const std::string &weekday,
+                 const std::string &start_hour, const std::string &duration, const std::string &type) {
     class_code_ =class_code;
     uc_code_ = uc_code;
     weekday_ = weekday;
@@ -15,17 +15,17 @@ Lecture::Lecture(std::string class_code, std::string uc_code, std::string weekda
 }
 
 void Lecture::printLecture() const{
-    std::cout << class_code_ << "\n" <<
-    uc_code_ << "\n" << weekday_ << "\n" <<
-    start_hour_ << "\n" << duration_ << "\n" <<
+    std::cout << class_code_ << " || " <<
+    uc_code_ << "\n " << weekday_ << "\n" << "Starts at " <<
+    start_hour_ << " and ends at " << std::stof(start_hour_) + std::stof(duration_) << " (duration of "<< duration_ << "h)\n" <<
     type_ << "\n";
 }
 
-std::string Lecture::class_code() const{
+const std::string &Lecture::class_code() const{
     return class_code_;
 }
 
-std::string Lecture::uc_code() const {
+const std::string &Lecture::uc_code() const {
     return uc_code_;
 }
 
@@ -43,8 +43,4 @@ std::string Lecture::duration() const {
 
 std::string Lecture::type() const {
     return type_;
-}
-
-Lecture::Lecture(const Lecture &l) {
-    this->class_code_;
 }
