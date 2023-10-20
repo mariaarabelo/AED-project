@@ -17,12 +17,12 @@ private:
     std::string duration_;
     std::string type_;
 public:
-    Lecture(std::string class_code, std::string uc_code, std::string weekday, std::string start_hour, std::string duration,
-            std::string type);
-    Lecture(const Lecture &l);
+    Lecture(const std::string &class_code, const std::string &uc_code, const std::string &weekday,
+            const std::string &start_hour, const std::string &duration,
+            const std::string &type);
     void printLecture() const;
-    std::string class_code() const;
-    std::string uc_code() const;
+    const std::string &class_code() const;
+    const std::string &uc_code() const;
     std::string weekday() const;
     std::string start_hour() const;
     std::string duration() const;

@@ -7,8 +7,8 @@
 
 #include <string>
 #include <vector>
-#include "UC.h"
 #include <utility>
+#include <iostream>
 
 class Student {
     private:
@@ -21,7 +21,9 @@ class Student {
             &codes);
     std::string student_code() const;
     std::string student_name() const;
+    void enrollInUC(const std::pair<std::string, std::string> &c);
     const std::vector<std::pair<std::string, std::string>> &enrolled_classes() const;
+    void printStudent() const;
 };
 
 

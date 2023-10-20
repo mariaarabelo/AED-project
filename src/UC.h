@@ -10,16 +10,20 @@
 #include <list>
 #include <memory>
 #include "Class.h"
+#include "Student.h"
 
 class UC {
 private:
     std::string uc_code_;
     std::list<std::shared_ptr<Class>> classes_;
+    std::list<std::shared_ptr<Student>> enrolled_students_;
 public:
-    UC(const std::string &uc_code, const std::list<std::shared_ptr<Class>> &classes);
+    UC(const std::string &uc_code, const std::list<std::shared_ptr<Class>> &classes,
+       const std::list<std::shared_ptr<Student>> &enrolled_students);
     const std::list<std::shared_ptr<Class>> &classes() const;
-    void removeClass(std::shared_ptr<Class> c);
+    void removeClass(const std::shared_ptr<Class> &c);
     void printClasses();
+    const std::list<std::shared_ptr<Student>> &enrolled_students() const;
     std::string uc_code() const;
 };
 

@@ -8,7 +8,7 @@ Application::Application() {
     //instantiate lectures
     File_Reader f1("../dataset/classes.csv");
     lectures_ = new std::vector<Lecture>;
-    f1.instatiateLectures(lectures_);
+    *lectures_ = f1.instatiateLectures();
 
     //instantiate students
     File_Reader f2("../dataset/students_classes.csv");
@@ -59,12 +59,22 @@ void Application::instantiateUCs(std::map<std::string, std::list<std::string>> *
                 classPtrs.push_back(std::make_shared<Class>(a));
             }
         }
-        UC u(p.first, classPtrs);
+        std::list<std::shared_ptr<Student>> studs;
+        for (const auto &s : *students_) {
+            for (const auto  &c : s.enrolled_classes()) {
+                if  (c.first == p.first &&
+                std::find(p.second.begin(), p.second.end(), c.second) != p.second.end()) {
+                    studs.push_back(std::make_shared<Student>(s));
+                }
+            }
+        }
+        UC u(p.first, classPtrs, studs);
         ucs_->push_back(u);
     }
 }
 
 void Application::test() {
-    UC *u = &ucs_->at(0);
-    u->printClasses();
+    UC *u = &ucs_->at(1);
+    Schedule s(*u);
+    s.printSchedule();
 }

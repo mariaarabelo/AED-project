@@ -14,6 +14,8 @@
 #include "Lecture.h"
 #include "File_Reader.h"
 #include "UC.h"
+#include "Student.h"
+#include "Schedule.h"
 
 
 class Application {

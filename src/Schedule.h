@@ -5,7 +5,9 @@
 #ifndef AED_PROJECT_SCHEDULE_H
 #define AED_PROJECT_SCHEDULE_H
 
-#include <vector>
+#include <list>
+#include <iostream>
+#include <algorithm>
 #include "Class.h"
 #include "Student.h"
 #include "Lecture.h"
@@ -17,8 +19,9 @@ private:
 public:
     Schedule(const Student &student, const std::vector<Lecture> &lectures);
     explicit Schedule(const Class &c);
-    //explicit Schedule(const UC &uc);
+    explicit Schedule(const UC &uc);
     const std::vector<Lecture> &get_lectures() const;
+    void printSchedule() const;
 
 };
 

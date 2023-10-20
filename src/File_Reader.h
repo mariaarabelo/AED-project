@@ -24,7 +24,7 @@ private:
     bool read_file(std::vector<std::vector<std::string>> &data);
 public:
     explicit File_Reader(const std::string &file_name);
-    void instatiateLectures(std::vector<Lecture> *lectures);
+    std::vector<Lecture> instatiateLectures();
     void instantiateStudents(std::vector<Student> *students);
     void classListing(std::map<std::string, std::list<std::string>> *c);
 };
