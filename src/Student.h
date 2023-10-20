@@ -14,7 +14,7 @@ class Student {
     private:
     std::string student_code_;
     std::string student_name_;
-    std::vector<std::pair<std::string, std::string>> enrolled_classes_;
+    std::vector<std::pair<std::string, std::string>> enrolled_classes_; //<uc_code, class_code>
 
     public:
     Student(const std::string& student_name, const std::string& student_code, const std::vector<std::pair<std::string, std::string>>

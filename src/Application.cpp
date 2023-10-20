@@ -46,7 +46,7 @@ void Application::instantiateClasses(std::map<std::string, std::list<std::string
     }
     //PROBLEM HAPPENS WITH THIS FOR LOOP
     for (const auto &classCode : allClassCodes) {
-        classes_->emplace_back(classCode, *lectures_);
+        classes_->emplace_back(classCode, *lectures_, *students_);
     }
 }
 
@@ -74,7 +74,7 @@ void Application::instantiateUCs(std::map<std::string, std::list<std::string>> *
 }
 
 void Application::test() {
-    UC *u = &ucs_->at(1);
-    Schedule s(*u);
-    s.printSchedule();
+    //UC *u = &ucs_->at(1);
+    Class *c = &classes_->at(1);
+    c->printEnrolledStudents();
 }
