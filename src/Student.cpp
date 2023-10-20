@@ -34,3 +34,7 @@ void Student::enrollInUC(const std::pair<std::string, std::string> &c) {
     }
 }
 
+void Student::printStudent() const {
+    std::cout << student_name_ << "||" << student_code_ << "\n";
+}
+

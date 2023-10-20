@@ -59,15 +59,25 @@ void Application::instantiateUCs(std::map<std::string, std::list<std::string>> *
                 classPtrs.push_back(std::make_shared<Class>(a));
             }
         }
+        std::list<std::shared_ptr<Student>> studs;
         for (const auto &s : *students_) {
-
+            for (const auto  &c : s.enrolled_classes()) {
+                if  (c.first == p.first &&
+                std::find(p.second.begin(), p.second.end(), c.second) != p.second.end()) {
+                    studs.push_back(std::make_shared<Student>(s));
+                }
+            }
         }
-        //UC u(p.first, classPtrs);
-        //ucs_->push_back(u);
+        UC u(p.first, classPtrs, studs);
+        ucs_->push_back(u);
     }
 }
 
 void Application::test() {
     UC *u = &ucs_->at(0);
+    std::cout << u->uc_code() << "\n";
     u->printClasses();
+    for (const auto &s : u->enrolled_students())  {
+        s->printStudent();
+    }
 }

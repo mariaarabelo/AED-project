@@ -23,7 +23,7 @@ const std::list<std::shared_ptr<Class>> &UC::classes() const {
     return classes_;
 }
 
-void UC::removeClass(std::shared_ptr<Class> c) {
+void UC::removeClass(const std::shared_ptr<Class> &c) {
     classes_.remove(c);
 }
 
@@ -31,4 +31,8 @@ void UC::printClasses() {
     for (const auto &c : classes_) {
         std::cout << c->class_code() << "\n";
     }
+}
+
+const std::list<std::shared_ptr<Student>> &UC::enrolled_students() const {
+    return enrolled_students_;
 }
