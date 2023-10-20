@@ -74,7 +74,7 @@ void Application::instantiateUCs(std::map<std::string, std::list<std::string>> *
 }
 
 void Application::test() {
-    //UC *u = &ucs_->at(1);
-    Class *c = &classes_->at(1);
-    c->printEnrolledStudents();
+    UC *u = &ucs_->at(1);
+    //Class *c = &classes_->at(1);
+    u->printEnrolledStudents();
 }
