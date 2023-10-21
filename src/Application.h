@@ -28,9 +28,13 @@ private:
     std::vector<Student> *students_;
     std::vector<Class> *classes_;
     std::vector<UC> *ucs_;
+    std::map<int, std::vector<Student>> yearStudentsMap;
     void instantiateClasses(std::map<std::string, std::list<std::string>> * classes);
     void instantiateUCs(std::map<std::string, std::list<std::string>> * classes);
+    void fillYearStudentsMap();
     void printStudentsEnrolledInYear(int year);
+    void printStudentsPerYear();
+    void printUCsWithEnrolledStudents(int n, bool ascendingOrder);
 };
 
 
