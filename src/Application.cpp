@@ -74,7 +74,7 @@ void Application::instantiateUCs(std::map<std::string, std::list<std::string>> *
 }
 
 void Application::test() {
-    printStudentsEnrolledInYear(1);
+    std::cout << ucs_->at(0).countEnrolledStudents() << std::endl;
 }
 
 void Application::printStudentsEnrolledInYear(const int &year) {
