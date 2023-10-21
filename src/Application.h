@@ -31,6 +31,7 @@ private:
     void instantiateClasses(std::map<std::string, std::list<std::string>> * classes);
     void instantiateUCs(std::map<std::string, std::list<std::string>> * classes);
     void printStudentsEnrolledInYear(const int &year);
+    unsigned countStudentsEnrolledInYear(const int &year);
 };
 
 
