@@ -100,5 +100,5 @@ unsigned Application::countStudentsEnrolledInYear(const int &year) {
 }
 
 void Application::test() {
-    std::cout << classes_->at(5).countEnrolledStudents() << std::endl;
+    std::cout << classes_->at(0).countEnrolledStudents() << std::endl;
 }

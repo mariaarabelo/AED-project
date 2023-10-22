@@ -16,10 +16,10 @@ Class::Class(const std::string &class_code, const std::vector<Lecture> &lectures
         for (const auto &c : s.enrolled_classes()) {
             if (c.second  == class_code) {
                 ucs.push_back(c.first);
+                enrolled_students_.emplace_back(std::make_shared<Student>(s), ucs);
             }
         }
-        //PROBLEM RIGHT HERE, WERE  ADDING ALL STUDENTRS
-        enrolled_students_.emplace_back(std::make_shared<Student>(s), ucs);
+        //PROBLEM RIGHT HERE, WERE  ADDING ALL STUDENTS
     }
 }
 
