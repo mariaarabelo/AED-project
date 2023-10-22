@@ -19,7 +19,6 @@ Class::Class(const std::string &class_code, const std::vector<Lecture> &lectures
                 enrolled_students_.emplace_back(std::make_shared<Student>(s), ucs);
             }
         }
-        //PROBLEM RIGHT HERE, WERE  ADDING ALL STUDENTS
     }
 }
 
