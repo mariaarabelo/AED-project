@@ -26,6 +26,7 @@ public:
     const std::list<std::shared_ptr<Student>> &enrolled_students() const;
     void printEnrolledStudents();
     std::string uc_code() const;
+    unsigned countEnrolledStudents() const;
 };
 
 

@@ -42,3 +42,7 @@ void UC::printEnrolledStudents() {
         s->printStudent();
     }
 }
+
+unsigned UC::countEnrolledStudents() const {
+    return (unsigned)enrolled_students_.size();
+}
