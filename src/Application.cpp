@@ -73,10 +73,6 @@ void Application::instantiateUCs(std::map<std::string, std::list<std::string>> *
     }
 }
 
-void Application::test() {
-    std::cout << countStudentsEnrolledInYear(3) << std::endl;
-}
-
 void Application::printStudentsEnrolledInYear(const int &year) {
     for (const auto &s : *students_) {
         for (const auto &c : s.enrolled_classes()) {
@@ -103,3 +99,6 @@ unsigned Application::countStudentsEnrolledInYear(const int &year) {
     return count;
 }
 
+void Application::test() {
+    std::cout << classes_->at(5).countEnrolledStudents() << std::endl;
+}

@@ -24,6 +24,7 @@ public:
     void printEnrolledStudents() const;
     Lecture getLecture(const std::string &code) const;
     const std::vector<Lecture> &lectures() const;
+    size_t countEnrolledStudents() const;
 };
 
 

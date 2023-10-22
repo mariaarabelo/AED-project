@@ -18,6 +18,7 @@ Class::Class(const std::string &class_code, const std::vector<Lecture> &lectures
                 ucs.push_back(c.first);
             }
         }
+        //PROBLEM RIGHT HERE, WERE  ADDING ALL STUDENTRS
         enrolled_students_.emplace_back(std::make_shared<Student>(s), ucs);
     }
 }
@@ -46,5 +47,9 @@ void Class::printEnrolledStudents() const {
     for (const auto &p : enrolled_students_) {
         p.first->printStudent();
     }
+}
+
+size_t Class::countEnrolledStudents() const {
+    return enrolled_students_.size();
 }
 
