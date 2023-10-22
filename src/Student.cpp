@@ -38,3 +38,6 @@ void Student::printStudent() const {
     std::cout << student_name_ << "||" << student_code_ << "\n";
 }
 
+bool Student::operator==(const Student& other) const {
+    return student_code_ == other.student_code_;
+}
