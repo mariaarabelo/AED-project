@@ -21,6 +21,11 @@ std::string Student::student_name() const {
     return student_name_;
 }
 
+bool Student::operator==(const Student& other) const {
+    return student_code_ == other.student_code_;
+}
+
+
 const std::vector<std::pair<std::string, std::string>> &Student::enrolled_classes() const {
     return enrolled_classes_;
 }
