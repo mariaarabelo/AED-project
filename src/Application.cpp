@@ -94,11 +94,26 @@ void Application::printStudentsEnrolledInYear(int year) {
         //print all students of that year
         for (const Student& student : studentsInYear) {
             student.printStudent();
+
+unsigned Application::countStudentsEnrolledInYear(const int &year) {
+    unsigned count = 0;
+    for (const auto &s : *students_) {
+        for (const auto &c : s.enrolled_classes()) {
+            std::string y = c.second.substr(0,1);
+            if (std::stoi(y) == year) {
+                count++;
+                break;
+            }
         }
 
     } else {
         std::cout << "Year not registered " << year << std::endl;
     }
+    return count;
+}
+
+void Application::test() {
+    std::cout << classes_->at(0).countEnrolledStudents() << std::endl;
 }
 
 void Application::printStudentsPerYear(){

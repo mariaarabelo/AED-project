@@ -35,6 +35,7 @@ private:
     void printStudentsEnrolledInYear(int year);
     void printStudentsPerYear();
     void printUCsWithEnrolledStudents(int n, bool ascendingOrder);
+    unsigned countStudentsEnrolledInYear(const int &year);
 };
 
 
