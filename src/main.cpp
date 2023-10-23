@@ -10,9 +10,11 @@
 #include <vector>
 #include <string>
 #include "Application.h"
+#include "Interface.h"
 
 int main(int argc, char *argv[]) {
     Application application;
-    application.test();
+    Interface anInterface(application);
+    anInterface.run();
     return 0;
 }

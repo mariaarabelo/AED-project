@@ -23,6 +23,7 @@ public:
     Application();
     ~Application();
     void test();
+    const std::vector<Student> &students();
 private:
     std::vector<Lecture> *lectures_;
     std::vector<Student> *students_;
@@ -36,6 +37,7 @@ private:
     void fillYearStudentsMap();
     void printStudentsPerYear();
     void printUCsWithEnrolledStudents(int n, bool ascendingOrder);
+    const std::vector<std::pair<std::string, std::string>> &Students_name_id();
 };
 
 

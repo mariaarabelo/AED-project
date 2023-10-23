@@ -14,7 +14,9 @@ add_executable(AED_project
         src/Schedule.h
         src/Schedule.cpp
         src/Application.h
-        src/Application.cpp)
+        src/Application.cpp
+        src/Interface.h
+        src/Interface.cpp)
 
 if(CMAKE_BUILD_TYPE MATCHES Debug)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address")

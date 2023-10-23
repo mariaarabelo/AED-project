@@ -154,3 +154,16 @@ void Application::test() {
     printUCsWithEnrolledStudents(10, 0);
     printUCsWithEnrolledStudents(10, 1);
 }
+
+const std::vector<Student> &Application::students() {
+    return *students_;
+}
+
+const std::vector<std::pair<std::string, std::string>> &Application::Students_name_id(){
+    std::vector<std::pair<std::string, std::string>> v;
+    for (const auto &s : *students_){
+        std::pair<std::string, std::string> p = {s.student_name(), s.student_code()};
+        v.emplace_back(p);
+    }
+    return v;
+}
