@@ -35,7 +35,7 @@ private:
     void printStudentsEnrolledInYear(const int &year);
     unsigned countStudentsEnrolledInYear(const int &year);
     void fillYearStudentsMap();
-    void printStudentsPerYear();
+    void printStudentsPerYear(bool ascendingOrder);
     void printUCsWithEnrolledStudents(int n, bool ascendingOrder);
     const std::vector<std::pair<std::string, std::string>> &Students_name_id();
 };
