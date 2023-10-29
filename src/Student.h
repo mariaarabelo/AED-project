@@ -9,12 +9,14 @@
 #include <vector>
 #include <utility>
 #include <iostream>
+#include <stack>
 
 class Student {
     private:
     std::string student_code_;
     std::string student_name_;
-    std::vector<std::pair<std::string, std::string>> enrolled_classes_; //<uc_code, class_code>
+    std::stack<std::pair<std::string, std::string>> enrolled_classes_; //<uc_code, class_code>
+    std::stack<std::pair<std::string, std::string>> recently_removed_classes_;
 
     public:
     Student(const std::string& student_name, const std::string& student_code, const std::vector<std::pair<std::string, std::string>>
@@ -23,7 +25,11 @@ class Student {
     std::string student_name() const;
     bool operator==(const Student& other) const;
     void enrollInUC(const std::pair<std::string, std::string> &c);
-    const std::vector<std::pair<std::string, std::string>> &enrolled_classes() const;
+    bool changeUCClass(const std::string &uc, const std::string &c);
+    bool removeFromUC(const std::string &uc);
+    bool undo_recent_enrollment();
+    bool undo_recent_class_removal();
+    std::vector<std::pair<std::string, std::string>> enrolled_classes() const;
     void printStudent() const;
 };
 
