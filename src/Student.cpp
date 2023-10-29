@@ -107,11 +107,22 @@ bool Student::undo_recent_class_removal() {
     return false;
 }
 
-bool Student::changeUC(const std::string &uc, const std::string &c) {
+bool Student::changeUC(const std::string &old_uc, const std::string &new_uc, const std::string &new_c) {
     std::stack<std::pair<std::string, std::string>> temp;
     bool flag = false;
     while (!enrolled_classes_.empty()) {
-
+        if (enrolled_classes_.top().first == old_uc) {
+            enrolled_classes_.pop();
+            enrolled_classes_.emplace(new_uc, new_c);
+            flag = true;
+            break;
+        }
+        temp.push(enrolled_classes_.top());
+        enrolled_classes_.pop();
+    }
+    while (!temp.empty()) {
+        enrolled_classes_.push(temp.top());
+        temp.pop();
     }
     return flag;
 }
