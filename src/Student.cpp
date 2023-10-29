@@ -33,13 +33,12 @@ std::vector<std::pair<std::string, std::string>> Student::enrolled_classes() con
     return v;
 }
 
-void Student::enrollInUC(const std::pair<std::string, std::string> &c) {
+bool Student::enrollInUC(const std::pair<std::string, std::string> &c) {
     if (enrolled_classes_.size() < 7) {
         enrolled_classes_.push(c);
-    } else {
-        //TODO: Implement a try and catch system and throw error in situations like this
-        std::cout << "Max number of students reached\n";
+        return true;
     }
+    return false;
 }
 
 void Student::printStudent() const {
@@ -97,4 +96,13 @@ bool Student::removeFromUC(const std::string &uc) {
         temp.pop();
     }
     return flag;
+}
+
+bool Student::undo_recent_class_removal() {
+    auto flag = enrollInUC(recently_removed_classes_.top());
+    if (flag) {
+        recently_removed_classes_.pop();
+        return true;
+    }
+    return false;
 }

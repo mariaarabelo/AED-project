@@ -24,7 +24,7 @@ class Student {
     std::string student_code() const;
     std::string student_name() const;
     bool operator==(const Student& other) const;
-    void enrollInUC(const std::pair<std::string, std::string> &c);
+    bool enrollInUC(const std::pair<std::string, std::string> &c);
     bool changeUCClass(const std::string &uc, const std::string &c);
     bool removeFromUC(const std::string &uc);
     bool undo_recent_enrollment();
