@@ -45,7 +45,7 @@ void Application::instantiateClasses(std::map<std::string, std::list<std::string
         }
 
     }
-    //PROBLEM HAPPENS WITH THIS FOR LOOP
+
     for (const auto &classCode : allClassCodes) {
         classes_->emplace_back(classCode, *lectures_, *students_);
     }
@@ -76,7 +76,7 @@ void Application::instantiateUCs(std::map<std::string, std::list<std::string>> *
 
 void Application::printStudentsEnrolledInYear(const int &year) {
     if (yearStudentsMap.find(year) != yearStudentsMap.end()) {
-        std::vector<Student> studentsInYear = yearStudentsMap[year];
+        std::vector<Student>& studentsInYear = yearStudentsMap[year];
         std::cout << "Students enrolled in year " << year << ":" << std::endl;
 
         //print all students of that year
@@ -107,8 +107,7 @@ unsigned Application::countStudentsEnrolledInYear(const int &year) {
 void Application::fillYearStudentsMap() {
     for (const auto &s: *students_) {
         for (const auto &c: s.enrolled_classes()) {
-            std::string y = c.second.substr(0, 1);
-            int year = std::stoi(y);
+            int year = std::stoi(c.second.substr(0, 1));
             auto it = std::find(yearStudentsMap[year].begin(), yearStudentsMap[year].end(), s);
             if (it == yearStudentsMap[year].end())
                 yearStudentsMap[year].push_back(s);
@@ -116,10 +115,30 @@ void Application::fillYearStudentsMap() {
     }
 }
 
-void Application::printStudentsPerYear(){
-    for (const auto &entry : yearStudentsMap){
-        std::cout << "Year " << entry.first << ": " << entry.second.size() << " students" << std::endl;
+UC Application::getUC(const std::string &uc_code) const {
+    for (const auto &uc : *ucs_) {
+        if (uc.uc_code() == uc_code) return uc;
     }
+}
+
+void Application::printStudentsPerYear(bool ascendingOrder){
+    // store number of students in each year
+    std::vector<std::pair<int, int>> yearEnrollments;
+    for (const auto &entry : yearStudentsMap){
+        yearEnrollments.push_back(std::make_pair(entry.first, entry.second.size()));
+    }
+    //sort in specified order
+    std::sort(yearEnrollments.begin(), yearEnrollments.end(), [ascendingOrder](const auto &a, const auto &b){
+        if (ascendingOrder) {
+            return a.second < b.second;
+        } else {
+            return a.second > b.second;
+        }
+    });
+    //show year's number of students
+    for (const auto &entry: yearEnrollments){
+        std::cout << "Year " << entry.first << " - " << entry.second << " students" << std::endl;
+    };
 }
 
 void Application::printUCsWithEnrolledStudents(int n, bool ascendingOrder){
@@ -131,7 +150,7 @@ void Application::printUCsWithEnrolledStudents(int n, bool ascendingOrder){
         ucEnrollments.push_back(std::make_pair(uc.uc_code(), numStudents));
     }
 
-    //sort in decreasing order
+    //sort in specified order
     std::sort(ucEnrollments.begin(), ucEnrollments.end(), [ascendingOrder](const auto &a, const auto &b){
         if (ascendingOrder) {
             return a.second < b.second;
@@ -146,13 +165,38 @@ void Application::printUCsWithEnrolledStudents(int n, bool ascendingOrder){
     };
 }
 
+void Application::printUcClassesStudents(const std::string &uc_code, const int &n_classes, bool ascendingOrder){
+    UC uc = getUC(uc_code);
+
+    // store number of students in each class
+    std::vector<std::pair<std::string, int>> classEnrollments;
+
+    for (const std::shared_ptr<Class> &classPtr: uc.classes()){
+        int numStudents = classPtr->countEnrolledStudents();
+        classEnrollments.push_back(std::make_pair(classPtr->class_code(), numStudents));
+    }
+
+    //sort in specified order
+    std::sort(classEnrollments.begin(), classEnrollments.end(), [ascendingOrder](const auto &a, const auto &b){
+        if (ascendingOrder) {
+            return a.second < b.second;
+        } else {
+            return a.second > b.second;
+        }
+    });
+
+    std::cout << "Showing number of students for classes of UC "<< uc_code << std::endl;
+
+    //show results for n Classes
+    for (int i=0; i < n_classes && i<classEnrollments.size(); i++){
+        std::cout << i+1 << ". " << classEnrollments[i].first << " - " << classEnrollments[i].second << " students" << std::endl;
+    };
+}
+
 void Application::test() {
-    printStudentsEnrolledInYear(0);
-    printStudentsEnrolledInYear(-1);
-    printStudentsEnrolledInYear(4);
-    printStudentsPerYear();
-    printUCsWithEnrolledStudents(10, 0);
-    printUCsWithEnrolledStudents(10, 1);
+    printUcClassesStudents("L.EIC001", 30, 0);
+    printUcClassesStudents("L.EIC001", 3, 1);
+    printUcClassesStudents("L.EIC002", 15, 1);
 }
 
 const std::vector<Student> &Application::students() {
