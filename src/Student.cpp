@@ -112,8 +112,32 @@ bool Student::changeUC(const std::string &old_uc, const std::string &new_uc, con
     bool flag = false;
     while (!enrolled_classes_.empty()) {
         if (enrolled_classes_.top().first == old_uc) {
+            std::pair<std::pair<std::string, std::string>,std::pair<std::string, std::string>> p =
+                    {enrolled_classes_.top(), {new_uc, new_c}};
+            recent_uc_changes_.push(p);
             enrolled_classes_.pop();
             enrolled_classes_.emplace(new_uc, new_c);
+            flag = true;
+            break;
+        }
+        temp.push(enrolled_classes_.top());
+        enrolled_classes_.pop();
+    }
+    while (!temp.empty()) {
+        enrolled_classes_.push(temp.top());
+        temp.pop();
+    }
+    return flag;
+}
+
+bool Student::undo_change_uc() {
+    auto pp = recent_uc_changes_.top();
+    bool flag = false;
+    std::stack<std::pair<std::string, std::string>> temp;
+    while (!enrolled_classes_.empty()) {
+        if (enrolled_classes_.top() == pp.second) {
+            enrolled_classes_.pop();
+            enrolled_classes_.push(pp.first);
             flag = true;
             break;
         }
