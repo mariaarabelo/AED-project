@@ -42,6 +42,8 @@ public:
      */
     const std::vector<Student> &students();
 
+    std::vector<std::pair<std::string, std::string>> students_name_id();
+
 private:
     std::vector<Lecture> *lectures_;
     std::vector<Student> *students_;
@@ -112,6 +114,7 @@ private:
      * @return A const reference to the vector of pairs.
      */
     const std::vector<std::pair<std::string, std::string>> &Students_name_id();
+
 };
 
 
