@@ -45,7 +45,7 @@ void Application::instantiateClasses(std::map<std::string, std::list<std::string
         }
 
     }
-    //PROBLEM HAPPENS WITH THIS FOR LOOP
+
     for (const auto &classCode : allClassCodes) {
         classes_->emplace_back(classCode, *lectures_, *students_);
     }
@@ -115,6 +115,12 @@ void Application::fillYearStudentsMap() {
     }
 }
 
+UC Application::getUC(const std::string &uc_code) const {
+    for (const auto &uc : *ucs_) {
+        if (uc.uc_code() == uc_code) return uc;
+    }
+}
+
 void Application::printStudentsPerYear(bool ascendingOrder){
     // store number of students in each year
     std::vector<std::pair<int, int>> yearEnrollments;
@@ -159,11 +165,38 @@ void Application::printUCsWithEnrolledStudents(int n, bool ascendingOrder){
     };
 }
 
+void Application::printUcClassesStudents(const std::string &uc_code, const int &n_classes, bool ascendingOrder){
+    UC uc = getUC(uc_code);
+
+    // store number of students in each class
+    std::vector<std::pair<std::string, int>> classEnrollments;
+
+    for (const std::shared_ptr<Class> &classPtr: uc.classes()){
+        int numStudents = classPtr->countEnrolledStudents();
+        classEnrollments.push_back(std::make_pair(classPtr->class_code(), numStudents));
+    }
+
+    //sort in specified order
+    std::sort(classEnrollments.begin(), classEnrollments.end(), [ascendingOrder](const auto &a, const auto &b){
+        if (ascendingOrder) {
+            return a.second < b.second;
+        } else {
+            return a.second > b.second;
+        }
+    });
+
+    std::cout << "Showing number of students for classes of UC "<< uc_code << std::endl;
+
+    //show results for n Classes
+    for (int i=0; i < n_classes && i<classEnrollments.size(); i++){
+        std::cout << i+1 << ". " << classEnrollments[i].first << " - " << classEnrollments[i].second << " students" << std::endl;
+    };
+}
+
 void Application::test() {
-    printStudentsPerYear(0);
-    printStudentsPerYear(1);
-    printUCsWithEnrolledStudents(10, 0);
-    printUCsWithEnrolledStudents(10, 1);
+    printUcClassesStudents("L.EIC001", 30, 0);
+    printUcClassesStudents("L.EIC001", 3, 1);
+    printUcClassesStudents("L.EIC002", 15, 1);
 }
 
 const std::vector<Student> &Application::students() {
