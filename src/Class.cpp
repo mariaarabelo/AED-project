@@ -52,3 +52,16 @@ size_t Class::countEnrolledStudents() const {
     return enrolled_students_.size();
 }
 
+bool Class::remove_student_from_class(const std::shared_ptr<Student> &student) {
+    auto it = enrolled_students_.begin();
+    while (it != enrolled_students_.end()) {
+        if (it->first == student) {
+            auto c = *it;
+            enrolled_students_.remove(c);
+            recently_removed_students_.push(c);
+            return true;
+        }
+        it++;
+    }
+}
+

@@ -9,6 +9,8 @@
 #include <vector>
 #include <memory>
 #include <list>
+#include <set>
+#include <stack>
 #include "Lecture.h"
 #include "Student.h"
 
@@ -16,7 +18,8 @@ class Class {
 private:
     std::string class_code_;
     std::vector<Lecture> lectures_;
-    std::vector<std::pair<std::shared_ptr<Student>,std::list<std::string>>> enrolled_students_;
+    std::list<std::pair<std::shared_ptr<Student>,std::list<std::string>>> enrolled_students_;
+    std::stack<std::pair<std::shared_ptr<Student>,std::list<std::string>>> recently_removed_students_;
 public:
 
     /**
@@ -61,6 +64,8 @@ public:
      * @return size_t with enrolled students
      */
     size_t countEnrolledStudents() const;
+
+    bool remove_student_from_class(const std::shared_ptr<Student> &student);
 };
 
 
