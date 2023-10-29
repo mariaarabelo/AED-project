@@ -106,3 +106,12 @@ bool Student::undo_recent_class_removal() {
     }
     return false;
 }
+
+bool Student::changeUC(const std::string &uc, const std::string &c) {
+    std::stack<std::pair<std::string, std::string>> temp;
+    bool flag = false;
+    while (!enrolled_classes_.empty()) {
+
+    }
+    return flag;
+}
