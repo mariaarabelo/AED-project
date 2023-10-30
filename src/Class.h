@@ -71,6 +71,13 @@ public:
      * @return true if student can be removed, false if he cannot
      */
     bool remove_student_from_class(const std::shared_ptr<Student> &student);
+
+    /**
+     * @brief Adds a student to the class
+     * @param student student to be added
+     * @param uc ucs where he will be enrolled
+     */
+    void add_student_to_class(const std::shared_ptr<Student> &student, const std::list<std::string> &ucs);
 };
 
 
