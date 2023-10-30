@@ -68,8 +68,11 @@ bool Class::remove_student_from_class(const std::shared_ptr<Student> &student) {
 bool Class::add_student_to_class(const std::shared_ptr<Student> &student, const std::list<std::string> &ucs) {
     for (auto &s : enrolled_students_) {
         if (s.first == student) {
-            for (const auto &a : ucs) s.second.push_back(a);
-            //TODO: CORRECT THIS
+            for (const auto &a : ucs) {
+                if (std::find(s.second.begin(), s.second.end(), a) == s.second.end()) {
+                    s.second.push_back(a);
+                }
+            }
             return true;
         }
     }

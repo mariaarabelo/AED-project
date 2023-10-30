@@ -7,6 +7,7 @@
 
 #include <string>
 #include <vector>
+#include <algorithm>
 #include <memory>
 #include <list>
 #include <set>
@@ -73,11 +74,13 @@ public:
     bool remove_student_from_class(const std::shared_ptr<Student> &student);
 
     /**
+     * Add student to the class. If he already exists, enroll him in the ucs
      * @brief Adds a student to the class
      * @param student student to be added
      * @param uc ucs where he will be enrolled
+     * @return true if student not in class, false if he is
      */
-    void add_student_to_class(const std::shared_ptr<Student> &student, const std::list<std::string> &ucs);
+    bool add_student_to_class(const std::shared_ptr<Student> &student, const std::list<std::string> &ucs);
 };
 
 
