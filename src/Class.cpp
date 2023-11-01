@@ -12,11 +12,27 @@ Class::Class(const std::string &class_code, const std::set<Lecture> &lectures, c
         }
     }
     for (const auto &s : students) {
-        std::list<std::string> ucs;
         for (const auto &c : s.enrolled_classes()) {
             if (c.second  == class_code) {
-                ucs.push_back(c.first);
-                enrolled_students_.emplace_back(std::make_shared<Student>(s), ucs);
+                auto uc = c.first;
+                auto it = std::find_if(enrolled_students_.begin(), enrolled_students_.end(),
+                                       [uc](const std::pair<std::string, std::list<Student>> &obj) {
+                   return  obj.first == uc;
+                });
+                auto itt = std::find_if(student_count_.begin(), student_count_.end(),
+                                        [uc](const std::pair<std::string, int> &other) {
+                                            return other.first == uc;
+                                        });
+                if (it != enrolled_students_.end()) {
+                    it->second.push_back(s);
+                    itt->second++;
+                }
+                else {
+                    std::list<Student> l;
+                    l.push_back(s);
+                    enrolled_students_.emplace_back(uc, l);
+                    student_count_.emplace_back(uc, 1);
+                }
             }
         }
     }
@@ -42,44 +58,37 @@ const std::set<Lecture> &Class::lectures() const {
     return lectures_;
 }
 
-void Class::printEnrolledStudents() const {
-    for (const auto &p : enrolled_students_) {
-        p.first->printStudent();
-    }
-}
-
 size_t Class::countEnrolledStudents() const {
     return enrolled_students_.size();
 }
 
 bool Class::remove_student_from_class(const std::shared_ptr<Student> &student) {
-    auto it = enrolled_students_.begin();
-    while (it != enrolled_students_.end()) {
-        if (it->first == student) {
-            auto c = *it;
-            enrolled_students_.remove(c);
-            recently_removed_students_.push(c);
-            return true;
-        }
-        it++;
-    }
+    //TODO
+    return false;
 }
 
-bool Class::add_student_to_class(const std::shared_ptr<Student> &student, const std::list<std::string> &ucs) {
-    for (auto &s : enrolled_students_) {
-        if (s.first == student) {
-            for (const auto &a : ucs) {
-                if (std::find(s.second.begin(), s.second.end(), a) == s.second.end()) {
-                    s.second.push_back(a);
-                }
-            }
-            return true;
-        }
-    }
-    std::pair<std::shared_ptr<Student>,std::list<std::string>> p = {student, ucs};
-    enrolled_students_.push_back(p);
+bool Class::add_student_to_class(const Student &student, const std::string &uc) {
+    auto it = std::find_if(enrolled_students_.begin(), enrolled_students_.end(), [uc]
+    (const std::pair<std::string, std::list<Student>> &obj) {
+       return obj.first == uc;
+    });
+    if (it == enrolled_students_.end()) return false;
+    auto itt = std::find(it->second.begin(), it->second.end(), student);
+    if (itt != it->second.end()) return false;
+    it->second.push_back(student);
+    return true;
 }
 
 bool Class::operator<(const Class &other) const{
     return class_code_ < other.class_code();
+}
+
+int Class::get_student_count(const std::string &uc) const{
+    auto it = std::find_if(student_count_.begin(), student_count_.end(), [uc](const std::pair<std::string, int> &other) {
+        return other.first == uc;
+    });
+    if (it != student_count_.end()) {
+        return it->second;
+    }
+    return -1;
 }

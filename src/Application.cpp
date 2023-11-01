@@ -62,12 +62,12 @@ void Application::instantiateUCs(std::map<std::string, std::list<std::string>> *
                 classPtrs.push_back(std::make_shared<Class>(a));
             }
         }
-        std::list<std::shared_ptr<Student>> studs;
+        std::list<Student> studs;
         for (const auto &s : *students_) {
             for (const auto  &c : s.enrolled_classes()) {
                 if  (c.first == p.first &&
                 std::find(p.second.begin(), p.second.end(), c.second) != p.second.end()) {
-                    studs.push_back(std::make_shared<Student>(s));
+                    studs.push_back(s);
                 }
             }
         }
@@ -236,7 +236,46 @@ std::string Application::add_student_to_uc(const std::string &student_code, cons
     Student student_to_modify = *student_it;
     students_->erase(student_it);
 
-    if (student_to_modify.enrollInUC(std::make_pair(uc, c)))
+    Lecture lecture = c_to_modify.getLecture(uc);
 
-    return "";
+    if (student_to_modify.enrollInUC(std::make_pair(uc, c))) {
+        if (will_classes_be_balanced(uc, c)) {
+            if (!schedule_is_conflicting(student_to_modify, lecture)) {
+                if(c_to_modify.add_student_to_class(student_to_modify, uc)) {
+                    if (uc_to_modify.enroll_student(student_to_modify)) {
+                        students_->insert(student_to_modify);
+                        classes_->insert(c_to_modify);
+                        ucs_->push_back(uc_to_modify);
+                    } else return "Student already in UC";
+                } else return "Student already in class";
+
+            } else return "There is a schedule conflict.";
+
+        }  else return "Class will not be balanced.";
+
+    } else return "Student is in too many UCs";
+
+}
+
+bool Application::will_classes_be_balanced(const std::string &uc, const std::string &c) const {
+    std::vector<int> counts;
+    for (const auto &cc : *classes_) {
+        if (cc.class_code() == c) {
+            counts.push_back(cc.get_student_count(uc)+1);
+        } else
+        counts.push_back(cc.get_student_count(uc));
+    }
+    for (std::size_t i = 0; i < counts.size(); ++i) {
+        for (std::size_t j = 0; j < counts.size(); ++j) {
+            if (i != j && std::abs(counts[i] - counts[j]) > 4) {
+                return false; // A number differs from others by more than 4 units
+            }
+        }
+    }
+    return true;
+}
+
+bool Application::schedule_is_conflicting(const Student &student, const Lecture &lecture) const {
+    Schedule schedule(student, *lectures_);
+    return schedule.conflicts(lecture);
 }

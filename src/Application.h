@@ -115,6 +115,10 @@ private:
      * @return A const reference to the vector of pairs.
      */
     const std::vector<std::pair<std::string, std::string>> &Students_name_id();
+
+    bool will_classes_be_balanced(const std::string &uc, const std::string &c) const;
+
+    bool schedule_is_conflicting(const Student &student, const Lecture &lecture)const;
 };
 
 

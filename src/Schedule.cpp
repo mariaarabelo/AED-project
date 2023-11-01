@@ -51,22 +51,21 @@ bool compareLecture(const Lecture &a, const Lecture &b) {
     return false;
 }
 
-Schedule::Schedule(const Student &student, const std::vector<Lecture> &lectures) {
+Schedule::Schedule(const Student &student, const std::set<Lecture> &lectures) {
     for (const auto &c : student.enrolled_classes()) {
         for (const  auto &l : lectures) {
             if (l.uc_code() == c.first && l.class_code() == c.second) {
-                lectures_.push_back(l);
+                lectures_.insert(l);
             }
         }
     }
-    std::sort(lectures_.begin(), lectures_.end(), compareLecture);
 }
 
 Schedule::Schedule(const Class &c) {
     this->lectures_ = c.lectures();
 }
 
-const std::vector<Lecture> &Schedule::get_lectures() const {
+const std::set<Lecture> &Schedule::get_lectures() const {
     return lectures_;
 }
 
@@ -79,8 +78,15 @@ void Schedule::printSchedule() const {
 
 Schedule::Schedule(const UC &uc) {
     for (const auto &c : uc.classes()) {
-        lectures_.push_back(c->getLecture(uc.uc_code()));
+        lectures_.insert(c->getLecture(uc.uc_code()));
     }
+}
+
+bool Schedule::conflicts(const Lecture &lecture) {
+    for (const auto &l : lectures_) {
+        if (lecture.conflicts(l)) return true;
+    }
+    return false;
 }
 
 
