@@ -27,7 +27,6 @@ public:
     std::vector<Lecture> instatiateLectures();
     void instantiateStudents(std::set<Student> *students);
     void classListing(std::map<std::string, std::list<std::string>> *c);
-    void writeToFile(std::string line);
 };
 
 #endif //AED_PROJECT_FILE_READER_H

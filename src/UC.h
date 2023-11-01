@@ -70,6 +70,8 @@ public:
     unsigned countEnrolledStudents() const;
 
     bool enroll_student(const Student &student);
+
+    bool remove_student(const Student &student);
 };
 
 

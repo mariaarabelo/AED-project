@@ -53,3 +53,10 @@ bool UC::enroll_student(const Student &student) {
     enrolled_students_.push_back(student);
     return true;
 }
+
+bool UC::remove_student(const Student &student) {
+    auto it = std::find(enrolled_students_.begin(), enrolled_students_.end(), student);
+    if (it == enrolled_students_.end()) return false;
+    enrolled_students_.remove(student);
+    return true;
+}

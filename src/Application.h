@@ -47,6 +47,8 @@ public:
 
     std::string add_student_to_uc(const std::string &student, const std::string &uc, const std::string &c);
 
+    std::string remove_student_from_uc(const std::string &student_code, const std::string &uc, const std::string &c);
+
 private:
     std::set<Lecture> *lectures_;
     std::set<Student> *students_;

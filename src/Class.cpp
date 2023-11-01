@@ -62,11 +62,6 @@ size_t Class::countEnrolledStudents() const {
     return enrolled_students_.size();
 }
 
-bool Class::remove_student_from_class(const std::shared_ptr<Student> &student) {
-    //TODO
-    return false;
-}
-
 bool Class::add_student_to_class(const Student &student, const std::string &uc) {
     auto it = std::find_if(enrolled_students_.begin(), enrolled_students_.end(), [uc]
     (const std::pair<std::string, std::list<Student>> &obj) {
@@ -91,4 +86,19 @@ int Class::get_student_count(const std::string &uc) const{
         return it->second;
     }
     return -1;
+}
+
+bool Class::remove_student_from_class(const Student &student, const std::string &uc) {
+    auto it = std::find_if(enrolled_students_.begin(),enrolled_students_.end(),
+                           [uc](const std::pair<std::string, std::list<Student>> &obj) {
+        return obj.first == uc;
+    });
+    if (it == enrolled_students_.end()) return false;
+    it->second.remove(student);
+    auto itt = std::find_if(student_count_.begin(), student_count_.end(),
+                            [uc](const std::pair<std::string, int> &other) {
+                                return other.first == uc;
+                            });
+    itt->second--;
+    return true;
 }
