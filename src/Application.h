@@ -7,6 +7,8 @@
 
 #include <vector>
 #include <utility>
+#include <fstream>
+#include <sstream>
 #include <list>
 #include <algorithm>
 #include <memory>

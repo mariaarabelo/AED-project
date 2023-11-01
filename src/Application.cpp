@@ -4,6 +4,13 @@
 
 #include "Application.h"
 
+void write_to_students_file(const std::string &line) {
+    std::ofstream file;
+    file.open("../dataset/students_classes.csv", std::ios::app);
+    file << "\n" << line << std::endl;
+    file.close();
+}
+
 Application::Application() {
     //instantiate lectures
     File_Reader f1("../dataset/classes.csv");
@@ -246,6 +253,11 @@ std::string Application::add_student_to_uc(const std::string &student_code, cons
                         students_->insert(student_to_modify);
                         classes_->insert(c_to_modify);
                         ucs_->push_back(uc_to_modify);
+                        std::ostringstream oss;
+                        oss << student_to_modify.student_code() << "," << student_to_modify.student_name() << "," <<
+                        uc << "," << c_to_modify.class_code();
+                        std::string s = oss.str();
+                        write_to_students_file(s);
                     } else return "Student already in UC";
                 } else return "Student already in class";
 
