@@ -150,3 +150,7 @@ bool Student::undo_change_uc() {
     }
     return flag;
 }
+
+bool Student::operator<(const Student &other) const {
+    return this->student_code_ < other.student_code();
+}

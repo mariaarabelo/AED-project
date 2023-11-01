@@ -4,11 +4,11 @@
 
 #include "Class.h"
 
-Class::Class(const std::string &class_code, const std::vector<Lecture> &lectures, const std::vector<Student>  &students) {
+Class::Class(const std::string &class_code, const std::set<Lecture> &lectures, const std::set<Student>  &students) {
     class_code_ = class_code;
     for (const auto &l : lectures) {
         if (l.class_code() == class_code_) {
-            lectures_.push_back(l);
+            lectures_.insert(l);
         }
     }
     for (const auto &s : students) {
@@ -38,7 +38,7 @@ Lecture Class::getLecture(const std::string &code) const {
     }
 }
 
-const std::vector<Lecture> &Class::lectures() const {
+const std::set<Lecture> &Class::lectures() const {
     return lectures_;
 }
 
@@ -78,4 +78,8 @@ bool Class::add_student_to_class(const std::shared_ptr<Student> &student, const 
     }
     std::pair<std::shared_ptr<Student>,std::list<std::string>> p = {student, ucs};
     enrolled_students_.push_back(p);
+}
+
+bool Class::operator<(const Class &other) const{
+    return class_code_ < other.class_code();
 }

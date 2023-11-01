@@ -10,6 +10,7 @@
 #include <list>
 #include <algorithm>
 #include <memory>
+#include <set>
 #include <iostream>
 #include "Lecture.h"
 #include "File_Reader.h"
@@ -40,12 +41,14 @@ public:
      * @brief Getter for the students.
      * @return A const reference to the vector of students.
      */
-    const std::vector<Student> &students();
+    const std::set<Student> &students();
+
+    std::string add_student_to_uc(const std::string &student, const std::string &uc, const std::string &c);
 
 private:
-    std::vector<Lecture> *lectures_;
-    std::vector<Student> *students_;
-    std::vector<Class> *classes_;
+    std::set<Lecture> *lectures_;
+    std::set<Student> *students_;
+    std::set<Class> *classes_;
     std::vector<UC> *ucs_;
     std::map<int, std::vector<Student>> yearStudentsMap;
 

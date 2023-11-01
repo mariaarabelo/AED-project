@@ -44,3 +44,8 @@ std::string Lecture::duration() const {
 std::string Lecture::type() const {
     return type_;
 }
+
+bool Lecture::operator<(const Lecture &other) const{
+    if (this->uc_code_ == other.uc_code()) return this->class_code_ < other.class_code();
+    return this->uc_code_ < other.class_code();
+}

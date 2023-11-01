@@ -18,7 +18,7 @@
 class Class {
 private:
     std::string class_code_;
-    std::vector<Lecture> lectures_;
+    std::set<Lecture> lectures_;
     std::list<std::pair<std::shared_ptr<Student>,std::list<std::string>>> enrolled_students_;
     std::stack<std::pair<std::shared_ptr<Student>,std::list<std::string>>> recently_removed_students_;
 public:
@@ -29,7 +29,7 @@ public:
      * @param lectures Vector with all existing lectures
      * @param students Vector with all existing students
      */
-    Class(const std::string &class_code, const std::vector<Lecture> &lectures, const std::vector<Student>  &students);
+    Class(const std::string &class_code, const std::set<Lecture> &lectures, const std::set<Student>  &students);
 
     /**
      * @brief Getter for class_code field
@@ -58,7 +58,7 @@ public:
      * @brief Getter of all lectures
      * @return const reference to all lectures
      */
-    const std::vector<Lecture> &lectures() const;
+    const std::set<Lecture> &lectures() const;
 
     /**
      * @brief Number of enrolled students in class
@@ -81,6 +81,8 @@ public:
      * @return true if student not in class, false if he is
      */
     bool add_student_to_class(const std::shared_ptr<Student> &student, const std::list<std::string> &ucs);
+
+    bool operator<(const Class &other) const;
 };
 
 

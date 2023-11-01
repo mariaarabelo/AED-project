@@ -7,16 +7,17 @@
 Application::Application() {
     //instantiate lectures
     File_Reader f1("../dataset/classes.csv");
-    lectures_ = new std::vector<Lecture>;
-    *lectures_ = f1.instatiateLectures();
-
+    lectures_ = new std::set<Lecture>;
+    for (const auto &a : f1.instatiateLectures()) {
+        lectures_->insert(a);
+    }
     //instantiate students
     File_Reader f2("../dataset/students_classes.csv");
-    students_ = new std::vector<Student>;
+    students_ = new std::set<Student>;
     f2.instantiateStudents(students_);
 
     //instantiate classes and ucs
-    classes_ = new std::vector<Class>;
+    classes_ = new std::set<Class>;
     ucs_ = new std::vector<UC>;
     auto *classes = new std::map<std::string, std::list<std::string>>;
     File_Reader f("../dataset/classes_per_uc.csv");
@@ -47,7 +48,8 @@ void Application::instantiateClasses(std::map<std::string, std::list<std::string
     }
 
     for (const auto &classCode : allClassCodes) {
-        classes_->emplace_back(classCode, *lectures_, *students_);
+        Class c(classCode, *lectures_, *students_);
+        classes_->insert(c);
     }
 }
 
@@ -199,7 +201,7 @@ void Application::test() {
     printUcClassesStudents("L.EIC002", 15, 1);
 }
 
-const std::vector<Student> &Application::students() {
+const std::set<Student> &Application::students() {
     return *students_;
 }
 
@@ -210,4 +212,31 @@ const std::vector<std::pair<std::string, std::string>> &Application::Students_na
         v.emplace_back(p);
     }
     return v;
+}
+
+std::string Application::add_student_to_uc(const std::string &student_code, const std::string &uc, const std::string &c) {
+    auto class_it = std::find_if(classes_->begin(), classes_->end(), [c](const Class &obj) {
+        return obj.class_code() == c;
+    });
+    if (class_it ==classes_->end()) return "Class Not Found";
+    Class c_to_modify = *class_it;
+    classes_->erase(class_it);
+
+    auto uc_it = std::find_if(ucs_->begin(), ucs_->end(), [uc](const UC &obj) {
+        return obj.uc_code() == uc;
+    });
+    if (uc_it == ucs_->end()) return "UC Not Found";
+    UC uc_to_modify = *uc_it;
+    ucs_->erase(uc_it);
+
+    auto student_it = std::find_if(students_->begin(), students_->end(), [student_code](const Student &obj) {
+        return student_code == obj.student_code();
+    });
+    if (student_it == students_->end()) return "Student Not Found";
+    Student student_to_modify = *student_it;
+    students_->erase(student_it);
+
+    if (student_to_modify.enrollInUC(std::make_pair(uc, c)))
+
+    return "";
 }

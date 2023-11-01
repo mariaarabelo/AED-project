@@ -27,6 +27,7 @@ public:
     std::string start_hour() const;
     std::string duration() const;
     std::string type() const;
+    bool operator<(const Lecture &other) const;
 };
 
 

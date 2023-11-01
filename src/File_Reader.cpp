@@ -31,7 +31,7 @@ std::vector<Lecture> File_Reader::instatiateLectures() {
     return lectures;
 }
 
-void File_Reader::instantiateStudents(std::vector<Student> *students) {
+void File_Reader::instantiateStudents(std::set<Student> *students) {
     if (!file_.is_open()) throw std::runtime_error("File does not exist");
     std::string line;
     std::map<std::pair<std::string, std::string>, std::vector<std::pair<std::string, std::string>>> student_classes;
@@ -58,7 +58,7 @@ void File_Reader::instantiateStudents(std::vector<Student> *students) {
     for (const auto &i : student_classes) {
         std::pair<std::string, std::string> code_name = i.first;
         Student s(code_name.second, code_name.first, i.second);
-        students->push_back(s);
+        students->insert(s);
     }
     file_.close();
 }
