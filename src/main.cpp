@@ -13,6 +13,10 @@
 #include "Interface.h"
 
 int main(int argc, char *argv[]) {
+    /*
+     * TODO
+     * Very important to add a function that runs when closing the program to write all the changes to the files.
+     */
     Application application;
     Interface anInterface(application);
     anInterface.run();

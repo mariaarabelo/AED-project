@@ -29,18 +29,53 @@ const std::string &Lecture::uc_code() const {
     return uc_code_;
 }
 
-std::string Lecture::weekday() const {
+const std::string &Lecture::weekday() const {
     return weekday_;
 }
 
-std::string Lecture::start_hour() const {
+const std::string &Lecture::start_hour() const {
     return start_hour_;
 }
 
-std::string Lecture::duration() const {
+const std::string &Lecture::duration() const {
     return duration_;
 }
 
-std::string Lecture::type() const {
+const std::string &Lecture::type() const {
     return type_;
+}
+
+bool Lecture::operator<(const Lecture &other) const{
+    if (this->uc_code_ == other.uc_code()) return this->class_code_ < other.class_code();
+    return this->uc_code_ < other.class_code();
+}
+
+bool Lecture::conflicts(const Lecture& other) const {
+    // Check if the lectures have the same weekday
+    if (weekday_ != other.weekday_)
+        return false;
+
+    // Parse start hours and durations as integers (HH:MM format)
+    int thisStartHour = std::stoi(start_hour_.substr(0, 2));
+    int otherStartHour = std::stoi(other.start_hour_.substr(0, 2));
+    int thisStartMinute = std::stoi(start_hour_.substr(3, 2));
+    int otherStartMinute = std::stoi(other.start_hour_.substr(3, 2));
+    int thisDuration = std::stoi(duration_);
+    int otherDuration = std::stoi(other.duration_);
+
+    // Calculate end times
+    int thisEndMinute = thisStartMinute + thisDuration;
+    int otherEndMinute = otherStartMinute + otherDuration;
+    int thisEndHour = thisStartHour + (thisEndMinute / 60);
+    int otherEndHour = otherStartHour + (otherEndMinute / 60);
+    thisEndMinute %= 60;
+    otherEndMinute %= 60;
+
+    // Check for time overlap
+    if ((thisStartHour < otherEndHour || (thisStartHour == otherEndHour && thisStartMinute <= otherEndMinute)) &&
+        (thisEndHour > otherStartHour || (thisEndHour == otherStartHour && thisEndMinute >= otherStartMinute))) {
+        return true;  // Conflict found
+    }
+
+    return false;  // No conflict
 }
