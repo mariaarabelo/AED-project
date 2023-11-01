@@ -353,3 +353,52 @@ Application::remove_student_from_uc(const std::string &student_code, const std::
         } else return "Student not in UC";
     } else return "Student not in class";
 }
+
+std::string
+Application::switch_student_class(const std::string &student_code, const std::string &uc, const std::string &old_class,
+                                  const std::string &new_class) {
+    auto old_class_it = std::find_if(classes_->begin(), classes_->end(), [old_class](const Class &obj) {
+        return obj.class_code() == old_class;
+    });
+    if (old_class_it ==classes_->end()) return "Class Not Found";
+    Class old_class_to_modify = *old_class_it;
+    classes_->erase(old_class_to_modify);
+
+    auto new_class_it = std::find_if(classes_->begin(), classes_->end(), [new_class](const Class &obj) {
+        return obj.class_code() == new_class;
+    });
+    if (old_class_it ==classes_->end()) return "Class Not Found";
+    Class new_class_to_modify = *new_class_it;
+    classes_->erase(new_class_to_modify);
+
+    auto uc_it = std::find_if(ucs_->begin(), ucs_->end(), [uc](const UC &obj) {
+        return obj.uc_code() == uc;
+    });
+    if (uc_it == ucs_->end()) return "UC Not Found";
+    UC uc_to_modify = *uc_it;
+    ucs_->erase(uc_it);
+
+    auto student_it = std::find_if(students_->begin(), students_->end(), [student_code](const Student &obj) {
+        return student_code == obj.student_code();
+    });
+    if (student_it == students_->end()) return "Student Not Found";
+    Student student_to_modify = *student_it;
+    students_->erase(student_it);
+
+    Lecture lecture = new_class_to_modify.getLecture(uc);
+
+    if (old_class_to_modify.remove_student_from_class(student_to_modify, uc)) {
+        if (will_classes_be_balanced(uc, new_class_to_modify.class_code())) {
+            if (student_to_modify.removeFromUC(uc)) {
+                if (!schedule_is_conflicting(student_to_modify, lecture)) {
+                    if (new_class_to_modify.add_student_to_class(student_to_modify, uc)) {
+                        if (student_to_modify.enrollInUC(std::make_pair(uc, new_class_to_modify.class_code()))) {
+
+                        }
+                        return "";
+                    } else return "Cannot add student to new class";
+                } else return "There is a conflict of schedules";
+            } else return "Student not enrolled in UC";
+        }
+    } else return "Student not in old class";
+}

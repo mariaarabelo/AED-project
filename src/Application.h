@@ -49,6 +49,9 @@ public:
 
     std::string remove_student_from_uc(const std::string &student_code, const std::string &uc, const std::string &c);
 
+    std::string switch_student_class(const std::string &student_code, const std::string &uc,
+                                     const std::string &old_class, const std::string &new_class);
+
 private:
     std::set<Lecture> *lectures_;
     std::set<Student> *students_;
