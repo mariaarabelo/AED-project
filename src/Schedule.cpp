@@ -42,10 +42,18 @@ int getWeekDayNum(std::string weekDay) {
     return dayNumber;
 }
 
+double lf(const std::string &start_hour) {
+    double hours, minutes;
+    sscanf(start_hour.c_str(), "%lf", &hours);
+    minutes = (hours - static_cast<int>(hours)) * 60;
+    return static_cast<int>(hours) * 60 + minutes;
+
+}
+
 bool compareLecture(const Lecture &a, const Lecture &b) {
     if (getWeekDayNum(a.weekday()) < getWeekDayNum(b.weekday()) ||
         (getWeekDayNum(a.weekday()) == getWeekDayNum(b.weekday()) &&
-         a.start_hour() > b.start_hour())) {
+         lf(a.start_hour()) < lf(b.start_hour()))) {
         return true;
     }
     return false;

@@ -362,4 +362,13 @@ Application::switch_student_class(const std::string &student_code, const std::st
         std::string ss = add_student_to_uc(student_code, uc, new_class);
         return ss;
     } else return s;
+
+std::vector<std::pair<std::string, std::string>> Application::students_name_id() {
+    std::vector<std::pair<std::string, std::string>> v;
+    for (const auto& s : *students_) {
+        std::pair<std::string, std::string> p = {s.student_name(), s.student_code()};
+        v.emplace_back(p);
+    }
+    return v;
+
 }

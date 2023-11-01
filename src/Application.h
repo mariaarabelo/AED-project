@@ -52,6 +52,8 @@ public:
     std::string switch_student_class(const std::string &student_code, const std::string &uc,
                                      const std::string &old_class, const std::string &new_class);
 
+    std::vector<std::pair<std::string, std::string>> students_name_id();
+
 private:
     std::set<Lecture> *lectures_;
     std::set<Student> *students_;
