@@ -11,6 +11,7 @@
 #include <sstream>
 #include <list>
 #include <algorithm>
+#include <exception>
 #include <memory>
 #include <set>
 #include <iostream>

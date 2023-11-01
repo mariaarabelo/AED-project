@@ -11,6 +11,13 @@ void write_to_students_file(const std::string &line) {
     file.close();
 }
 
+void log_changes(const std::string &line) {
+    std::ofstream file;
+    file.open("../dataset/changes.csv", std::ios::app);
+    file << line << std::endl;
+    file.close();
+}
+
 void remove_line_from_file(const std::string& lineToRemove) {
     std::ifstream inputFile("../dataset/students_classes.csv");
 
@@ -33,7 +40,6 @@ void remove_line_from_file(const std::string& lineToRemove) {
 }
 
 Application::Application() {
-    //instantiate lectures
     File_Reader f1("../dataset/classes.csv");
     lectures_ = new std::set<Lecture>;
     for (const auto &a : f1.instatiateLectures()) {
@@ -43,7 +49,6 @@ Application::Application() {
     File_Reader f2("../dataset/students_classes.csv");
     students_ = new std::set<Student>;
     f2.instantiateStudents(students_);
-
     //instantiate classes and ucs
     classes_ = new std::set<Class>;
     ucs_ = new std::vector<UC>;
@@ -243,52 +248,61 @@ const std::vector<std::pair<std::string, std::string>> &Application::Students_na
 }
 
 std::string Application::add_student_to_uc(const std::string &student_code, const std::string &uc, const std::string &c) {
-    auto class_it = std::find_if(classes_->begin(), classes_->end(), [c](const Class &obj) {
-        return obj.class_code() == c;
-    });
-    if (class_it ==classes_->end()) return "Class Not Found";
-    Class c_to_modify = *class_it;
-    classes_->erase(class_it);
+    try {
+        auto class_it = std::find_if(classes_->begin(), classes_->end(), [c](const Class &obj) {
+            return obj.class_code() == c;
+        });
+        if (class_it == classes_->end()) return "Class Not Found";
+        Class c_to_modify = *class_it;
+        classes_->erase(class_it);
 
-    auto uc_it = std::find_if(ucs_->begin(), ucs_->end(), [uc](const UC &obj) {
-        return obj.uc_code() == uc;
-    });
-    if (uc_it == ucs_->end()) return "UC Not Found";
-    UC uc_to_modify = *uc_it;
-    ucs_->erase(uc_it);
+        auto uc_it = std::find_if(ucs_->begin(), ucs_->end(), [uc](const UC &obj) {
+            return obj.uc_code() == uc;
+        });
+        if (uc_it == ucs_->end()) return "UC Not Found";
+        UC uc_to_modify = *uc_it;
+        ucs_->erase(uc_it);
 
-    auto student_it = std::find_if(students_->begin(), students_->end(), [student_code](const Student &obj) {
-        return student_code == obj.student_code();
-    });
-    if (student_it == students_->end()) return "Student Not Found";
-    Student student_to_modify = *student_it;
-    students_->erase(student_it);
+        auto student_it = std::find_if(students_->begin(), students_->end(), [student_code](const Student &obj) {
+            return student_code == obj.student_code();
+        });
+        if (student_it == students_->end()) return "Student Not Found";
+        Student student_to_modify = *student_it;
+        students_->erase(student_it);
 
-    Lecture lecture = c_to_modify.getLecture(uc);
+        Lecture lecture = c_to_modify.getLecture(uc);
 
-    if (student_to_modify.enrollInUC(std::make_pair(uc, c))) {
-        if (will_classes_be_balanced(uc, c)) {
-            if (!schedule_is_conflicting(student_to_modify, lecture)) {
-                if(c_to_modify.add_student_to_class(student_to_modify, uc)) {
-                    if (uc_to_modify.enroll_student(student_to_modify)) {
-                        students_->insert(student_to_modify);
-                        classes_->insert(c_to_modify);
-                        ucs_->push_back(uc_to_modify);
-                        std::ostringstream oss;
-                        oss << student_to_modify.student_code() << "," << student_to_modify.student_name() << "," <<
-                        uc << "," << c_to_modify.class_code();
-                        std::string s = oss.str();
-                        write_to_students_file(s);
-                        return "Sucess";
-                    } else return "Student already in UC";
-                } else return "Student already in class";
+        if (student_to_modify.enrollInUC(std::make_pair(uc, c))) {
+            if (will_classes_be_balanced(uc, c)) {
+                if (!schedule_is_conflicting(student_to_modify, lecture)) {
+                    if (c_to_modify.add_student_to_class(student_to_modify, uc)) {
+                        if (uc_to_modify.enroll_student(student_to_modify)) {
+                            students_->insert(student_to_modify);
+                            classes_->insert(c_to_modify);
+                            ucs_->push_back(uc_to_modify);
+                            std::ostringstream oss;
+                            oss << student_to_modify.student_code() << "," << student_to_modify.student_name() << "," <<
+                                uc << "," << c_to_modify.class_code();
+                            std::string s = oss.str();
+                            write_to_students_file(s);
+                            std::ostringstream oss2;
+                            oss2 << "ADDTOUC," << student_to_modify.student_code() << ","
+                                 << student_to_modify.student_name() << "," <<
+                                 uc << "," << c_to_modify.class_code();
+                            s = oss2.str();
+                            log_changes(s);
+                            return "Sucess";
+                        } else return "Student already in UC";
+                    } else return "Student already in class";
 
-            } else return "There is a schedule conflict.";
+                } else return "There is a schedule conflict.";
 
-        }  else return "Class will not be balanced.";
+            } else return "Class will not be balanced.";
 
-    } else return "Student is in too many UCs";
-
+        } else return "Student is in too many UCs";
+    } catch (const std::exception &e)  {
+        std::cout << e.what() << "\n";
+    }
 }
 
 bool Application::will_classes_be_balanced(const std::string &uc, const std::string &c) const {
@@ -348,6 +362,11 @@ Application::remove_student_from_uc(const std::string &student_code, const std::
                     uc << "," << c_to_modify.class_code();
                 std::string s = oss.str();
                 remove_line_from_file(s);
+                std::ostringstream oss2;
+                oss2 << "REMOVEFROMUC," << student_to_modify.student_code() << "," << student_to_modify.student_name() << "," <<
+                                       uc << "," << c_to_modify.class_code();
+                s = oss2.str();
+                log_changes(s);
                 return "Sucess";
             } else  return "Student not enrolled";
         } else return "Student not in UC";

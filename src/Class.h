@@ -47,7 +47,7 @@ public:
      * @param code Code of the lecture
      * @return The Lecture
      */
-    Lecture getLecture(const std::string &code) const;
+    const Lecture &getLecture(const std::string &code) const;
 
     /**
      * @brief Getter of all lectures
