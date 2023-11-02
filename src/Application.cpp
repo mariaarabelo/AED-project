@@ -41,15 +41,16 @@ void remove_line_from_file(const std::string& lineToRemove) {
 
 Application::Application() {
     File_Reader f1("../dataset/classes.csv");
-    lectures_ = new std::vector<Lecture>;
-    *lectures_ = f1.instatiateLectures();
-
+    lectures_ = new std::set<Lecture>;
+    for (const auto &a : f1.instatiateLectures()) {
+        lectures_->insert(a);
+    }
     //instantiate students
     File_Reader f2("../dataset/students_classes.csv");
-    students_ = new std::vector<Student>;
+    students_ = new std::set<Student>;
     f2.instantiateStudents(students_);
     //instantiate classes and ucs
-    classes_ = new std::vector<Class>;
+    classes_ = new std::set<Class>;
     ucs_ = new std::vector<UC>;
     auto *classes = new std::map<std::string, std::list<std::string>>;
     File_Reader f("../dataset/classes_per_uc.csv");
@@ -80,7 +81,8 @@ void Application::instantiateClasses(std::map<std::string, std::list<std::string
     }
 
     for (const auto &classCode : allClassCodes) {
-        classes_->emplace_back(classCode, *lectures_, *students_);
+        Class c(classCode, *lectures_, *students_);
+        classes_->insert(c);
     }
 }
 
@@ -93,12 +95,12 @@ void Application::instantiateUCs(std::map<std::string, std::list<std::string>> *
                 classPtrs.push_back(std::make_shared<Class>(a));
             }
         }
-        std::list<std::shared_ptr<Student>> studs;
+        std::list<Student> studs;
         for (const auto &s : *students_) {
             for (const auto  &c : s.enrolled_classes()) {
                 if  (c.first == p.first &&
                 std::find(p.second.begin(), p.second.end(), c.second) != p.second.end()) {
-                    studs.push_back(std::make_shared<Student>(s));
+                    studs.push_back(s);
                 }
             }
         }
@@ -158,7 +160,7 @@ void Application::printStudentsPerYear(bool ascendingOrder){
     // store number of students in each year
     std::vector<std::pair<int, int>> yearEnrollments;
     for (const auto &entry : yearStudentsMap){
-        yearEnrollments.emplace_back(entry.first, entry.second.size());
+        yearEnrollments.push_back(std::make_pair(entry.first, entry.second.size()));
     }
     //sort in specified order
     std::sort(yearEnrollments.begin(), yearEnrollments.end(), [ascendingOrder](const auto &a, const auto &b){
@@ -180,7 +182,7 @@ void Application::printUCsWithEnrolledStudents(int n, bool ascendingOrder){
 
     for (const UC &uc: *ucs_){
         int numStudents = uc.enrolled_students().size();
-        ucEnrollments.emplace_back(uc.uc_code(), numStudents);
+        ucEnrollments.push_back(std::make_pair(uc.uc_code(), numStudents));
     }
 
     //sort in specified order
@@ -232,20 +234,8 @@ void Application::test() {
     printUcClassesStudents("L.EIC002", 15, 1);
 }
 
-const std::vector<Student> &Application::students() {
+const std::set<Student> &Application::students() {
     return *students_;
-}
-
-const std::vector<Lecture> &Application::lectures() {
-    return *lectures_;
-}
-
-std::vector<std::string> Application::class_codes(){
-    std::vector<std::string> v;
-    for (const Class& c : *classes_){
-        v.emplace_back(c.class_code());
-    }
-    return v;
 }
 
 const std::vector<std::pair<std::string, std::string>> &Application::Students_name_id(){
@@ -315,34 +305,22 @@ std::string Application::add_student_to_uc(const std::string &student_code, cons
     }
 }
 
-std::vector<std::pair<std::string, std::string>> Application::students_name_id() {
-    std::vector<std::pair<std::string, std::string>> v;
-    for (const auto& s : *students_) {
-        std::pair<std::string, std::string> p = {s.student_name(), s.student_code()};
-        v.emplace_back(p);
+bool Application::will_classes_be_balanced(const std::string &uc, const std::string &c) const {
+    std::vector<int> counts;
+    for (const auto &cc : *classes_) {
+        if (cc.class_code() == c) {
+            counts.push_back(cc.get_student_count(uc)+1);
+        } else
+        counts.push_back(cc.get_student_count(uc));
     }
-    return v;
-
-
-
-std::vector<std::string> Application::ucs_codes(){
-    std::vector<std::string> v;
-    for (const UC& c : *ucs_){
-        v.emplace_back(c.uc_code());
-    }
-    return v;
-}
-
-std::vector<std::pair<std::string, std::string>> Application::students_from_uc(const std::string& uc_code){
-    std::vector<std::pair<std::string, std::string>> vector;
-    for (const UC& UC : *ucs_){
-        if ((UC.uc_code()) == uc_code){
-            for (const std::shared_ptr<Student>& s : UC.enrolled_students()){
-                vector.emplace_back(s->student_name(), s->student_code());
+    for (std::size_t i = 0; i < counts.size(); ++i) {
+        for (std::size_t j = 0; j < counts.size(); ++j) {
+            if (i != j && std::abs(counts[i] - counts[j]) > 4) {
+                return false; // A number differs from others by more than 4 units
             }
-            return vector;
         }
     }
+    return true;
 }
 
 bool Application::schedule_is_conflicting(const Student &student, const Lecture &lecture) const {
@@ -403,17 +381,14 @@ Application::switch_student_class(const std::string &student_code, const std::st
         std::string ss = add_student_to_uc(student_code, uc, new_class);
         return ss;
     } else return s;
-
-
-std::vector<std::string> Application::classes_from_uc(const std::string& uc_code){
-    std::vector<std::string> vector;
-    for (const UC& UC : *ucs_) {
-        if ((UC.uc_code()) == uc_code) {
-            for (const std::shared_ptr<Class> &c: UC.classes()) {
-                vector.emplace_back(c->class_code());
-            }
-            return vector;
-        }
-    }
 }
 
+std::vector<std::pair<std::string, std::string>> Application::students_name_id() {
+    std::vector<std::pair<std::string, std::string>> v;
+    for (const auto& s : *students_) {
+        std::pair<std::string, std::string> p = {s.student_name(), s.student_code()};
+        v.emplace_back(p);
+    }
+    return v;
+
+}
