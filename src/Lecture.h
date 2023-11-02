@@ -23,12 +23,12 @@ public:
     void printLecture() const;
     const std::string &class_code() const;
     const std::string &uc_code() const;
-    const std::string &weekday() const;
-    const std::string &start_hour() const;
-    const std::string &duration() const;
-    const std::string &type() const;
-    bool operator<(const Lecture &other) const;
-    bool conflicts(const Lecture& other) const;
+    std::string weekday() const;
+    std::string start_hour() const;
+    std::string duration() const;
+    std::string type() const;
+
+    std::string end_hour() const;
 };
 
 

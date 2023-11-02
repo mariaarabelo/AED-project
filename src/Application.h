@@ -7,13 +7,10 @@
 
 #include <vector>
 #include <utility>
-#include <fstream>
-#include <sstream>
 #include <list>
 #include <algorithm>
 #include <exception>
 #include <memory>
-#include <set>
 #include <iostream>
 #include "Lecture.h"
 #include "File_Reader.h"
@@ -44,21 +41,21 @@ public:
      * @brief Getter for the students.
      * @return A const reference to the vector of students.
      */
-    const std::set<Student> &students();
+    const std::vector<Student> &students();
 
-    std::string add_student_to_uc(const std::string &student, const std::string &uc, const std::string &c);
-
-    std::string remove_student_from_uc(const std::string &student_code, const std::string &uc, const std::string &c);
-
-    std::string switch_student_class(const std::string &student_code, const std::string &uc,
-                                     const std::string &old_class, const std::string &new_class);
+    const std::vector<Lecture> &lectures();
 
     std::vector<std::pair<std::string, std::string>> students_name_id();
+    std::vector<std::string> class_codes();
+    std::vector<std::string> ucs_codes();
+    std::vector<std::pair<std::string, std::string>> students_from_uc(const std::string& uc_code);
+    std::vector<std::string> classes_from_uc(const std::string &uc_code);
+
 
 private:
-    std::set<Lecture> *lectures_;
-    std::set<Student> *students_;
-    std::set<Class> *classes_;
+    std::vector<Lecture> *lectures_;
+    std::vector<Student> *students_;
+    std::vector<Class> *classes_;
     std::vector<UC> *ucs_;
     std::map<int, std::vector<Student>> yearStudentsMap;
 
@@ -126,9 +123,17 @@ private:
      */
     const std::vector<std::pair<std::string, std::string>> &Students_name_id();
 
+    std::string add_student_to_uc(const std::string &student_code, const std::string &uc, const std::string &c);
+
     bool will_classes_be_balanced(const std::string &uc, const std::string &c) const;
 
-    bool schedule_is_conflicting(const Student &student, const Lecture &lecture)const;
+    bool schedule_is_conflicting(const Student &student, const Lecture &lecture) const;
+
+    std::string remove_student_from_uc(const std::string &student_code, const std::string &uc, const std::string &c);
+
+    std::string
+    switch_student_class(const std::string &student_code, const std::string &uc, const std::string &old_class,
+                         const std::string &new_class);
 };
 
 
