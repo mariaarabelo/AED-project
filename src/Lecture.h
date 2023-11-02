@@ -27,6 +27,8 @@ public:
     std::string start_hour() const;
     std::string duration() const;
     std::string type() const;
+
+    std::string end_hour() const;
 };
 
 

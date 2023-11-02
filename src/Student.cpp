@@ -25,6 +25,26 @@ const std::vector<std::pair<std::string, std::string>> &Student::enrolled_classe
     return enrolled_classes_;
 }
 
+std::vector<std::string> Student::enrolled_classes_id() const {
+    std::vector<std::string> v;
+    for (const std::pair<std::string, std::string>& p : enrolled_classes_){
+        if (find(v.begin(), v.end(), p.second) == v.end()) {
+            v.push_back(p.second);
+        }
+    }
+    return v;
+}
+
+std::vector<std::string> Student::enrolled_ucs_id() const {
+    std::vector<std::string> v;
+    for (const std::pair<std::string, std::string>& p : enrolled_classes_){
+        if (find(v.begin(), v.end(), p.second) == v.end()) {
+            v.push_back(p.first);
+        }
+    }
+    return v;
+}
+
 void Student::enrollInUC(const std::pair<std::string, std::string> &c) {
     if (enrolled_classes_.size() < 7) {
         enrolled_classes_.push_back(c);

@@ -8,6 +8,7 @@
 #include <string>
 #include <vector>
 #include <memory>
+#include <algorithm>
 #include <list>
 #include "Lecture.h"
 #include "Student.h"
@@ -61,6 +62,8 @@ public:
      * @return size_t with enrolled students
      */
     size_t countEnrolledStudents() const;
+
+    std::vector<std::pair<std::string, std::string>> getEnrolledStudents() const;
 };
 
 
