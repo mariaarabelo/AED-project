@@ -1,3 +1,4 @@
+
 //
 // Created by alexandre on 10-10-2023.
 //
@@ -60,6 +61,16 @@ const std::set<Lecture> &Class::lectures() const {
 
 size_t Class::countEnrolledStudents() const {
     return enrolled_students_.size();
+}
+
+std::vector<std::pair<std::string, std::string>> Class::getEnrolledStudents() const {
+    std::vector<std::pair<std::string, std::string>> v;
+    for (const auto &p: enrolled_students_){
+        std::pair<std::string, std::string> pair = {(p.first)->student_name(), p.first->student_code()};
+        if (find(v.begin(), v.end(), pair) == v.end())
+        v.emplace_back(pair);
+    }
+    return v;
 }
 
 bool Class::add_student_to_class(const Student &student, const std::string &uc) {

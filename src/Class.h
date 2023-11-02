@@ -9,6 +9,7 @@
 #include <vector>
 #include <algorithm>
 #include <memory>
+#include <algorithm>
 #include <list>
 #include <set>
 #include <stack>
@@ -61,6 +62,7 @@ public:
      */
     size_t countEnrolledStudents() const;
 
+    std::vector<std::pair<std::string, std::string>> getEnrolledStudents() const;
     /**
      * @brief Removes student from class
      * @param student student to be removed

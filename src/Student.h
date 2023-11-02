@@ -8,7 +8,9 @@
 #include <string>
 #include <vector>
 #include <utility>
+#include <algorithm>
 #include <iostream>
+#include <set>
 #include <stack>
 
 class Student {
@@ -36,6 +38,10 @@ class Student {
     bool undo_change_uc();
     std::vector<std::pair<std::string, std::string>> enrolled_classes() const;
     void printStudent() const;
+
+    std::vector<std::string> enrolled_classes_id() const;
+
+    std::vector<std::string> enrolled_ucs_id() const;
 };
 
 

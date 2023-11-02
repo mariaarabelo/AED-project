@@ -52,7 +52,14 @@ public:
     std::string switch_student_class(const std::string &student_code, const std::string &uc,
                                      const std::string &old_class, const std::string &new_class);
 
+    const std::vector<Lecture> &lectures();
+
     std::vector<std::pair<std::string, std::string>> students_name_id();
+    std::vector<std::string> class_codes();
+    std::vector<std::string> ucs_codes();
+    std::vector<std::pair<std::string, std::string>> students_from_uc(const std::string& uc_code);
+    std::vector<std::string> classes_from_uc(const std::string &uc_code);
+
 
 private:
     std::set<Lecture> *lectures_;
@@ -124,6 +131,18 @@ private:
      * @return A const reference to the vector of pairs.
      */
     const std::vector<std::pair<std::string, std::string>> &Students_name_id();
+
+    std::string add_student_to_uc(const std::string &student_code, const std::string &uc, const std::string &c);
+
+    bool will_classes_be_balanced(const std::string &uc, const std::string &c) const;
+
+    bool schedule_is_conflicting(const Student &student, const Lecture &lecture) const;
+
+    std::string remove_student_from_uc(const std::string &student_code, const std::string &uc, const std::string &c);
+
+    std::string
+    switch_student_class(const std::string &student_code, const std::string &uc, const std::string &old_class,
+                         const std::string &new_class);
 
     bool will_classes_be_balanced(const std::string &uc, const std::string &c) const;
 

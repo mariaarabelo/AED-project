@@ -78,7 +78,6 @@ const std::set<Lecture> &Schedule::get_lectures() const {
 }
 
 void Schedule::printSchedule() const {
-    std::cout << "Printing schedule..." << "\n";
     for (const auto &lec : lectures_) {
         lec.printLecture();
     }
