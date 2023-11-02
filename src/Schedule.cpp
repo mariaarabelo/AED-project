@@ -42,38 +42,31 @@ int getWeekDayNum(std::string weekDay) {
     return dayNumber;
 }
 
-double lf(const std::string &start_hour) {
-    double hours, minutes;
-    sscanf(start_hour.c_str(), "%lf", &hours);
-    minutes = (hours - static_cast<int>(hours)) * 60;
-    return static_cast<int>(hours) * 60 + minutes;
-
-}
-
 bool compareLecture(const Lecture &a, const Lecture &b) {
     if (getWeekDayNum(a.weekday()) < getWeekDayNum(b.weekday()) ||
         (getWeekDayNum(a.weekday()) == getWeekDayNum(b.weekday()) &&
-         lf(a.start_hour()) < lf(b.start_hour()))) {
+         a.start_hour() > b.start_hour())) {
         return true;
     }
     return false;
 }
 
-Schedule::Schedule(const Student &student, const std::set<Lecture> &lectures) {
+Schedule::Schedule(const Student &student, const std::vector<Lecture> &lectures) {
     for (const auto &c : student.enrolled_classes()) {
         for (const  auto &l : lectures) {
             if (l.uc_code() == c.first && l.class_code() == c.second) {
-                lectures_.insert(l);
+                lectures_.push_back(l);
             }
         }
     }
+    std::sort(lectures_.begin(), lectures_.end(), compareLecture);
 }
 
 Schedule::Schedule(const Class &c) {
     this->lectures_ = c.lectures();
 }
 
-const std::set<Lecture> &Schedule::get_lectures() const {
+const std::vector<Lecture> &Schedule::get_lectures() const {
     return lectures_;
 }
 
@@ -85,15 +78,8 @@ void Schedule::printSchedule() const {
 
 Schedule::Schedule(const UC &uc) {
     for (const auto &c : uc.classes()) {
-        lectures_.insert(c->getLecture(uc.uc_code()));
+        lectures_.push_back(c->getLecture(uc.uc_code()));
     }
-}
-
-bool Schedule::conflicts(const Lecture &lecture) {
-    for (const auto &l : lectures_) {
-        if (lecture.conflicts(l)) return true;
-    }
-    return false;
 }
 
 
