@@ -29,6 +29,12 @@ public:
     std::string type() const;
 
     std::string end_hour() const;
+    const std::string &weekday() const;
+    const std::string &start_hour() const;
+    const std::string &duration() const;
+    const std::string &type() const;
+    bool operator<(const Lecture &other) const;
+    bool conflicts(const Lecture& other) const;
 };
 
 
