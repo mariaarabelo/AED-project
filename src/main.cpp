@@ -13,6 +13,7 @@
 #include "Interface.h"
 
 int main(int argc, char *argv[]) {
+    //TODO: ADD EDGE CASE TO WHEN STUDENT IS ALREADY IN CLASS AND YOURE TRYING TO ADD HIM INTO IT
     Application application;
     //202025232,Iara,L.EIC002,1LEIC05
     //std::cout << application.remove_student_from_uc("202025232", "L.EIC002", "1LEIC05") << "\n";
