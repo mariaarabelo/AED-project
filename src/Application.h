@@ -42,7 +42,14 @@ public:
      */
     const std::vector<Student> &students();
 
+    const std::vector<Lecture> &lectures();
+
     std::vector<std::pair<std::string, std::string>> students_name_id();
+    std::vector<std::string> class_codes();
+    std::vector<std::string> ucs_codes();
+    std::vector<std::pair<std::string, std::string>> students_from_uc(const std::string& uc_code);
+    std::vector<std::string> classes_from_uc(const std::string &uc_code);
+
 
 private:
     std::vector<Lecture> *lectures_;
