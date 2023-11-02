@@ -57,41 +57,18 @@ private:
 
     bool table_mode = false;
     bool write_mode = false;
-    bool day_printed = false;
-    bool write_has_letters = false;
 
     Application app_;
-
-    std::vector<Lecture> lectures;
 
     std::vector<std::pair<std::string, std::string>> student_list;
     std::vector<std::pair<std::wstring, std::wstring>> w_student_list;
     std::vector<std::pair<std::wstring, std::wstring>> filtered_w_student_list;
-    std::vector<std::pair<std::wstring, std::wstring>> save_filtered_w_student_list;
-
-
-    std::vector<std::string> class_code_list;
-    std::vector<std::wstring> w_class_code_list;
-    std::vector<std::wstring> filtered_w_class_code_list;
-
-    std::vector<std::string> uc_list;
-    std::vector<std::wstring> w_uc_list;
-    std::vector<std::wstring> filtered_w_uc_list;
-
-
     std::vector<std::vector<std::pair<std::wstring, std::wstring>>> booked_list;
-    std::vector<std::vector<std::wstring>> booked_list_vector_of_wstrings;
 
     std::wstring earlier_directory;
     std::wstring directory;
-    std::wstring temporary_directory;
     std::wstring write = w_italic + L"  You can write here  " + w_end_italic;
     const std::wstring write_default = w_italic + L"  You can write here  " + w_end_italic;
-
-    std::wstring s_analised;
-    std::wstring c_analised;
-    std::wstring uc_analised;
-
 
     std::vector<std::wstring> Horarinator = {
             L" --------------------------------------------------------------------------------------------------------------- ",
@@ -115,7 +92,8 @@ private:
                     L"Schedules",
                     L"Students",
                     L"Classes",
-                    L"UCs",
+                    L"UC",
+                    L"Lectures",
                     L"Main Menu"
             },
             {
@@ -128,100 +106,11 @@ private:
                     L"Search for Student",
                     L"Back",
                     L"Main Menu"
-            },
-            {
-                    L"Search for Class",
-                    L"Back",
-                    L"Main Menu"
-            },
-            {
-                    L"More information about ",
-                    L"Back",
-                    L"Main Menu"
-            },
-            {
-                    L"Search for Student",
-                    L"Back",
-                    L"Main Menu"
-            },
-            {
-                    L"Schedule",
-                    L"Classes",
-                    L"UCs",
-                    L"Back",
-                    L"Main Menu"
-            },
-            {
-                    L"Back",
-                    L"Main Menu"
-            },
-            {
-                    L"More information about ",
-                    L"Back",
-                    L"Main Menu"
-            },
-            {
-                    L"Schedule",
-                    L"Students",
-                    L"Back",
-                    L"Main Menu"
-            },
-            {
-                    L"Search for Class",
-                    L"Back",
-                    L"Main Menu"
-            },
-            {
-                    L"Back",
-                    L"Main Menu"
-            },
-            {
-                    L"Back",
-                    L"Main Menu"
-            },
-            {
-                    L"Back",
-                    L"Main Menu"
-            },
-            {
-                    L"Search for UC",
-                    L"Back",
-                    L"Main Menu"
-            },
-            {
-                    L"Students",
-                    L"Classes",
-                    L"Back",
-                    L"Main Menu"
-            },
-            {
-                    L"Search for Student",
-                    L"Back",
-                    L"Main Menu"
-            },
-            {
-                    L"Back",
-                    L"Main Menu"
-            },
-            {
-                    L"Back",
-                    L"Main Menu"
-            },
-            {
-                    L"UCs",
-                    L"Classes",
-                    L"Main Menu"
-            },
-            {
-                    L""
             }
     };
 
     std::wstring Helper = L" Use 'up' and 'down' arrow keys to navigate and 'enter' to select";
     std::wstring Helper_Students = L" Use 'tab' to interact and stop interacting with the students list";
-    std::wstring Helper_Classes = L" Use 'tab' to interact and stop interacting with the classes list";
-    std::wstring Helper_UCs = L" Use 'tab' to interact and stop interacting with the UCs list";
-
 
     static void print_title(const std::vector<std::wstring> &t);
 
@@ -235,51 +124,19 @@ private:
 
     void list_booker(std::vector<std::pair<std::wstring, std::wstring>> l);
 
+    void booked_list_filter();
+
     void booked_list_printer();
 
     static int tem_acento(const std::wstring &s);
 
-    static void alphabetic_sort_vector_of_pairs_of_strings (std::vector<std::pair<std::string, std::string>> &v);
-
-    static void alphabetic_sort_vector_of_strings (std::vector<std::string> &v);
+    static void alphabetic_sort(std::vector<std::pair<std::string, std::string>> &v);
 
     void InputResponse_inWriteMode(wchar_t &user_in);
 
-    static std::vector<std::pair<std::wstring, std::wstring>> convert_to_wstring_vector_of_pairs(const std::vector<std::pair<std::string, std::string>>& v);
+    static std::vector<std::pair<std::wstring, std::wstring>> convert_to_wstring(const std::vector<std::pair<std::string, std::string>>& v);
 
     static std::wstring smooth_string(const std::wstring& w);
 
-    static std::wstring only_numbers(const std::wstring &w, bool allow_zeros);
-
-    static std::vector<std::wstring> convert_to_wstring_vector_of_strings(const std::vector<std::string> &v);
-
-    void list_booker_vector_of_wstrings(std::vector<std::wstring> wv);
-
-    void booked_list_filter_vector_of_wstrings(const std::vector<std::wstring>& vw, std::vector<std::wstring>& filtered_vw);
-
-    void booked_list_printer_vector_of_wstrings(const std::vector<std::wstring>& wv);
-
-    static std::string convert_to_string(const std::wstring &ws);
-
-    void schedule_printer(const Schedule& schedule);
-
-    static std::wstring convert_to_wstring(const std::string &s);
-
-    static void lecture_sorter(std::vector<Lecture> &v);
-
-    static bool earlier_day(const std::string& s1, const std::string& s2);
-
-    static std::string better_representation(const std::string& s);
-
-    static bool hour_comparer(const std::string& s1, const std::string& s2);
-
-    Student get_student_by_id(const std::vector<Student> &v);
-
-    static void alphabetic_sort_vector_of_wstrings(std::vector<std::wstring> &v);
-
-    static void alphabetic_sort_vector_of_pairs_of_wstrings(std::vector<std::pair<std::wstring, std::wstring>> &v);
-
-    void booked_list_filter(const std::vector<std::pair<std::wstring, std::wstring>> &vw, std::vector<std::pair<std::wstring, std::wstring>> &filtered_vw);
-};
-
 //------------------------------------------------------------------------------------------------------------//
+};

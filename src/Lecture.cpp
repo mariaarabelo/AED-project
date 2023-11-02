@@ -41,22 +41,6 @@ const std::string &Lecture::duration() const {
     return duration_;
 }
 
-
-std::string Lecture::end_hour() const {
-    std::string s = std::to_string(std::stof(start_hour_) + std::stof(duration_));
-    int idx = 0;
-    for (char c : s){
-        idx ++;
-        if (c == '.'){
-            break;
-        }
-    }
-    s = s.substr(0, idx + 1);
-    if (s[s.size() - 1] == '0'){
-        s = s.substr(0, s.size() - 2);
-    }
-    return s;
-}
 const std::string &Lecture::type() const {
     return type_;
 }
