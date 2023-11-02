@@ -28,6 +28,8 @@ public:
     const std::string &duration() const;
     const std::string &type() const;
     bool operator<(const Lecture &other) const;
+    bool conflicts(const Lecture &other) const;
+    std::string end_hour() const;
 };
 
 

@@ -3,7 +3,7 @@
 Interface::Interface(const Application &app){
 }
 
-Student Interface::get_student_by_id(const std::vector<Student>& v){
+Student Interface::get_student_by_id(const std::set<Student>& v){
     for (const Student& s : v){
         if (convert_to_wstring(s.student_code()) == s_analised.substr(s_analised.find_first_of(L'(') + 1, 9)){
             return s;
@@ -54,16 +54,6 @@ void Interface::alphabetic_sort_vector_of_wstrings(std::vector<std::wstring> &v)
     std::sort(v.begin(), v.end(), [](const auto& a, const auto& b){return a < b;});
 }
 
-void Interface::lecture_sorter(std::vector<Lecture> &v){
-    std::sort(v.begin(), v.end(), [](const auto& a, const auto& b){
-        if (a.weekday() == b.weekday()){
-            return hour_comparer(a.start_hour(), b.start_hour());
-        }
-        else{
-            return earlier_day(a.weekday(), b.weekday());
-        }
-    });
-}
 
 std::string Interface::better_representation(const std::string& s){
     int idx = 0;
@@ -422,7 +412,6 @@ void Interface::booked_list_printer_vector_of_wstrings(const std::vector<std::ws
 
 void Interface::schedule_printer(const Schedule& schedule){
     lectures = schedule.get_lectures();
-    lecture_sorter(lectures);
     std::wcout << w_bold << "\n" << L" ---------------------- MONDAY ----------------------"  << w_end << std::endl;
     for (const auto &lec : lectures){
         if (lec.weekday() == "Monday") {

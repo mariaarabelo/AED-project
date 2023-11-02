@@ -233,7 +233,7 @@ const std::set<Student> &Application::students() {
     return *students_;
 }
 
-const std::vector<Lecture> &Application::lectures() {
+const std::set<Lecture> &Application::lectures() {
     return *lectures_;
 }
 
@@ -398,8 +398,8 @@ std::vector<std::pair<std::string, std::string>> Application::students_from_uc(c
     std::vector<std::pair<std::string, std::string>> vector;
     for (const UC& UC : *ucs_){
         if ((UC.uc_code()) == uc_code){
-            for (const std::shared_ptr<Student>& s : UC.enrolled_students()){
-                vector.emplace_back(s->student_name(), s->student_code());
+            for (const auto &s : UC.enrolled_students()){
+                vector.emplace_back(s.student_name(), s.student_code());
             }
             return vector;
         }

@@ -66,9 +66,12 @@ size_t Class::countEnrolledStudents() const {
 std::vector<std::pair<std::string, std::string>> Class::getEnrolledStudents() const {
     std::vector<std::pair<std::string, std::string>> v;
     for (const auto &p: enrolled_students_){
-        std::pair<std::string, std::string> pair = {(p.first)->student_name(), p.first->student_code()};
-        if (find(v.begin(), v.end(), pair) == v.end())
-        v.emplace_back(pair);
+        //std::pair<std::string, std::string> pair = {(p.first)->student_name(), p.first->student_code()};
+        for (const auto &s : p.second) {
+            std::pair<std::string, std::string> pair = {s.student_name(), s.student_code()};
+            if (find(v.begin(), v.end(), pair) == v.end())
+                v.emplace_back(pair);
+        }
     }
     return v;
 }
