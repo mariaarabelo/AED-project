@@ -17,7 +17,8 @@ class Class {
 private:
     std::string class_code_;
     std::vector<Lecture> lectures_;
-    std::vector<std::pair<std::shared_ptr<Student>,std::list<std::string>>> enrolled_students_;
+    std::vector<std::pair<std::string, std::list<Student>>> enrolled_students_;
+    std::list<std::pair<std::string, int>> student_count_;
 public:
 
     /**
@@ -39,10 +40,6 @@ public:
      */
     void printLectures() const;
 
-    /**
-     * @brief Prints all students enrolled in class
-     */
-    void printEnrolledStudents() const;
 
     /**
      * @brief Getter for a given Lecture
@@ -64,6 +61,26 @@ public:
     size_t countEnrolledStudents() const;
 
     std::vector<std::pair<std::string, std::string>> getEnrolledStudents() const;
+
+    /**
+     * @brief Removes student from class
+     * @param student student to be removed
+     * @return true if student can be removed, false if he cannot
+     */
+    bool remove_student_from_class(const Student &student, const std::string &uc);
+
+    /**
+     * Add student to the class. If he already exists, enroll him in the ucs
+     * @brief Adds a student to the class
+     * @param student student to be added
+     * @param uc ucs where he will be enrolled
+     * @return true if student not in class, false if he is
+     */
+    bool add_student_to_class(const Student &student, const std::string &uc);
+
+    bool operator<(const Class &other) const;
+
+    int get_student_count(const std::string &uc) const;
 };
 
 

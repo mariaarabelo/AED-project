@@ -45,13 +45,12 @@ std::vector<std::string> Student::enrolled_ucs_id() const {
     return v;
 }
 
-void Student::enrollInUC(const std::pair<std::string, std::string> &c) {
+bool Student::enrollInUC(const std::pair<std::string, std::string> &c) {
     if (enrolled_classes_.size() < 7) {
         enrolled_classes_.push_back(c);
-    } else {
-        //TODO: Implement a try and catch system and throw error in situations like this
-        std::cout << "Max number of students reached\n";
+        return true;
     }
+    return false;
 }
 
 void Student::printStudent() const {
@@ -60,4 +59,8 @@ void Student::printStudent() const {
 
 bool Student::operator==(const Student& other) const {
     return student_code_ == other.student_code_;
+}
+
+bool Student::operator<(const Student &other) const {
+    return this->student_code_ < other.student_code();
 }

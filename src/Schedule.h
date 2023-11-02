@@ -51,6 +51,8 @@ public:
      */
     void printSchedule() const;
 
+    bool conflicts(const Lecture &lecture);
+
 };
 
 

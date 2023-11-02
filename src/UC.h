@@ -68,6 +68,10 @@ public:
      * @return unsigned int of number of students
      */
     unsigned countEnrolledStudents() const;
+
+    bool enroll_student(const std::shared_ptr<Student> &student);
+
+    bool remove_student(const std::shared_ptr<Student> &student);
 };
 
 

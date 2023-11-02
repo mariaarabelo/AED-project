@@ -46,3 +46,17 @@ void UC::printEnrolledStudents() {
 unsigned UC::countEnrolledStudents() const {
     return (unsigned)enrolled_students_.size();
 }
+
+bool UC::enroll_student(const std::shared_ptr<Student> &student) {
+    auto it = std::find(enrolled_students_.begin(), enrolled_students_.end(), student);
+    if (it != enrolled_students_.end()) return false;
+    enrolled_students_.push_back(student);
+    return true;
+}
+
+bool UC::remove_student(const std::shared_ptr<Student> &student) {
+    auto it = std::find(enrolled_students_.begin(), enrolled_students_.end(), student);
+    if (it == enrolled_students_.end()) return false;
+    enrolled_students_.remove(student);
+    return true;
+}
