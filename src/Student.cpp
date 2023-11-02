@@ -9,7 +9,9 @@ Student::Student(const std::string& student_name, const std::string& student_cod
     this->student_name_ = student_name;
     this->student_code_ = student_code;
     if (codes.size() <= 7) {
-        this->enrolled_classes_ = codes;
+        for (const auto &p : codes) {
+            enrolled_classes_.push(p);
+        }
     }
 }
 
@@ -21,8 +23,14 @@ std::string Student::student_name() const {
     return student_name_;
 }
 
-const std::vector<std::pair<std::string, std::string>> &Student::enrolled_classes() const {
-    return enrolled_classes_;
+std::vector<std::pair<std::string, std::string>> Student::enrolled_classes() const {
+    auto copy_stack = enrolled_classes_;
+    std::vector<std::pair<std::string, std::string>> v;
+    while (!copy_stack.empty()) {
+        v.push_back(copy_stack.top());
+        copy_stack.pop();
+    }
+    return v;
 }
 
 std::vector<std::string> Student::enrolled_classes_id() const {
@@ -45,13 +53,12 @@ std::vector<std::string> Student::enrolled_ucs_id() const {
     return v;
 }
 
-void Student::enrollInUC(const std::pair<std::string, std::string> &c) {
+bool Student::enrollInUC(const std::pair<std::string, std::string> &c) {
     if (enrolled_classes_.size() < 7) {
-        enrolled_classes_.push_back(c);
-    } else {
-        //TODO: Implement a try and catch system and throw error in situations like this
-        std::cout << "Max number of students reached\n";
+        enrolled_classes_.push(c);
+        return true;
     }
+    return false;
 }
 
 void Student::printStudent() const {
@@ -60,4 +67,110 @@ void Student::printStudent() const {
 
 bool Student::operator==(const Student& other) const {
     return student_code_ == other.student_code_;
+}
+
+bool Student::changeUCClass(const std::string &uc, const std::string &c) {
+    bool flag = false;
+    std::stack<std::pair<std::string, std::string>> temp_stack;
+    while (!enrolled_classes_.empty()) {
+        if (enrolled_classes_.top().first == uc) {
+            auto top = enrolled_classes_.top();
+            enrolled_classes_.pop();
+            top.second = c;
+            enrolled_classes_.push(top);
+            flag = true;
+            break;
+        }
+        temp_stack.push(enrolled_classes_.top());
+        enrolled_classes_.pop();
+    }
+    while (!temp_stack.empty()) {
+        enrolled_classes_.push(temp_stack.top());
+        temp_stack.pop();
+    }
+    return flag;
+}
+
+bool Student::undo_recent_enrollment() {
+    if (enrolled_classes_.empty()) return false;
+    enrolled_classes_.pop();
+    return true;
+}
+
+bool Student::removeFromUC(const std::string &uc) {
+    if (enrolled_classes_.empty()) return false;
+    bool flag = false;
+    std::stack<std::pair<std::string, std::string>> temp;
+    while (!enrolled_classes_.empty()) {
+        if (enrolled_classes_.top().first == uc) {
+            recently_removed_classes_.push(enrolled_classes_.top());
+            enrolled_classes_.pop();
+            flag = true;
+            break;
+        }
+        temp.push(enrolled_classes_.top());
+        enrolled_classes_.pop();
+    }
+    while (!temp.empty()) {
+        enrolled_classes_.push(temp.top());
+        temp.pop();
+    }
+    return flag;
+}
+
+bool Student::undo_recent_class_removal() {
+    auto flag = enrollInUC(recently_removed_classes_.top());
+    if (flag) {
+        recently_removed_classes_.pop();
+        return true;
+    }
+    return false;
+}
+
+bool Student::changeUC(const std::string &old_uc, const std::string &new_uc, const std::string &new_c) {
+    std::stack<std::pair<std::string, std::string>> temp;
+    bool flag = false;
+    while (!enrolled_classes_.empty()) {
+        if (enrolled_classes_.top().first == old_uc) {
+            std::pair<std::pair<std::string, std::string>,std::pair<std::string, std::string>> p =
+                    {enrolled_classes_.top(), {new_uc, new_c}};
+            recent_uc_changes_.push(p);
+            enrolled_classes_.pop();
+            enrolled_classes_.emplace(new_uc, new_c);
+            flag = true;
+            break;
+        }
+        temp.push(enrolled_classes_.top());
+        enrolled_classes_.pop();
+    }
+    while (!temp.empty()) {
+        enrolled_classes_.push(temp.top());
+        temp.pop();
+    }
+    return flag;
+}
+
+bool Student::undo_change_uc() {
+    auto pp = recent_uc_changes_.top();
+    bool flag = false;
+    std::stack<std::pair<std::string, std::string>> temp;
+    while (!enrolled_classes_.empty()) {
+        if (enrolled_classes_.top() == pp.second) {
+            enrolled_classes_.pop();
+            enrolled_classes_.push(pp.first);
+            flag = true;
+            break;
+        }
+        temp.push(enrolled_classes_.top());
+        enrolled_classes_.pop();
+    }
+    while (!temp.empty()) {
+        enrolled_classes_.push(temp.top());
+        temp.pop();
+    }
+    return flag;
+}
+
+bool Student::operator<(const Student &other) const {
+    return this->student_code_ < other.student_code();
 }

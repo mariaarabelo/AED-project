@@ -11,6 +11,7 @@
 #include <sstream>
 #include <utility>
 #include <list>
+#include <set>
 #include <map>
 #include <iostream>
 #include "Class.h"
@@ -24,7 +25,7 @@ private:
 public:
     explicit File_Reader(const std::string &file_name);
     std::vector<Lecture> instatiateLectures();
-    void instantiateStudents(std::vector<Student> *students);
+    void instantiateStudents(std::set<Student> *students);
     void classListing(std::map<std::string, std::list<std::string>> *c);
 };
 

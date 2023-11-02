@@ -7,9 +7,12 @@
 
 #include <vector>
 #include <utility>
+#include <fstream>
+#include <sstream>
 #include <list>
 #include <algorithm>
 #include <memory>
+#include <set>
 #include <iostream>
 #include "Lecture.h"
 #include "File_Reader.h"
@@ -40,7 +43,14 @@ public:
      * @brief Getter for the students.
      * @return A const reference to the vector of students.
      */
-    const std::vector<Student> &students();
+    const std::set<Student> &students();
+
+    std::string add_student_to_uc(const std::string &student, const std::string &uc, const std::string &c);
+
+    std::string remove_student_from_uc(const std::string &student_code, const std::string &uc, const std::string &c);
+
+    std::string switch_student_class(const std::string &student_code, const std::string &uc,
+                                     const std::string &old_class, const std::string &new_class);
 
     const std::vector<Lecture> &lectures();
 
@@ -52,9 +62,9 @@ public:
 
 
 private:
-    std::vector<Lecture> *lectures_;
-    std::vector<Student> *students_;
-    std::vector<Class> *classes_;
+    std::set<Lecture> *lectures_;
+    std::set<Student> *students_;
+    std::set<Class> *classes_;
     std::vector<UC> *ucs_;
     std::map<int, std::vector<Student>> yearStudentsMap;
 
@@ -133,6 +143,10 @@ private:
     std::string
     switch_student_class(const std::string &student_code, const std::string &uc, const std::string &old_class,
                          const std::string &new_class);
+
+    bool will_classes_be_balanced(const std::string &uc, const std::string &c) const;
+
+    bool schedule_is_conflicting(const Student &student, const Lecture &lecture)const;
 };
 
 
