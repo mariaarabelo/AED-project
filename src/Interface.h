@@ -12,7 +12,6 @@
 #include <termios.h>
 #include <unistd.h>
 #include <termios.h>
-#include <set>
 #include <unistd.h>
 #include <vector>
 #include <string>
@@ -63,7 +62,7 @@ private:
 
     Application app_;
 
-    std::set<Lecture> lectures;
+    std::vector<Lecture> lectures;
 
     std::vector<std::pair<std::string, std::string>> student_list;
     std::vector<std::pair<std::wstring, std::wstring>> w_student_list;
@@ -266,13 +265,15 @@ private:
 
     static std::wstring convert_to_wstring(const std::string &s);
 
+    static void lecture_sorter(std::vector<Lecture> &v);
+
     static bool earlier_day(const std::string& s1, const std::string& s2);
 
     static std::string better_representation(const std::string& s);
 
     static bool hour_comparer(const std::string& s1, const std::string& s2);
 
-    Student get_student_by_id(const std::set<Student> &v);
+    Student get_student_by_id(const std::vector<Student> &v);
 
     static void alphabetic_sort_vector_of_wstrings(std::vector<std::wstring> &v);
 

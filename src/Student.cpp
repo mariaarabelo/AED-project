@@ -35,29 +35,20 @@ std::vector<std::pair<std::string, std::string>> Student::enrolled_classes() con
 
 std::vector<std::string> Student::enrolled_classes_id() const {
     std::vector<std::string> v;
-    /*for (const std::pair<std::string, std::string>& p : enrolled_classes_){
+    for (const std::pair<std::string, std::string>& p : enrolled_classes_){
         if (find(v.begin(), v.end(), p.second) == v.end()) {
             v.push_back(p.second);
         }
-    }*/
-    auto copy = enrolled_classes_;
-    while (!copy.empty()) {
-        if (find(v.begin(), v.end(), copy.top().second) == v.end()) {
-            v.push_back(copy.top().second);
-        }
-        copy.pop();
     }
     return v;
 }
 
 std::vector<std::string> Student::enrolled_ucs_id() const {
     std::vector<std::string> v;
-    auto copy = enrolled_classes_;
-    while (!copy.empty()) {
-        if (find(v.begin(), v.end(), copy.top().first) == v.end()) {
-            v.push_back(copy.top().first);
+    for (const std::pair<std::string, std::string>& p : enrolled_classes_){
+        if (find(v.begin(), v.end(), p.second) == v.end()) {
+            v.push_back(p.first);
         }
-        copy.pop();
     }
     return v;
 }
