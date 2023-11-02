@@ -9,7 +9,7 @@
 
 
 UC::UC(const std::string &uc_code, const std::list<std::shared_ptr<Class>> &classes,
-       const std::list<std::shared_ptr<Student>> &enrolled_students) {
+       const std::list<Student> &enrolled_students) {
     this->uc_code_ = uc_code;
     this->classes_ = classes;
     this->enrolled_students_ = enrolled_students;
@@ -33,13 +33,13 @@ void UC::printClasses() {
     }
 }
 
-const std::list<std::shared_ptr<Student>> &UC::enrolled_students() const {
+const std::list<Student> &UC::enrolled_students() const {
     return enrolled_students_;
 }
 
 void UC::printEnrolledStudents() {
     for (const auto &s : enrolled_students_) {
-        s->printStudent();
+        s.printStudent();
     }
 }
 
@@ -47,14 +47,14 @@ unsigned UC::countEnrolledStudents() const {
     return (unsigned)enrolled_students_.size();
 }
 
-bool UC::enroll_student(const std::shared_ptr<Student> &student) {
+bool UC::enroll_student(const Student &student) {
     auto it = std::find(enrolled_students_.begin(), enrolled_students_.end(), student);
     if (it != enrolled_students_.end()) return false;
     enrolled_students_.push_back(student);
     return true;
 }
 
-bool UC::remove_student(const std::shared_ptr<Student> &student) {
+bool UC::remove_student(const Student &student) {
     auto it = std::find(enrolled_students_.begin(), enrolled_students_.end(), student);
     if (it == enrolled_students_.end()) return false;
     enrolled_students_.remove(student);

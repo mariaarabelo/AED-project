@@ -32,7 +32,7 @@ class Student {
     std::vector<std::string> enrolled_classes_id() const;
 
     std::vector<std::string> enrolled_ucs_id() const;
-    
+    bool removeFromUC(const std::string &uc);
 };
 
 

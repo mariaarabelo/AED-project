@@ -64,3 +64,16 @@ bool Student::operator==(const Student& other) const {
 bool Student::operator<(const Student &other) const {
     return this->student_code_ < other.student_code();
 }
+
+bool Student::removeFromUC(const std::string &uc) {
+    auto it = std::find_if(enrolled_classes_.begin(), enrolled_classes_.end(),
+                           [uc](const std::pair<std::string, std::string> &obj) {
+        return uc == obj.first;
+    });
+    if (it != enrolled_classes_.end()) {
+        enrolled_classes_.erase(it);
+        return true;
+    }
+
+    return false;
+}

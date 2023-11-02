@@ -16,7 +16,7 @@ class UC {
 private:
     std::string uc_code_;
     std::list<std::shared_ptr<Class>> classes_;
-    std::list<std::shared_ptr<Student>> enrolled_students_;
+    std::list<Student> enrolled_students_;
 public:
 
     /**
@@ -27,7 +27,7 @@ public:
      * @param enrolled_students a list of students enrolled in the UC
      */
     UC(const std::string &uc_code, const std::list<std::shared_ptr<Class>> &classes,
-       const std::list<std::shared_ptr<Student>> &enrolled_students);
+       const std::list<Student> &enrolled_students);
 
     /**
      * @brief Getter for classes field
@@ -50,7 +50,7 @@ public:
      * @brief Getter for enrolled_students field
      * @return const reference to enrolled students field
      */
-    const std::list<std::shared_ptr<Student>> &enrolled_students() const;
+    const std::list<Student> &enrolled_students() const;
 
     /**
      * @brief Prints the students enrolled in the UC
@@ -69,9 +69,9 @@ public:
      */
     unsigned countEnrolledStudents() const;
 
-    bool enroll_student(const std::shared_ptr<Student> &student);
+    bool enroll_student(const Student &student);
 
-    bool remove_student(const std::shared_ptr<Student> &student);
+    bool remove_student(const Student &student);
 };
 
 
