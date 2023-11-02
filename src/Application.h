@@ -9,7 +9,6 @@
 #include <utility>
 #include <list>
 #include <algorithm>
-#include <exception>
 #include <memory>
 #include <iostream>
 #include "Lecture.h"

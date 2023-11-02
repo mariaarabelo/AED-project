@@ -49,7 +49,7 @@ void Class::printLectures() const{
     }
 }
 
-const Lecture &Class::getLecture(const std::string &code) const {
+Lecture Class::getLecture(const std::string &code) const {
     for (const auto &l : lectures_) {
         if (l.uc_code() == code) return l;
     }
