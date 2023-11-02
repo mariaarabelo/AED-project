@@ -11,8 +11,17 @@
 #include <string>
 #include "Application.h"
 #include "Interface.h"
+#include "globals.h"
+
+int CAP = 0;
 
 int main(int argc, char *argv[]) {
+    if (argc == 1) {
+        CAP = 20;
+    }
+    else {
+        CAP = std::stoi(argv[1]);
+    }
     //TODO: ADD EDGE CASE TO WHEN STUDENT IS ALREADY IN CLASS AND YOURE TRYING TO ADD HIM INTO IT
     Application application;
     //202025232,Iara,L.EIC002,1LEIC05

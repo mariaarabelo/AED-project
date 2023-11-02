@@ -4,6 +4,8 @@
 
 #include "Application.h"
 
+extern int CAP;
+
 void write_to_students_file(const std::string &line) {
     std::ofstream file;
     file.open("../dataset/students_classes.csv", std::ios::app);
@@ -243,6 +245,7 @@ bool Application::will_classes_be_balanced(const std::string &uc, const std::str
     for (const auto &cc : *classes_) {
         if (cc.class_code() == c) {
             if (cc.get_student_count(uc) != -1) {
+                if (cc.get_student_count(uc) + 1 > CAP) return false;
                 counts.push_back(cc.get_student_count(uc) + 1);
             }
         } else {

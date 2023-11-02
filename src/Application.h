@@ -15,6 +15,7 @@
 #include "File_Reader.h"
 #include "UC.h"
 #include "Student.h"
+#include "globals.h"
 #include "Schedule.h"
 
 
