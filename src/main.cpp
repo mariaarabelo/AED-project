@@ -3,13 +3,8 @@
 //
 
 #include <iostream>
-#include "File_Reader.h"
-#include "Class.h"
-#include "Student.h"
-#include "Schedule.h"
-#include <vector>
-#include <string>
 #include "Application.h"
+#include <exception>
 #include "Interface.h"
 
 int main(int argc, char *argv[]) {
