@@ -1,3 +1,4 @@
+
 //
 // Created by alexandre on 10-10-2023.
 //
@@ -62,43 +63,3 @@ std::vector<std::pair<std::string, std::string>> Class::getEnrolledStudents() co
     return v;
 }
 
-bool Class::add_student_to_class(const Student &student, const std::string &uc) {
-    auto it = std::find_if(enrolled_students_.begin(), enrolled_students_.end(), [uc]
-    (const std::pair<std::string, std::list<Student>> &obj) {
-       return obj.first == uc;
-    });
-    if (it == enrolled_students_.end()) return false;
-    auto itt = std::find(it->second.begin(), it->second.end(), student);
-    if (itt != it->second.end()) return false;
-    it->second.push_back(student);
-    return true;
-}
-
-bool Class::operator<(const Class &other) const{
-    return class_code_ < other.class_code();
-}
-
-int Class::get_student_count(const std::string &uc) const{
-    auto it = std::find_if(student_count_.begin(), student_count_.end(), [uc](const std::pair<std::string, int> &other) {
-        return other.first == uc;
-    });
-    if (it != student_count_.end()) {
-        return it->second;
-    }
-    return -1;
-}
-
-bool Class::remove_student_from_class(const Student &student, const std::string &uc) {
-    auto it = std::find_if(enrolled_students_.begin(),enrolled_students_.end(),
-                           [uc](const std::pair<std::string, std::list<Student>> &obj) {
-        return obj.first == uc;
-    });
-    if (it == enrolled_students_.end()) return false;
-    it->second.remove(student);
-    auto itt = std::find_if(student_count_.begin(), student_count_.end(),
-                            [uc](const std::pair<std::string, int> &other) {
-                                return other.first == uc;
-                            });
-    itt->second--;
-    return true;
-}

@@ -57,21 +57,6 @@ std::string Lecture::end_hour() const {
     return s;
 }
 
-const std::string &Lecture::type() const {
-    return type_;
-}
-
-bool Lecture::operator<(const Lecture &other) const{
-    if (this->uc_code_ == other.uc_code()) return this->class_code_ < other.class_code();
-    return this->uc_code_ < other.class_code();
-}
-
-bool Lecture::conflicts(const Lecture& other) const {
-    // Check if the lectures have the same weekday
-    if (weekday_ != other.weekday_)
-        return false;
-
-
 std::string Lecture::type() const {
     return type_;
 }

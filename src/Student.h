@@ -8,9 +8,10 @@
 #include <string>
 #include <vector>
 #include <utility>
+#include <algorithm>
 #include <iostream>
 #include <set>
-#include <stack>
+
 class Student {
     private:
     std::string student_code_;
@@ -23,9 +24,13 @@ class Student {
     std::string student_code() const;
     std::string student_name() const;
     bool operator==(const Student& other) const;
-    bool enrollInUC(const std::pair<std::string, std::string> &c);
+    void enrollInUC(const std::pair<std::string, std::string> &c);
     const std::vector<std::pair<std::string, std::string>> &enrolled_classes() const;
     void printStudent() const;
+
+    std::vector<std::string> enrolled_classes_id() const;
+
+    std::vector<std::string> enrolled_ucs_id() const;
 };
 
 

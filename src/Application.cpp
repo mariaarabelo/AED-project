@@ -125,7 +125,7 @@ void Application::printStudentsPerYear(bool ascendingOrder){
     // store number of students in each year
     std::vector<std::pair<int, int>> yearEnrollments;
     for (const auto &entry : yearStudentsMap){
-        yearEnrollments.push_back(std::make_pair(entry.first, entry.second.size()));
+        yearEnrollments.emplace_back(entry.first, entry.second.size());
     }
     //sort in specified order
     std::sort(yearEnrollments.begin(), yearEnrollments.end(), [ascendingOrder](const auto &a, const auto &b){
@@ -147,7 +147,7 @@ void Application::printUCsWithEnrolledStudents(int n, bool ascendingOrder){
 
     for (const UC &uc: *ucs_){
         int numStudents = uc.enrolled_students().size();
-        ucEnrollments.push_back(std::make_pair(uc.uc_code(), numStudents));
+        ucEnrollments.emplace_back(uc.uc_code(), numStudents);
     }
 
     //sort in specified order
@@ -203,6 +203,18 @@ const std::vector<Student> &Application::students() {
     return *students_;
 }
 
+const std::vector<Lecture> &Application::lectures() {
+    return *lectures_;
+}
+
+std::vector<std::string> Application::class_codes(){
+    std::vector<std::string> v;
+    for (const Class& c : *classes_){
+        v.emplace_back(c.class_code());
+    }
+    return v;
+}
+
 const std::vector<std::pair<std::string, std::string>> &Application::Students_name_id(){
     std::vector<std::pair<std::string, std::string>> v;
     for (const auto &s : *students_){
@@ -220,3 +232,36 @@ std::vector<std::pair<std::string, std::string>> Application::students_name_id()
     }
     return v;
 }
+
+std::vector<std::string> Application::ucs_codes(){
+    std::vector<std::string> v;
+    for (const UC& c : *ucs_){
+        v.emplace_back(c.uc_code());
+    }
+    return v;
+}
+
+std::vector<std::pair<std::string, std::string>> Application::students_from_uc(const std::string& uc_code){
+    std::vector<std::pair<std::string, std::string>> vector;
+    for (const UC& UC : *ucs_){
+        if ((UC.uc_code()) == uc_code){
+            for (const std::shared_ptr<Student>& s : UC.enrolled_students()){
+                vector.emplace_back(s->student_name(), s->student_code());
+            }
+            return vector;
+        }
+    }
+}
+
+std::vector<std::string> Application::classes_from_uc(const std::string& uc_code){
+    std::vector<std::string> vector;
+    for (const UC& UC : *ucs_) {
+        if ((UC.uc_code()) == uc_code) {
+            for (const std::shared_ptr<Class> &c: UC.classes()) {
+                vector.emplace_back(c->class_code());
+            }
+            return vector;
+        }
+    }
+}
+

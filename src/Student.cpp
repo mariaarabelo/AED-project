@@ -45,7 +45,7 @@ std::vector<std::string> Student::enrolled_ucs_id() const {
     return v;
 }
 
-bool Student::enrollInUC(const std::pair<std::string, std::string> &c) {
+void Student::enrollInUC(const std::pair<std::string, std::string> &c) {
     if (enrolled_classes_.size() < 7) {
         enrolled_classes_.push_back(c);
     } else {
