@@ -7,7 +7,7 @@
 void write_to_students_file(const std::string &line) {
     std::ofstream file;
     file.open("../dataset/students_classes.csv", std::ios::app);
-    file << "\n" << line << std::endl;
+    file << line << std::endl;
     file.close();
 }
 
@@ -58,7 +58,6 @@ Application::Application() {
     f.classListing(classes);
     instantiateClasses(classes);
     instantiateUCs(classes);
-    fillYearStudentsMap();
     delete classes;
 }
 
@@ -109,71 +108,10 @@ void Application::instantiateUCs(std::map<std::string, std::list<std::string>> *
     }
 }
 
-void Application::printStudentsEnrolledInYear(const int &year) {
-    if (yearStudentsMap.find(year) != yearStudentsMap.end()) {
-        std::vector<Student>& studentsInYear = yearStudentsMap[year];
-        std::cout << "Students enrolled in year " << year << ":" << std::endl;
-
-        //print all students of that year
-        for (const Student& student : studentsInYear) {
-            student.printStudent();
-        }
-
-    } else {
-        std::cout << "Year not registered " << year << std::endl;
-    }
-}
-
-
-unsigned Application::countStudentsEnrolledInYear(const int &year) {
-    unsigned count = 0;
-    for (const auto &s : *students_) {
-        for (const auto &c : s.enrolled_classes()) {
-            std::string y = c.second.substr(0,1);
-            if (std::stoi(y) == year) {
-                count++;
-                break;
-            }
-        }
-    }
-    return count;
-}
-
-void Application::fillYearStudentsMap() {
-    for (const auto &s: *students_) {
-        for (const auto &c: s.enrolled_classes()) {
-            int year = std::stoi(c.second.substr(0, 1));
-            auto it = std::find(yearStudentsMap[year].begin(), yearStudentsMap[year].end(), s);
-            if (it == yearStudentsMap[year].end())
-                yearStudentsMap[year].push_back(s);
-        }
-    }
-}
-
 UC Application::getUC(const std::string &uc_code) const {
     for (const auto &uc : *ucs_) {
         if (uc.uc_code() == uc_code) return uc;
     }
-}
-
-void Application::printStudentsPerYear(bool ascendingOrder){
-    // store number of students in each year
-    std::vector<std::pair<int, int>> yearEnrollments;
-    for (const auto &entry : yearStudentsMap){
-        yearEnrollments.emplace_back(entry.first, entry.second.size());
-    }
-    //sort in specified order
-    std::sort(yearEnrollments.begin(), yearEnrollments.end(), [ascendingOrder](const auto &a, const auto &b){
-        if (ascendingOrder) {
-            return a.second < b.second;
-        } else {
-            return a.second > b.second;
-        }
-    });
-    //show year's number of students
-    for (const auto &entry: yearEnrollments){
-        std::cout << "Year " << entry.first << " - " << entry.second << " students" << std::endl;
-    };
 }
 
 void Application::printUCsWithEnrolledStudents(int n, bool ascendingOrder){
@@ -304,9 +242,14 @@ bool Application::will_classes_be_balanced(const std::string &uc, const std::str
     std::vector<int> counts;
     for (const auto &cc : *classes_) {
         if (cc.class_code() == c) {
-            counts.push_back(cc.get_student_count(uc)+1);
-        } else
-            counts.push_back(cc.get_student_count(uc));
+            if (cc.get_student_count(uc) != -1) {
+                counts.push_back(cc.get_student_count(uc) + 1);
+            }
+        } else {
+            if (cc.get_student_count(uc) != -1) {
+                counts.push_back(cc.get_student_count(uc));
+            }
+        }
     }
     for (std::size_t i = 0; i < counts.size(); ++i) {
         for (std::size_t j = 0; j < counts.size(); ++j) {
@@ -324,7 +267,6 @@ bool Application::schedule_is_conflicting(const Student &student, const Lecture 
 }
 
 std::string Application::add_student_to_uc(const std::string &student_code, const std::string &uc, const std::string &c) {
-    try {
         auto class_it = std::find_if(classes_->begin(), classes_->end(), [c](const Class &obj) {
             return obj.class_code() == c;
         });
@@ -348,9 +290,9 @@ std::string Application::add_student_to_uc(const std::string &student_code, cons
 
         Lecture lecture = c_to_modify.getLecture(uc);
 
-        if (student_to_modify.enrollInUC(std::make_pair(uc, c))) {
+        if (!schedule_is_conflicting(student_to_modify, lecture)) {
             if (will_classes_be_balanced(uc, c)) {
-                if (!schedule_is_conflicting(student_to_modify, lecture)) {
+                if (student_to_modify.enrollInUC(std::make_pair(uc, c))) {
                     if (c_to_modify.add_student_to_class(student_to_modify, uc)) {
                         if (uc_to_modify.enroll_student(student_to_modify)) {
                             students_->push_back(student_to_modify);
@@ -371,14 +313,11 @@ std::string Application::add_student_to_uc(const std::string &student_code, cons
                         } else return "Student already in UC";
                     } else return "Student already in class";
 
-                } else return "There is a schedule conflict.";
+                } else return "Student is in too many UCs";
 
             } else return "Class will not be balanced.";
 
-        } else return "Student is in too many UCs";
-    } catch (const std::exception &e)  {
-        std::cout << e.what() << "\n";
-    }
+        } else return "There is a schedule conflict";
 }
 
 std::string

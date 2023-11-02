@@ -63,7 +63,6 @@ private:
     std::vector<Student> *students_;
     std::vector<Class> *classes_;
     std::vector<UC> *ucs_;
-    std::map<int, std::vector<Student>> yearStudentsMap;
 
     /**
      * @brief Helper function to instantiate classes.
@@ -78,35 +77,11 @@ private:
     void instantiateUCs(std::map<std::string, std::list<std::string>> * classes);
 
     /**
-     * @brief Helper function to fill the yearStudentsMap.
-     */
-    void fillYearStudentsMap();
-
-    /**
      * @brief Getter for a given UC.
      * @param code Code of the UC.
      * @return The UC.
      */
     UC getUC(const std::string &uc_code) const;
-
-    /**
-     * @brief Prints students enrolled in a specific year.
-     * @param year The year of interest.
-     */
-    void printStudentsEnrolledInYear(const int &year);
-
-    /**
-     * @brief Counts students enrolled in a specific year.
-     * @param year The year of interest.
-     * @return The count of students.
-     */
-    unsigned countStudentsEnrolledInYear(const int &year);
-
-    /**
-     * @brief Prints the number of students per year
-     * @param ascendingOrder 0 for decreasing order, 1 for ascending order.
-     */
-    void printStudentsPerYear(bool ascendingOrder);
 
     /**
      * @brief Prints the UCs with the most or least enrolled students.
