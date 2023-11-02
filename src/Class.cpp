@@ -4,35 +4,19 @@
 
 #include "Class.h"
 
-Class::Class(const std::string &class_code, const std::set<Lecture> &lectures, const std::set<Student>  &students) {
+Class::Class(const std::string &class_code, const std::vector<Lecture> &lectures, const std::vector<Student>  &students) {
     class_code_ = class_code;
     for (const auto &l : lectures) {
         if (l.class_code() == class_code_) {
-            lectures_.insert(l);
+            lectures_.push_back(l);
         }
     }
     for (const auto &s : students) {
+        std::list<std::string> ucs;
         for (const auto &c : s.enrolled_classes()) {
             if (c.second  == class_code) {
-                auto uc = c.first;
-                auto it = std::find_if(enrolled_students_.begin(), enrolled_students_.end(),
-                                       [uc](const std::pair<std::string, std::list<Student>> &obj) {
-                   return  obj.first == uc;
-                });
-                auto itt = std::find_if(student_count_.begin(), student_count_.end(),
-                                        [uc](const std::pair<std::string, int> &other) {
-                                            return other.first == uc;
-                                        });
-                if (it != enrolled_students_.end()) {
-                    it->second.push_back(s);
-                    itt->second++;
-                }
-                else {
-                    std::list<Student> l;
-                    l.push_back(s);
-                    enrolled_students_.emplace_back(uc, l);
-                    student_count_.emplace_back(uc, 1);
-                }
+                ucs.push_back(c.first);
+                enrolled_students_.emplace_back(std::make_shared<Student>(s), ucs);
             }
         }
     }
@@ -54,12 +38,28 @@ Lecture Class::getLecture(const std::string &code) const {
     }
 }
 
-const std::set<Lecture> &Class::lectures() const {
+const std::vector<Lecture> &Class::lectures() const {
     return lectures_;
+}
+
+void Class::printEnrolledStudents() const {
+    for (const auto &p : enrolled_students_) {
+        p.first->printStudent();
+    }
 }
 
 size_t Class::countEnrolledStudents() const {
     return enrolled_students_.size();
+}
+
+std::vector<std::pair<std::string, std::string>> Class::getEnrolledStudents() const {
+    std::vector<std::pair<std::string, std::string>> v;
+    for (const auto &p: enrolled_students_){
+        std::pair<std::string, std::string> pair = {(p.first)->student_name(), p.first->student_code()};
+        if (find(v.begin(), v.end(), pair) == v.end())
+        v.emplace_back(pair);
+    }
+    return v;
 }
 
 bool Class::add_student_to_class(const Student &student, const std::string &uc) {

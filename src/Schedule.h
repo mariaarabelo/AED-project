@@ -15,7 +15,7 @@
 
 class Schedule {
 private:
-    std::set<Lecture> lectures_;
+    std::vector<Lecture> lectures_;
 public:
 
     /**
@@ -24,7 +24,7 @@ public:
      * @param student
      * @param lectures Vector of all lectures
      */
-    Schedule(const Student &student, const std::set<Lecture> &lectures);
+    Schedule(const Student &student, const std::vector<Lecture> &lectures);
 
     /**
      * @brief Constructor for Schedule class
@@ -44,14 +44,12 @@ public:
      * @brief Getter for lectures field
      * @return const reference to lectures field
      */
-    const std::set<Lecture> &get_lectures() const;
+    const std::vector<Lecture> &get_lectures() const;
 
     /**
      * @brief Prints schedule
      */
     void printSchedule() const;
-
-    bool conflicts(const Lecture &lecture);
 
 };
 

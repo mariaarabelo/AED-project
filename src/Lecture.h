@@ -23,6 +23,12 @@ public:
     void printLecture() const;
     const std::string &class_code() const;
     const std::string &uc_code() const;
+    std::string weekday() const;
+    std::string start_hour() const;
+    std::string duration() const;
+    std::string type() const;
+
+    std::string end_hour() const;
     const std::string &weekday() const;
     const std::string &start_hour() const;
     const std::string &duration() const;

@@ -29,16 +29,32 @@ const std::string &Lecture::uc_code() const {
     return uc_code_;
 }
 
-const std::string &Lecture::weekday() const {
+std::string Lecture::weekday() const {
     return weekday_;
 }
 
-const std::string &Lecture::start_hour() const {
+std::string Lecture::start_hour() const {
     return start_hour_;
 }
 
-const std::string &Lecture::duration() const {
+std::string Lecture::duration() const {
     return duration_;
+}
+
+std::string Lecture::end_hour() const {
+    std::string s = std::to_string(std::stof(start_hour_) + std::stof(duration_));
+    int idx = 0;
+    for (char c : s){
+        idx ++;
+        if (c == '.'){
+            break;
+        }
+    }
+    s = s.substr(0, idx + 1);
+    if (s[s.size() - 1] == '0'){
+        s = s.substr(0, s.size() - 2);
+    }
+    return s;
 }
 
 const std::string &Lecture::type() const {
@@ -55,27 +71,7 @@ bool Lecture::conflicts(const Lecture& other) const {
     if (weekday_ != other.weekday_)
         return false;
 
-    // Parse start hours and durations as integers (HH:MM format)
-    int thisStartHour = std::stoi(start_hour_.substr(0, 2));
-    int otherStartHour = std::stoi(other.start_hour_.substr(0, 2));
-    int thisStartMinute = std::stoi(start_hour_.substr(3, 2));
-    int otherStartMinute = std::stoi(other.start_hour_.substr(3, 2));
-    int thisDuration = std::stoi(duration_);
-    int otherDuration = std::stoi(other.duration_);
 
-    // Calculate end times
-    int thisEndMinute = thisStartMinute + thisDuration;
-    int otherEndMinute = otherStartMinute + otherDuration;
-    int thisEndHour = thisStartHour + (thisEndMinute / 60);
-    int otherEndHour = otherStartHour + (otherEndMinute / 60);
-    thisEndMinute %= 60;
-    otherEndMinute %= 60;
-
-    // Check for time overlap
-    if ((thisStartHour < otherEndHour || (thisStartHour == otherEndHour && thisStartMinute <= otherEndMinute)) &&
-        (thisEndHour > otherStartHour || (thisEndHour == otherStartHour && thisEndMinute >= otherStartMinute))) {
-        return true;  // Conflict found
-    }
-
-    return false;  // No conflict
+std::string Lecture::type() const {
+    return type_;
 }
