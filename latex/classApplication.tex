@@ -1,0 +1,77 @@
+\hypertarget{classApplication}{}\doxysection{Application Class Reference}
+\label{classApplication}\index{Application@{Application}}
+
+
+The \mbox{\hyperlink{classApplication}{Application}} class for managing and interacting with university data.  
+
+
+
+
+{\ttfamily \#include $<$Application.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classApplication_afa8cc05ce6b6092be5ecdfdae44e05f8}\label{classApplication_afa8cc05ce6b6092be5ecdfdae44e05f8}} 
+\mbox{\hyperlink{classApplication_afa8cc05ce6b6092be5ecdfdae44e05f8}{Application}} ()
+\begin{DoxyCompactList}\small\item\em Default constructor for the \mbox{\hyperlink{classApplication}{Application}} class. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classApplication_a748bca84fefb9c12661cfaa2f623748d}\label{classApplication_a748bca84fefb9c12661cfaa2f623748d}} 
+\mbox{\hyperlink{classApplication_a748bca84fefb9c12661cfaa2f623748d}{$\sim$\+Application}} ()
+\begin{DoxyCompactList}\small\item\em Destructor for the \mbox{\hyperlink{classApplication}{Application}} class. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classApplication_ab5b6bf71e72ce9044374169987569101}\label{classApplication_ab5b6bf71e72ce9044374169987569101}} 
+void {\bfseries test} ()
+\item 
+const std\+::vector$<$ \mbox{\hyperlink{classStudent}{Student}} $>$ \& \mbox{\hyperlink{classApplication_a619369dde8812f0ab65a40292d03235b}{students}} ()
+\begin{DoxyCompactList}\small\item\em Getter for the students. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classApplication_ac0a0670a0a562712da347872f34ff845}\label{classApplication_ac0a0670a0a562712da347872f34ff845}} 
+const std\+::vector$<$ \mbox{\hyperlink{classLecture}{Lecture}} $>$ \& {\bfseries lectures} ()
+\item 
+\mbox{\Hypertarget{classApplication_a1c8f53f820d21eed9bf72ad51b5bf29b}\label{classApplication_a1c8f53f820d21eed9bf72ad51b5bf29b}} 
+std\+::vector$<$ std\+::pair$<$ std\+::string, std\+::string $>$ $>$ {\bfseries students\+\_\+name\+\_\+id} ()
+\item 
+\mbox{\Hypertarget{classApplication_a0363c47d01190e9a1259391ac1440dff}\label{classApplication_a0363c47d01190e9a1259391ac1440dff}} 
+std\+::vector$<$ std\+::string $>$ {\bfseries class\+\_\+codes} ()
+\item 
+\mbox{\Hypertarget{classApplication_ac39430bb20c29d076b387de2fa6f6bde}\label{classApplication_ac39430bb20c29d076b387de2fa6f6bde}} 
+std\+::vector$<$ std\+::string $>$ {\bfseries ucs\+\_\+codes} ()
+\item 
+\mbox{\Hypertarget{classApplication_a9363017554e10d8f5e073465006935a2}\label{classApplication_a9363017554e10d8f5e073465006935a2}} 
+std\+::vector$<$ std\+::pair$<$ std\+::string, std\+::string $>$ $>$ {\bfseries students\+\_\+from\+\_\+uc} (const std\+::string \&uc\+\_\+code)
+\item 
+\mbox{\Hypertarget{classApplication_a38bc7c083263de1ba2184c4fd33663c0}\label{classApplication_a38bc7c083263de1ba2184c4fd33663c0}} 
+std\+::vector$<$ std\+::string $>$ {\bfseries classes\+\_\+from\+\_\+uc} (const std\+::string \&uc\+\_\+code)
+\item 
+\mbox{\Hypertarget{classApplication_a65edfa7decd0af1b54517ec7b77fc90d}\label{classApplication_a65edfa7decd0af1b54517ec7b77fc90d}} 
+std\+::string {\bfseries add\+\_\+student\+\_\+to\+\_\+uc} (const std\+::string \&student, const std\+::string \&uc, const std\+::string \&c)
+\item 
+\mbox{\Hypertarget{classApplication_a1cb88cc868538e0dc76f061ce915f7da}\label{classApplication_a1cb88cc868538e0dc76f061ce915f7da}} 
+std\+::string {\bfseries remove\+\_\+student\+\_\+from\+\_\+uc} (const std\+::string \&student\+\_\+code, const std\+::string \&uc, const std\+::string \&c)
+\item 
+\mbox{\Hypertarget{classApplication_a76b952fac406afe4d4da23212e35d34b}\label{classApplication_a76b952fac406afe4d4da23212e35d34b}} 
+std\+::string {\bfseries switch\+\_\+student\+\_\+class} (const std\+::string \&student\+\_\+code, const std\+::string \&uc, const std\+::string \&old\+\_\+class, const std\+::string \&new\+\_\+class)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The \mbox{\hyperlink{classApplication}{Application}} class for managing and interacting with university data. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classApplication_a619369dde8812f0ab65a40292d03235b}\label{classApplication_a619369dde8812f0ab65a40292d03235b}} 
+\index{Application@{Application}!students@{students}}
+\index{students@{students}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{students()}{students()}}
+{\footnotesize\ttfamily const std\+::vector$<$ \mbox{\hyperlink{classStudent}{Student}} $>$ \& Application\+::students (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Getter for the students. 
+
+\begin{DoxyReturn}{Returns}
+A const reference to the vector of students. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/Application.\+h\item 
+src/Application.\+cpp\end{DoxyCompactItemize}
