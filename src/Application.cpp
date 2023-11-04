@@ -392,46 +392,25 @@ Application::switch_student_class(const std::string &student_code, const std::st
     } else return s;
 }
 
-std::string Application::reverse_change(const std::vector<std::string> &v) {
+std::string Application::reverse_changes(std::stack<std::vector<std::string>> &st) {
+    std::string s = "NULL";
+    auto v = st.top();
+    st.pop();
+    std::string line_to_remove;
+    for (const auto &a: v) {
+        line_to_remove += a;
+        line_to_remove.push_back(',');
+    }
+    line_to_remove.pop_back();
+    remove_line_from_file(line_to_remove, "../dataset/changes.csv");
     if (v.at(0) == "SWITCH") {
-        std::string s = switch_student_class(v.at(1), v.at(2), v.at(4), v.at(3), true);
-        if (s == "Sucess") {
-            std::string line_to_remove;
-            for (const auto &a: v) {
-                line_to_remove += a;
-                line_to_remove.push_back(',');
-            }
-            line_to_remove.pop_back();
-            remove_line_from_file(line_to_remove, "../dataset/changes.csv");
-        }
-        return s;
+        s = switch_student_class(v.at(1), v.at(2), v.at(4), v.at(3), true);
     }
-    if (v.at(0) == "ADDTOUC") {
-        std::string s = remove_student_from_uc(v.at(1), v.at(3), v.at(4), true);
-        if (s == "Sucess") {
-            std::string line_to_remove;
-            for (const auto &a: v) {
-                line_to_remove += a;
-                line_to_remove.push_back(',');
-            }
-            line_to_remove.pop_back();
-            std::cout << "\n" << line_to_remove;
-            remove_line_from_file(line_to_remove, "../dataset/changes.csv");
-        }
-        return s;
+    else if (v.at(0) == "ADDTOUC") {
+        s = remove_student_from_uc(v.at(1), v.at(3), v.at(4), true);
     }
-    if (v.at(0) == "REMOVEFROMUC") {
-
-        std::string s = add_student_to_uc(v.at(1), v.at(3), v.at(4), true);
-        if (s == "Sucess") {
-            std::string line_to_remove;
-            for (const auto &a: v) {
-                line_to_remove += a;
-                line_to_remove.push_back(',');
-            }
-            line_to_remove.pop_back();
-            remove_line_from_file(line_to_remove, "../dataset/changes.csv");
-        }
-        return s;
+    else if (v.at(0) == "REMOVEFROMUC") {
+        s = add_student_to_uc(v.at(1), v.at(3), v.at(4), true);
     }
+    return s;
 }

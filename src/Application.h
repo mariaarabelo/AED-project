@@ -60,7 +60,7 @@ public:
     std::string switch_student_class(const std::string &student_code, const std::string &uc,
                                      const std::string &old_class, const std::string &new_class, const bool &no_write = false);
 
-    std::string reverse_change(const std::vector<std::string> &v);
+    std::string reverse_changes(std::stack<std::vector<std::string>> &st);
 
 private:
     std::vector<Lecture> *lectures_;
