@@ -3,7 +3,7 @@
 Interface::Interface(const Application &app){
 }
 
-Student Interface::get_student_by_id(const std::vector<Student>& v){
+Student Interface::get_student_by_id(const std::set<Student>& v){
     for (const Student& s : v){
         if (convert_to_wstring(s.student_code()) == s_analised.substr(s_analised.find_first_of(L'(') + 1, 9)){
             return s;

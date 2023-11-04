@@ -27,7 +27,7 @@ public:
      * @param lectures Vector with all existing lectures
      * @param students Vector with all existing students
      */
-    Class(const std::string &class_code, const std::vector<Lecture> &lectures, const std::vector<Student>  &students);
+    Class(const std::string &class_code, const std::vector<Lecture> &lectures, const std::set<Student>  &students);
 
     /**
      * @brief Getter for class_code field

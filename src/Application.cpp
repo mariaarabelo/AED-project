@@ -49,7 +49,7 @@ Application::Application() {
 
     //instantiate students
     File_Reader f2("../dataset/students_classes.csv");
-    students_ = new std::vector<Student>;
+    students_ = new std::set<Student>;
     f2.instantiateStudents(students_);
 
     //instantiate classes and ucs
@@ -174,7 +174,7 @@ void Application::test() {
     printUcClassesStudents("L.EIC002", 15, 1);
 }
 
-const std::vector<Student> &Application::students() {
+const std::set<Student> &Application::students() {
     return *students_;
 }
 
@@ -299,7 +299,7 @@ std::string Application::add_student_to_uc(const std::string &student_code, cons
                 if (student_to_modify.enrollInUC(std::make_pair(uc, c))) {
                     if (c_to_modify.add_student_to_class(student_to_modify, uc)) {
                         if (uc_to_modify.enroll_student(student_to_modify)) {
-                            students_->push_back(student_to_modify);
+                            students_->insert(student_to_modify);
                             classes_->push_back(c_to_modify);
                             ucs_->push_back(uc_to_modify);
                             std::ostringstream oss;
@@ -354,7 +354,7 @@ Application::remove_student_from_uc(const std::string &student_code, const std::
     if (c_to_modify.remove_student_from_class(student_to_modify, uc)) {
         if (uc_to_modify.remove_student(student_to_modify)) {
             if (student_to_modify.removeFromUC(uc)) {
-                students_->push_back(student_to_modify);
+                students_->insert(student_to_modify);
                 classes_->push_back(c_to_modify);
                 ucs_->push_back(uc_to_modify);
                 std::ostringstream oss;

@@ -41,7 +41,7 @@ public:
      * @brief Getter for the students.
      * @return A const reference to the vector of students.
      */
-    const std::vector<Student> &students();
+    const std::set<Student> &students();
 
     const std::vector<Lecture> &lectures();
 
@@ -65,7 +65,7 @@ public:
 
 private:
     std::vector<Lecture> *lectures_;
-    std::vector<Student> *students_;
+    std::set<Student> *students_;
     std::vector<Class> *classes_;
     std::vector<UC> *ucs_;
     std::stack<std::vector<std::string>> changes_;
