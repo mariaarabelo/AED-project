@@ -84,3 +84,18 @@ void File_Reader::classListing(std::map<std::string, std::list<std::string>> *c)
     file_.close();
 }
 
+std::stack<std::vector<std::string>> File_Reader::read_changes() {
+    std::stack<std::vector<std::string>> res;
+    if (!file_.is_open()) throw std::runtime_error("File does not exist");
+    std::string line;
+    while (std::getline(file_, line)) {
+        std::istringstream iss(line);
+        std::string value;
+        std::vector<std::string> v;
+        while (std::getline(iss, value, ',')) {
+            v.push_back(value);
+        }
+        res.push(v);
+    }
+}
+
