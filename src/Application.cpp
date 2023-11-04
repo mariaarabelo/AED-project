@@ -392,25 +392,33 @@ Application::switch_student_class(const std::string &student_code, const std::st
     } else return s;
 }
 
-std::string Application::reverse_changes(std::stack<std::vector<std::string>> &st) {
+std::string Application::reverse_change() {
+    File_Reader f("../dataset/changes.csv");
+    changes_ = f.read_changes();
     std::string s = "NULL";
-    auto v = st.top();
-    st.pop();
-    std::string line_to_remove;
-    for (const auto &a: v) {
-        line_to_remove += a;
-        line_to_remove.push_back(',');
-    }
-    line_to_remove.pop_back();
-    remove_line_from_file(line_to_remove, "../dataset/changes.csv");
-    if (v.at(0) == "SWITCH") {
-        s = switch_student_class(v.at(1), v.at(2), v.at(4), v.at(3), true);
-    }
-    else if (v.at(0) == "ADDTOUC") {
-        s = remove_student_from_uc(v.at(1), v.at(3), v.at(4), true);
-    }
-    else if (v.at(0) == "REMOVEFROMUC") {
-        s = add_student_to_uc(v.at(1), v.at(3), v.at(4), true);
+    if (!changes_.empty()) {
+        std::string line_to_remove;
+        for (const auto &a: changes_.top()) {
+            line_to_remove += a;
+            line_to_remove.push_back(',');
+        }
+        line_to_remove.pop_back();
+        remove_line_from_file(line_to_remove, "../dataset/changes.csv");
+        if (changes_.top().at(0) == "SWITCH") {
+            s = switch_student_class(changes_.top().at(1), changes_.top().at(2), changes_.top().at(4),
+                                     changes_.top().at(3), true);
+        } else if (changes_.top().at(0) == "ADDTOUC") {
+            s = remove_student_from_uc(changes_.top().at(1), changes_.top().at(3), changes_.top().at(4), true);
+        } else if (changes_.top().at(0) == "REMOVEFROMUC") {
+            s = add_student_to_uc(changes_.top().at(1), changes_.top().at(3), changes_.top().at(4), true);
+        }
+        changes_.pop();
     }
     return s;
+}
+
+std::vector<std::string> Application::get_latest_change() {
+    File_Reader f("../dataset/changes.csv");
+    changes_ = f.read_changes();
+    return changes_.top();
 }
