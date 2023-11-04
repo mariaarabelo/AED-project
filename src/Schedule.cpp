@@ -78,12 +78,6 @@ const std::vector<Lecture> &Schedule::get_lectures() const {
     return lectures_;
 }
 
-void Schedule::printSchedule() const {
-    for (const auto &lec : lectures_) {
-        lec.printLecture();
-    }
-}
-
 Schedule::Schedule(const UC &uc) {
     for (const auto &c : uc.classes()) {
         lectures_.push_back(c->getLecture(uc.uc_code()));

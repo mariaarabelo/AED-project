@@ -168,12 +168,6 @@ void Application::printUcClassesStudents(const std::string &uc_code, const int &
     };
 }
 
-void Application::test() {
-    printUcClassesStudents("L.EIC001", 30, 0);
-    printUcClassesStudents("L.EIC001", 3, 1);
-    printUcClassesStudents("L.EIC002", 15, 1);
-}
-
 const std::vector<Student> &Application::students() {
     return *students_;
 }

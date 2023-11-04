@@ -43,12 +43,6 @@ std::string Class::class_code() const {
     return class_code_;
 }
 
-void Class::printLectures() const{
-    for (const auto &l : lectures_) {
-        l.printLecture();
-    }
-}
-
 Lecture Class::getLecture(const std::string &code) const {
     for (const auto &l : lectures_) {
         if (l.uc_code() == code) return l;

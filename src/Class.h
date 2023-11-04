@@ -36,12 +36,6 @@ public:
     std::string class_code() const;
 
     /**
-     * @brief Prints all lectures in class
-     */
-    void printLectures() const;
-
-
-    /**
      * @brief Getter for a given Lecture
      * @param code Code of the lecture
      * @return The Lecture
@@ -80,6 +74,11 @@ public:
 
     bool operator<(const Class &other) const;
 
+    /**
+     * @brief Get number of students in an UC
+     * @param uc
+     * @return student count in UC
+     */
     int get_student_count(const std::string &uc) const;
 };
 
