@@ -25,11 +25,7 @@ int main(int argc, char *argv[]) {
     }
     //TODO: ADD EDGE CASE TO WHEN STUDENT IS ALREADY IN CLASS AND YOURE TRYING TO ADD HIM INTO IT
     Application application;
-
-    std::cout << application.add_student_to_uc("202025232", "L.EIC001", "1LEIC05");
-    std::cout << application.switch_student_class("202025232", "L.EIC001", "1LEIC05", "1LEIC06");
-    File_Reader f("../dataset/changes.csv");
-    std::stack<std::vector<std::string>> s = f.read_changes();
-    std::cout << application.reverse_change(s.top());
+    Interface anInterface(application);
+    anInterface.run();
     return 0;
 }
