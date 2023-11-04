@@ -51,13 +51,16 @@ public:
     std::vector<std::pair<std::string, std::string>> students_from_uc(const std::string& uc_code);
     std::vector<std::string> classes_from_uc(const std::string &uc_code);
 
-    std::string add_student_to_uc(const std::string &student, const std::string &uc, const std::string &c);
+    std::string add_student_to_uc(const std::string &student, const std::string &uc, const std::string &c,
+                                  const bool &no_write = false);
 
-    std::string remove_student_from_uc(const std::string &student_code, const std::string &uc, const std::string &c);
+    std::string remove_student_from_uc(const std::string &student_code, const std::string &uc, const std::string &c,
+                                       const bool &no_write = false);
 
     std::string switch_student_class(const std::string &student_code, const std::string &uc,
-                                     const std::string &old_class, const std::string &new_class);
+                                     const std::string &old_class, const std::string &new_class, const bool &no_write = false);
 
+    std::string reverse_change(const std::vector<std::string> &v);
 
 private:
     std::vector<Lecture> *lectures_;
