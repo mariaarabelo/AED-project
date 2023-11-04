@@ -60,14 +60,15 @@ public:
     std::string switch_student_class(const std::string &student_code, const std::string &uc,
                                      const std::string &old_class, const std::string &new_class, const bool &no_write = false);
 
-    std::string reverse_changes(std::stack<std::vector<std::string>> &st);
+    std::string reverse_change();
+    std::vector<std::string> get_latest_change();
 
 private:
     std::vector<Lecture> *lectures_;
     std::vector<Student> *students_;
     std::vector<Class> *classes_;
     std::vector<UC> *ucs_;
-
+    std::stack<std::vector<std::string>> changes_;
     /**
      * @brief Helper function to instantiate classes.
      * @param classes A map of classes.
@@ -111,6 +112,7 @@ private:
     bool will_classes_be_balanced(const std::string &uc, const std::string &c) const;
 
     bool schedule_is_conflicting(const Student &student, const Lecture &lecture)const;
+
 };
 
 
