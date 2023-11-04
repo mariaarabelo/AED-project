@@ -20,8 +20,8 @@ void log_changes(const std::string &line) {
     file.close();
 }
 
-void remove_line_from_file(const std::string& lineToRemove) {
-    std::ifstream inputFile("../dataset/students_classes.csv");
+void remove_line_from_file(const std::string& lineToRemove, const std::string &file_name="../dataset/students_classes.csv") {
+    std::ifstream inputFile(file_name);
 
     std::stringstream updatedContent;
     std::string line;
@@ -34,7 +34,7 @@ void remove_line_from_file(const std::string& lineToRemove) {
 
     inputFile.close();
 
-    std::ofstream outputFile("../dataset/students_classes.csv");
+    std::ofstream outputFile(file_name);
 
 
     outputFile << updatedContent.str();
@@ -269,7 +269,8 @@ bool Application::schedule_is_conflicting(const Student &student, const Lecture 
     return schedule.conflicts(lecture);
 }
 
-std::string Application::add_student_to_uc(const std::string &student_code, const std::string &uc, const std::string &c) {
+std::string Application::add_student_to_uc(const std::string &student_code, const std::string &uc, const std::string &c,
+                                           const bool &no_write) {
         auto class_it = std::find_if(classes_->begin(), classes_->end(), [c](const Class &obj) {
             return obj.class_code() == c;
         });
@@ -302,16 +303,19 @@ std::string Application::add_student_to_uc(const std::string &student_code, cons
                             classes_->push_back(c_to_modify);
                             ucs_->push_back(uc_to_modify);
                             std::ostringstream oss;
-                            oss << student_to_modify.student_code() << "," << student_to_modify.student_name() << "," <<
-                                uc << "," << c_to_modify.class_code();
+                            oss << student_to_modify.student_code() << "," << student_to_modify.student_name()
+                            << "," <<
+                            uc << "," << c_to_modify.class_code();
                             std::string s = oss.str();
                             write_to_students_file(s);
-                            std::ostringstream oss2;
-                            oss2 << "ADDTOUC," << student_to_modify.student_code() << ","
-                                 << student_to_modify.student_name() << "," <<
-                                 uc << "," << c_to_modify.class_code();
-                            s = oss2.str();
-                            log_changes(s);
+                            if (!no_write) {
+                                std::ostringstream oss2;
+                                oss2 << "ADDTOUC," << student_to_modify.student_code() << ","
+                                     << student_to_modify.student_name() << "," <<
+                                     uc << "," << c_to_modify.class_code();
+                                s = oss2.str();
+                                log_changes(s);
+                            }
                             return "Sucess";
                         } else return "Student already in UC";
                     } else return "Student already in class";
@@ -324,7 +328,8 @@ std::string Application::add_student_to_uc(const std::string &student_code, cons
 }
 
 std::string
-Application::remove_student_from_uc(const std::string &student_code, const std::string &uc, const std::string &c) {
+Application::remove_student_from_uc(const std::string &student_code, const std::string &uc, const std::string &c,
+                                    const bool &no_write) {
     auto class_it = std::find_if(classes_->begin(), classes_->end(), [c](const Class &obj) {
         return obj.class_code() == c;
     });
@@ -354,14 +359,17 @@ Application::remove_student_from_uc(const std::string &student_code, const std::
                 ucs_->push_back(uc_to_modify);
                 std::ostringstream oss;
                 oss << student_to_modify.student_code() << "," << student_to_modify.student_name() << "," <<
-                    uc << "," << c_to_modify.class_code();
+                uc << "," << c_to_modify.class_code();
                 std::string s = oss.str();
                 remove_line_from_file(s);
-                std::ostringstream oss2;
-                oss2 << "REMOVEFROMUC," << student_to_modify.student_code() << "," << student_to_modify.student_name() << "," <<
-                     uc << "," << c_to_modify.class_code();
-                s = oss2.str();
-                log_changes(s);
+                if (!no_write) {
+                    std::ostringstream oss2;
+                    oss2 << "REMOVEFROMUC," << student_to_modify.student_code() << ","
+                         << student_to_modify.student_name() << "," <<
+                         uc << "," << c_to_modify.class_code();
+                    s = oss2.str();
+                    log_changes(s);
+                }
                 return "Sucess";
             } else  return "Student not enrolled";
         } else return "Student not in UC";
@@ -370,10 +378,60 @@ Application::remove_student_from_uc(const std::string &student_code, const std::
 
 std::string
 Application::switch_student_class(const std::string &student_code, const std::string &uc, const std::string &old_class,
-                                  const std::string &new_class) {
-    std::string s = remove_student_from_uc(student_code, uc, old_class);
+                                  const std::string &new_class, const bool &no_write) {
+    std::string s = remove_student_from_uc(student_code, uc, old_class, true);
     if (s == "Sucess") {
-        std::string ss = add_student_to_uc(student_code, uc, new_class);
+        std::string ss = add_student_to_uc(student_code, uc, new_class, true);
+        if (ss == "Sucess" && !no_write) {
+            std::ostringstream oss;
+            oss << "SWITCH" << "," << student_code << "," << uc << "," << old_class << "," << new_class;
+            std::string s = oss.str();
+            log_changes(s);
+        }
         return ss;
     } else return s;
+}
+
+std::string Application::reverse_change(const std::vector<std::string> &v) {
+    if (v.at(0) == "SWITCH") {
+        std::string s = switch_student_class(v.at(1), v.at(2), v.at(4), v.at(3), true);
+        if (s == "Sucess") {
+            std::string line_to_remove;
+            for (const auto &a: v) {
+                line_to_remove += a;
+                line_to_remove.push_back(',');
+            }
+            line_to_remove.pop_back();
+            remove_line_from_file(line_to_remove, "../dataset/changes.csv");
+        }
+        return s;
+    }
+    if (v.at(0) == "ADDTOUC") {
+        std::string s = remove_student_from_uc(v.at(1), v.at(3), v.at(4), true);
+        if (s == "Sucess") {
+            std::string line_to_remove;
+            for (const auto &a: v) {
+                line_to_remove += a;
+                line_to_remove.push_back(',');
+            }
+            line_to_remove.pop_back();
+            std::cout << "\n" << line_to_remove;
+            remove_line_from_file(line_to_remove, "../dataset/changes.csv");
+        }
+        return s;
+    }
+    if (v.at(0) == "REMOVEFROMUC") {
+
+        std::string s = add_student_to_uc(v.at(1), v.at(3), v.at(4), true);
+        if (s == "Sucess") {
+            std::string line_to_remove;
+            for (const auto &a: v) {
+                line_to_remove += a;
+                line_to_remove.push_back(',');
+            }
+            line_to_remove.pop_back();
+            remove_line_from_file(line_to_remove, "../dataset/changes.csv");
+        }
+        return s;
+    }
 }

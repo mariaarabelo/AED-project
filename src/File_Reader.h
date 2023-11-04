@@ -8,6 +8,7 @@
 #include <vector>
 #include <string>
 #include <fstream>
+#include <stack>
 #include <sstream>
 #include <utility>
 #include <list>
@@ -26,6 +27,7 @@ public:
     std::vector<Lecture> instatiateLectures();
     void instantiateStudents(std::vector<Student> *students);
     void classListing(std::map<std::string, std::list<std::string>> *c);
+    std::stack<std::vector<std::string>> read_changes();
 };
 
 #endif //AED_PROJECT_FILE_READER_H
