@@ -34,7 +34,7 @@ void remove_line_from_file(const std::string& lineToRemove, const std::string &f
 
     inputFile.close();
 
-    std::ofstream outputFile("../dataset/students_classes.csv");
+    std::ofstream outputFile(file_name);
 
 
     outputFile << updatedContent.str();
@@ -302,13 +302,13 @@ std::string Application::add_student_to_uc(const std::string &student_code, cons
                             students_->push_back(student_to_modify);
                             classes_->push_back(c_to_modify);
                             ucs_->push_back(uc_to_modify);
+                            std::ostringstream oss;
+                            oss << student_to_modify.student_code() << "," << student_to_modify.student_name()
+                            << "," <<
+                            uc << "," << c_to_modify.class_code();
+                            std::string s = oss.str();
+                            write_to_students_file(s);
                             if (!no_write) {
-                                std::ostringstream oss;
-                                oss << student_to_modify.student_code() << "," << student_to_modify.student_name()
-                                    << "," <<
-                                    uc << "," << c_to_modify.class_code();
-                                std::string s = oss.str();
-                                write_to_students_file(s);
                                 std::ostringstream oss2;
                                 oss2 << "ADDTOUC," << student_to_modify.student_code() << ","
                                      << student_to_modify.student_name() << "," <<
@@ -357,12 +357,12 @@ Application::remove_student_from_uc(const std::string &student_code, const std::
                 students_->push_back(student_to_modify);
                 classes_->push_back(c_to_modify);
                 ucs_->push_back(uc_to_modify);
+                std::ostringstream oss;
+                oss << student_to_modify.student_code() << "," << student_to_modify.student_name() << "," <<
+                uc << "," << c_to_modify.class_code();
+                std::string s = oss.str();
+                remove_line_from_file(s);
                 if (!no_write) {
-                    std::ostringstream oss;
-                    oss << student_to_modify.student_code() << "," << student_to_modify.student_name() << "," <<
-                        uc << "," << c_to_modify.class_code();
-                    std::string s = oss.str();
-                    remove_line_from_file(s);
                     std::ostringstream oss2;
                     oss2 << "REMOVEFROMUC," << student_to_modify.student_code() << ","
                          << student_to_modify.student_name() << "," <<
@@ -384,7 +384,7 @@ Application::switch_student_class(const std::string &student_code, const std::st
         std::string ss = add_student_to_uc(student_code, uc, new_class, true);
         if (ss == "Sucess" && !no_write) {
             std::ostringstream oss;
-            oss << "SWITCH" << student_code << "," << uc << "," << old_class << "," << new_class;
+            oss << "SWITCH" << "," << student_code << "," << uc << "," << old_class << "," << new_class;
             std::string s = oss.str();
             log_changes(s);
         }
@@ -402,12 +402,12 @@ std::string Application::reverse_change(const std::vector<std::string> &v) {
                 line_to_remove.push_back(',');
             }
             line_to_remove.pop_back();
-            remove_line_from_file(line_to_remove, "../changes.csv");
+            remove_line_from_file(line_to_remove, "../dataset/changes.csv");
         }
         return s;
     }
     if (v.at(0) == "ADDTOUC") {
-        std::string s = remove_student_from_uc(v.at(1), v.at(2), v.at(3), true);
+        std::string s = remove_student_from_uc(v.at(1), v.at(3), v.at(4), true);
         if (s == "Sucess") {
             std::string line_to_remove;
             for (const auto &a: v) {
@@ -415,12 +415,14 @@ std::string Application::reverse_change(const std::vector<std::string> &v) {
                 line_to_remove.push_back(',');
             }
             line_to_remove.pop_back();
-            remove_line_from_file(line_to_remove, "../changes.csv");
+            std::cout << "\n" << line_to_remove;
+            remove_line_from_file(line_to_remove, "../dataset/changes.csv");
         }
         return s;
     }
     if (v.at(0) == "REMOVEFROMUC") {
-        std::string s = add_student_to_uc(v.at(1), v.at(2), v.at(3), true);
+
+        std::string s = add_student_to_uc(v.at(1), v.at(3), v.at(4), true);
         if (s == "Sucess") {
             std::string line_to_remove;
             for (const auto &a: v) {
@@ -428,7 +430,7 @@ std::string Application::reverse_change(const std::vector<std::string> &v) {
                 line_to_remove.push_back(',');
             }
             line_to_remove.pop_back();
-            remove_line_from_file(line_to_remove, "../changes.csv");
+            remove_line_from_file(line_to_remove, "../dataset/changes.csv");
         }
         return s;
     }

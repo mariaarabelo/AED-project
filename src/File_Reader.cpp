@@ -97,5 +97,6 @@ std::stack<std::vector<std::string>> File_Reader::read_changes() {
         }
         res.push(v);
     }
+    return res;
 }
 
