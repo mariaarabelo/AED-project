@@ -100,7 +100,7 @@ void Application::instantiateUCs(std::map<std::string, std::list<std::string>> *
         for (const auto &s : *students_) {
             for (const auto  &c : s.enrolled_classes()) {
                 if  (c.first == p.first &&
-                std::find(p.second.begin(), p.second.end(), c.second) != p.second.end()) {
+                     std::find(p.second.begin(), p.second.end(), c.second) != p.second.end()) {
                     studs.push_back(s);
                 }
             }
@@ -265,60 +265,60 @@ bool Application::schedule_is_conflicting(const Student &student, const Lecture 
 
 std::string Application::add_student_to_uc(const std::string &student_code, const std::string &uc, const std::string &c,
                                            const bool &no_write) {
-        auto class_it = std::find_if(classes_->begin(), classes_->end(), [c](const Class &obj) {
-            return obj.class_code() == c;
-        });
-        if (class_it == classes_->end()) return "Class Not Found";
-        Class c_to_modify = *class_it;
-        classes_->erase(class_it);
+    auto class_it = std::find_if(classes_->begin(), classes_->end(), [c](const Class &obj) {
+        return obj.class_code() == c;
+    });
+    if (class_it == classes_->end()) return "Class Not Found";
+    Class c_to_modify = *class_it;
 
-        auto uc_it = std::find_if(ucs_->begin(), ucs_->end(), [uc](const UC &obj) {
-            return obj.uc_code() == uc;
-        });
-        if (uc_it == ucs_->end()) return "UC Not Found";
-        UC uc_to_modify = *uc_it;
-        ucs_->erase(uc_it);
+    auto uc_it = std::find_if(ucs_->begin(), ucs_->end(), [uc](const UC &obj) {
+        return obj.uc_code() == uc;
+    });
+    if (uc_it == ucs_->end()) return "UC Not Found";
+    UC uc_to_modify = *uc_it;
 
-        auto student_it = std::find_if(students_->begin(), students_->end(), [student_code](const Student &obj) {
-            return student_code == obj.student_code();
-        });
-        if (student_it == students_->end()) return "Student Not Found";
-        Student student_to_modify = *student_it;
-        students_->erase(student_it);
+    auto student_it = std::find_if(students_->begin(), students_->end(), [student_code](const Student &obj) {
+        return student_code == obj.student_code();
+    });
+    if (student_it == students_->end()) return "Student Not Found";
+    Student student_to_modify = *student_it;
 
-        Lecture lecture = c_to_modify.getLecture(uc);
+    Lecture lecture = c_to_modify.getLecture(uc);
 
-        if (!schedule_is_conflicting(student_to_modify, lecture)) {
-            if (will_classes_be_balanced(uc, c)) {
-                if (student_to_modify.enrollInUC(std::make_pair(uc, c))) {
-                    if (c_to_modify.add_student_to_class(student_to_modify, uc)) {
-                        if (uc_to_modify.enroll_student(student_to_modify)) {
-                            students_->push_back(student_to_modify);
-                            classes_->push_back(c_to_modify);
-                            ucs_->push_back(uc_to_modify);
-                            std::ostringstream oss;
-                            oss << student_to_modify.student_code() << "," << student_to_modify.student_name()
+    if (!schedule_is_conflicting(student_to_modify, lecture)) {
+        if (will_classes_be_balanced(uc, c)) {
+            if (student_to_modify.enrollInUC(std::make_pair(uc, c))) {
+                if (c_to_modify.add_student_to_class(student_to_modify, uc)) {
+                    if (uc_to_modify.enroll_student(student_to_modify)) {
+                        classes_->erase(class_it);
+                        ucs_->erase(uc_it);
+                        students_->erase(student_it);
+                        students_->push_back(student_to_modify);
+                        classes_->push_back(c_to_modify);
+                        ucs_->push_back(uc_to_modify);
+                        std::ostringstream oss;
+                        oss << student_to_modify.student_code() << "," << student_to_modify.student_name()
                             << "," <<
                             uc << "," << c_to_modify.class_code();
-                            std::string s = oss.str();
-                            write_to_students_file(s);
-                            if (!no_write) {
-                                std::ostringstream oss2;
-                                oss2 << "ADDTOUC," << student_to_modify.student_code() << ","
-                                     << student_to_modify.student_name() << "," <<
-                                     uc << "," << c_to_modify.class_code();
-                                s = oss2.str();
-                                log_changes(s);
-                            }
-                            return "Sucess";
-                        } else return "Student already in UC";
-                    } else return "Student already in class";
+                        std::string s = oss.str();
+                        write_to_students_file(s);
+                        if (!no_write) {
+                            std::ostringstream oss2;
+                            oss2 << "ADDTOUC," << student_to_modify.student_code() << ","
+                                 << student_to_modify.student_name() << "," <<
+                                 uc << "," << c_to_modify.class_code();
+                            s = oss2.str();
+                            log_changes(s);
+                        }
+                        return "Sucess";
+                    } else return "Student already in UC";
+                } else return "Student already in class";
 
-                } else return "Student is in too many UCs";
+            } else return "Student is in too many UCs";
 
-            } else return "Class will not be balanced.";
+        } else return "Class will not be balanced.";
 
-        } else return "There is a schedule conflict";
+    } else return "There is a schedule conflict";
 }
 
 std::string
@@ -329,31 +329,31 @@ Application::remove_student_from_uc(const std::string &student_code, const std::
     });
     if (class_it ==classes_->end()) return "Class Not Found";
     Class c_to_modify = *class_it;
-    classes_->erase(class_it);
 
     auto uc_it = std::find_if(ucs_->begin(), ucs_->end(), [uc](const UC &obj) {
         return obj.uc_code() == uc;
     });
     if (uc_it == ucs_->end()) return "UC Not Found";
     UC uc_to_modify = *uc_it;
-    ucs_->erase(uc_it);
 
     auto student_it = std::find_if(students_->begin(), students_->end(), [student_code](const Student &obj) {
         return student_code == obj.student_code();
     });
     if (student_it == students_->end()) return "Student Not Found";
     Student student_to_modify = *student_it;
-    students_->erase(student_it);
 
     if (c_to_modify.remove_student_from_class(student_to_modify, uc)) {
         if (uc_to_modify.remove_student(student_to_modify)) {
             if (student_to_modify.removeFromUC(uc)) {
+                classes_->erase(class_it);
+                ucs_->erase(uc_it);
+                students_->erase(student_it);
                 students_->push_back(student_to_modify);
                 classes_->push_back(c_to_modify);
                 ucs_->push_back(uc_to_modify);
                 std::ostringstream oss;
                 oss << student_to_modify.student_code() << "," << student_to_modify.student_name() << "," <<
-                uc << "," << c_to_modify.class_code();
+                    uc << "," << c_to_modify.class_code();
                 std::string s = oss.str();
                 remove_line_from_file(s);
                 if (!no_write) {

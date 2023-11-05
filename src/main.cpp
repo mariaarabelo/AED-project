@@ -23,7 +23,6 @@ int main(int argc, char *argv[]) {
     else {
         CAP = std::stoi(argv[1]);
     }
-    //TODO: ADD EDGE CASE TO WHEN STUDENT IS ALREADY IN CLASS AND YOURE TRYING TO ADD HIM INTO IT
     Application application;
     Interface anInterface(application);
     anInterface.run();

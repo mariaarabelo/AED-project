@@ -86,6 +86,7 @@ public:
     std::string switch_student_class(const std::string &student_code, const std::string &uc,
                                      const std::string &old_class, const std::string &new_class, const bool &no_write = false);
 
+    std::string students_class_from_uc(const std::string &uc_code, const Student &student);
     std::string reverse_change();
     std::vector<std::string> get_latest_change();
 
