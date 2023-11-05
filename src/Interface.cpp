@@ -660,13 +660,19 @@ void Interface::basicInputResponse(wchar_t& user_in) {
                         location = 11;
                         selected = 0;
                         break;
+                    case 4:
+                        earlier_directory = directory;
+                        directory += L" > " + Options[location][selected];
+                        location = 26;
+                        selected = 0;
+                        break;
                     case 3:
                         earlier_directory = directory;
                         directory += L" > " + Options[location][selected];
                         location = 15;
                         selected = 0;
                         break;
-                    case 4:
+                    case 5:
                         location = 0;
                         selected = 0;
                         directory = L"";
@@ -1561,6 +1567,26 @@ void Interface::basicInputResponse(wchar_t& user_in) {
                     break;
                 }
                 break;
+            case 26:
+                switch (selected){
+                    case 0:
+                        break;
+                    case 1:
+                        break;
+                    case 2:
+                        break;
+                    case 3:
+                        location = 1;
+                        selected = 0;
+                        directory = L"Consult";
+                        break;
+                    case 4:
+                        location = 0;
+                        selected = 0;
+                        directory = L"";
+                        break;
+                }
+                break;
             default:
                 break;
         }
@@ -1671,6 +1697,7 @@ void Interface::run(){
             case 16:                   // CONSULT UC(name)
             case 20:                   // make change request
             case 21:                   // make change request > classes
+            case 26:                    // consult year
                 system("clear");
                 print_directory();
                 print_options();

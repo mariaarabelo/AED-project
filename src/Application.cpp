@@ -329,6 +329,7 @@ std::string Application::add_student_to_uc(const std::string &student_code, cons
 */
 
 std::string Application::add_student_to_uc(const std::string &student_code, const std::string &uc, const std::string &c) {
+    // Find and modify the class
     auto class_it = std::find_if(classes_->begin(), classes_->end(), [c](const Class &obj) {
         return obj.class_code() == c;
     });
@@ -341,7 +342,7 @@ std::string Application::add_student_to_uc(const std::string &student_code, cons
         return obj.uc_code() == uc;
     });
     if (uc_it == ucs_->end()) {
-        classes_->push_back(c_to_modify);
+        classes_->push_back(c_to_modify); // Restore the class since UC was not found
         return "UC Not Found";
     }
     UC uc_to_modify = *uc_it;

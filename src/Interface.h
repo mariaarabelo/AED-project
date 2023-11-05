@@ -117,6 +117,7 @@ private:
                     L"Students",
                     L"Classes",
                     L"UCs",
+                    L"Year",
                     L"Main Menu"
             },
             {
@@ -233,6 +234,13 @@ private:
                     L"Main Menu"
             },
             {
+                    L"Back",
+                    L"Main Menu"
+            },
+            {
+                    L"First year",
+                    L"Second year",
+                    L"Third year",
                     L"Back",
                     L"Main Menu"
             }
