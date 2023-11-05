@@ -89,6 +89,7 @@ private:
     std::wstring earlier_directory;
     std::wstring directory;
     std::wstring temporary_directory;
+    std::wstring write_n =  w_italic + L"  You can write here  " + w_end_italic;
     std::wstring write = w_italic + L"  You can write here  " + w_end_italic;
     const std::wstring write_default = w_italic + L"  You can write here  " + w_end_italic;
 
@@ -296,9 +297,10 @@ private:
     std::wstring Helper_Students = L" Use 'tab' to interact and stop interacting with the students list";
     std::wstring Helper_Classes = L" Use 'tab' to interact and stop interacting with the classes list";
     std::wstring Helper_UCs = L" Use 'tab' to interact and stop interacting with the UCs list";
+    std::wstring Helper_Sorts = L" Use 'left' and 'right' arrows to change the sort method while selecting the sort option";
 
 
-    static void print_title(const std::vector<std::wstring> &t);
+    void print_title(const std::vector<std::wstring> &t);
 
     void print_options();
 

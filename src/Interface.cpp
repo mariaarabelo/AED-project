@@ -290,10 +290,14 @@ void Interface::print_title(const std::vector<std::wstring>& t){
 void Interface::print_options(){
     for (const std::wstring& s : Options[location]){
         if (s == Options[location][selected] && !table_mode){
-            if (Options[location][selected].substr(0, 6) == L"Search"){
-                if (location == 3 || location == 6 || location == 17 || location == 22 || location == 27) {
+            if (Options[location][selected].substr(0, 6) == L"Search" || Options[location][selected].substr(0, 4) == L"Show"){
+                if (location == 3 || (location == 6 && selected == 0)|| location == 17 || location == 22 || location == 27) {
                     std::wcout << L"< " << w_underline << w_bold << w_red << L"Search for students name or ID ->"
                                << w_end << L"   " << write << L"   >" << std::endl << L"\n";
+                }
+                else if (location == 6 && selected == 2){
+                    std::wcout << L"< " << w_underline << w_bold << w_red << L"Insert the minimum number of UCs ->"
+                               << w_end << L"   " << write_n << L"   >" << std::endl << L"\n";
                 }
                 else if (location == 4 || location == 11){
                     std::wcout << L"< " << w_underline << w_bold << w_red << L"Search for class ID ->"
@@ -922,18 +926,21 @@ void Interface::basicInputResponse(wchar_t& user_in) {
                         switch (selected){
                             case 0:
                             case 1:
-                                break;
                             case 2:
+                                break;
+                            case 3:
                                 directory = L"Consult";
                                 location = 1;
                                 selected = 0;
                                 write = write_default;
+                                write_n = write_default;
                                 break;
-                            case 3:
+                            case 4:
                                 location = 0;
                                 selected = 0;
                                 directory = L"";
                                 write = write_default;
+                                write_n = write_default;
                                 break;
                             default:
                                 break;
@@ -950,6 +957,7 @@ void Interface::basicInputResponse(wchar_t& user_in) {
                                     selected_in_page = 0;
                                     page = 0;
                                     write = write_default;
+                                    write_n = write_default;
                                     table_mode = !table_mode;
                                 }
                                 else if (booked_list[page][selected_in_page].first == L"Next") {
@@ -1896,37 +1904,61 @@ void Interface::basicInputResponse(wchar_t& user_in) {
 }
 
 void Interface::InputResponse_inWriteMode(wchar_t &user_in) {
-    if (isalpha(user_in) || isalnum(user_in) || (user_in >= 128 && user_in <= 255) || (ispunct(user_in))){
-        if (write == write_default) {
-            write = L"";
+    if (location == 6 && selected == 2){
+        if (isdigit(user_in)) {
+            if (write_n == write_default) {
+                write_n = L"";
+            }
+            write_n += user_in;
         }
-        write += user_in;
-    }
-    if (user_in == 32 && write != write_default){
-        write += L" ";
-    }
-    if ((user_in == 8 || user_in == 127) && write != write_default){
-        if(!write.empty()){
-            write.pop_back();
+        if (location == 6 && selected == 2) {
+            if (write_n.size() > 1 && write_n != write_default) {
+                write_n.pop_back();
+            }
         }
-    }
-    if (write.empty()) {
-        write = write_default;
-    }
-    page = 0;
-    if (location == 4 || location == 11){
-        if (write.size() > 7 && write != write_default){
-            write.pop_back();
+        if ((user_in == 8 || user_in == 127) && write_n != write_default) {
+            if (!write_n.empty()) {
+                write_n.pop_back();
+            }
         }
-    }
-    if (location == 15 || location == 18 || location == 23){
-        if (write.size() > 8 && write != write_default){
-            write.pop_back();
+        if (write_n.empty()) {
+            write_n = write_default;
         }
+        page = 0;
     }
-    if (location == 3 || location == 6 || location == 17 || location == 22 || location == 27){
-        if (write.size() > 40 && write != write_default){
-            write.pop_back();
+    else {
+        if (isalpha(user_in) || isalnum(user_in) || (user_in >= 128 && user_in <= 255) || (ispunct(user_in))) {
+            if (write == write_default) {
+                write = L"";
+            }
+            write += user_in;
+        }
+        if (user_in == 32 && write != write_default) {
+            write += L" ";
+        }
+        if ((user_in == 8 || user_in == 127) && write != write_default) {
+            if (!write.empty()) {
+                write.pop_back();
+            }
+        }
+        if (write.empty()) {
+            write = write_default;
+        }
+        page = 0;
+        if (location == 4 || location == 11) {
+            if (write.size() > 7 && write != write_default) {
+                write.pop_back();
+            }
+        }
+        if (location == 15 || location == 18 || location == 23) {
+            if (write.size() > 8 && write != write_default) {
+                write.pop_back();
+            }
+        }
+        if (location == 3 || (location == 6 && selected == 0) || location == 17 || location == 22 || location == 27) {
+            if (write.size() > 40 && write != write_default) {
+                write.pop_back();
+            }
         }
     }
 }
@@ -2010,6 +2042,18 @@ void Interface::run(){
             case 22:                      // mkchr remove uc choose student
                 system("clear");
                 print_directory();
+                if (location == 6){
+                    if (write_n != write_default) {
+                        save_filtered_w_student_list = convert_to_wstring_vector_of_pairs(
+                                app_.students_in_n_ucs(std::stoi(write_n)));
+                        Options[location][2] = L"Show students in at least " + write_n + L" UCs";
+                    }
+                    else{
+                        save_filtered_w_student_list = convert_to_wstring_vector_of_pairs(
+                                app_.students_in_n_ucs(0));
+                        Options[location][2] = L"Show students in at least 0 UCs";
+                    }
+                }
                 if (!write.empty() && write != write_default) {
                     Options[location][0] = L"Searching for: " + w_end + write + w_bold;
                 } else {
@@ -2019,15 +2063,25 @@ void Interface::run(){
                 print_options();
                 std::wcout << L"\n\n" << w_italic << Helper << w_end_italic << std::endl;
                 std::wcout << w_italic << Helper_Students << w_end_italic << std::endl;
-                if (Options[location][selected].substr(0, 6) == L"Search" && !table_mode) {
+                std::wcout << w_italic << Helper_Sorts << w_end_italic << std::endl;
+                if ((Options[location][selected].substr(0, 6) == L"Search" || (location == 6 && selected == 2)) && !table_mode) {
                     write_mode = true;
                 }
-                booked_list_filter(w_student_list, filtered_w_student_list);
-                if (filtered_w_student_list.empty()) {
-                    aditional_filter_students(w_student_list, select_filter);
+                if (location != 6) {
+                    booked_list_filter(w_student_list, filtered_w_student_list);
+                    if (filtered_w_student_list.empty()) {
+                        aditional_filter_students(w_student_list, select_filter);
+                    } else {
+                        aditional_filter_students(filtered_w_student_list, select_filter);
+                    }
                 }
                 else{
-                    aditional_filter_students(filtered_w_student_list, select_filter);
+                    booked_list_filter(save_filtered_w_student_list, filtered_w_student_list);
+                    if (filtered_w_student_list.empty()) {
+                        aditional_filter_students(save_filtered_w_student_list, select_filter);
+                    } else {
+                        aditional_filter_students(filtered_w_student_list, select_filter);
+                    }
                 }
                 list_booker(filtered_w_student_list);
                 booked_list_printer(filtered_w_student_list);
@@ -2046,6 +2100,7 @@ void Interface::run(){
                 print_options();
                 std::wcout << L"\n\n" << w_italic << Helper << w_end_italic << std::endl;
                 std::wcout << w_italic << Helper_Classes << w_end_italic << std::endl;
+                std::wcout << w_italic << Helper_Sorts << w_end_italic << std::endl;
                 if (Options[location][selected].substr(0, 6) == L"Search" && !table_mode) {
                     write_mode = true;
                 }
@@ -2142,6 +2197,7 @@ void Interface::run(){
                 print_options();
                 std::wcout << L"\n\n" << w_italic << Helper << w_end_italic << std::endl;
                 std::wcout << w_italic << Helper_UCs << w_end_italic << std::endl;
+                std::wcout << w_italic << Helper_Sorts<< w_end_italic << std::endl;
                 if (Options[location][selected].substr(0, 6) == L"Search" && !table_mode) {
                     write_mode = true;
                 }
@@ -2170,6 +2226,7 @@ void Interface::run(){
                 print_options();
                 std::wcout << L"\n\n" << w_italic << Helper << w_end_italic << std::endl;
                 std::wcout << w_italic << Helper_Students << w_end_italic << std::endl;
+                std::wcout << w_italic << Helper_Sorts<< w_end_italic << std::endl;
                 if (Options[location][selected].substr(0, 6) == L"Search" && !table_mode) {
                     write_mode = true;
                 }
@@ -2268,6 +2325,7 @@ void Interface::run(){
                 print_options();
                 std::wcout << L"\n\n" << w_italic << Helper << w_end_italic << std::endl;
                 std::wcout << w_italic << Helper_Students << w_end_italic << std::endl;
+                std::wcout << w_italic << Helper_Sorts<< w_end_italic << std::endl;
                 if (Options[location][selected].substr(0, 6) == L"Search" && !table_mode) {
                     write_mode = true;
                 }

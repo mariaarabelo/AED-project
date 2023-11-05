@@ -16,12 +16,12 @@
  * @brief The Student class
  */
 class Student {
-    private:
+private:
     std::string student_code_;
     std::string student_name_;
     std::vector<std::pair<std::string, std::string>> enrolled_classes_; //<uc_code, class_code>
 
-    public:
+public:
     /**
      * @brief Student constructor
      * @param student_name name of student
@@ -29,7 +29,7 @@ class Student {
      * @param codes a vector of pairs of uc and class codes
      */
     Student(const std::string& student_name, const std::string& student_code, const std::vector<std::pair<std::string, std::string>>
-            &codes);
+    &codes);
 
     std::string student_code() const;
     std::string student_name() const;
@@ -50,6 +50,7 @@ class Student {
      * @return true if able to remove
      */
     bool removeFromUC(const std::string &uc);
+
 };
 
 

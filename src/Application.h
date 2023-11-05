@@ -95,6 +95,7 @@ public:
     std::string students_class_from_uc(const std::string &uc_code, const Student &student);
     std::string reverse_change();
     std::vector<std::string> get_latest_change();
+    std::vector<std::pair<std::string, std::string>> students_in_n_ucs(int n);
 
 private:
     std::vector<Lecture> *lectures_;

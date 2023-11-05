@@ -445,6 +445,7 @@ std::string Application::reverse_change() {
 std::vector<std::string> Application::get_latest_change() {
     File_Reader f("../dataset/changes.csv");
     changes_ = f.read_changes();
+    if (changes_.empty()) return {"No changes"};
     return changes_.top();
 }
 
@@ -460,4 +461,14 @@ std::vector<std::pair<std::string, std::string>> Application::check_year(const s
         }
     }
     return v;
+}
+
+std::vector<std::pair<std::string, std::string>> Application::students_in_n_ucs(int n) {
+    std::vector<std::pair<std::string, std::string>> res;
+    for (const auto &s : *students_) {
+        if (s.enrolled_classes().size() >= n) {
+            res.emplace_back(s.student_code(), s.student_name());
+        }
+    }
+    return res;
 }

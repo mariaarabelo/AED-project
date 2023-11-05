@@ -5,7 +5,7 @@
 #include "Student.h"
 
 Student::Student(const std::string& student_name, const std::string& student_code,
-        const std::vector<std::pair<std::string, std::string>> &codes){
+                 const std::vector<std::pair<std::string, std::string>> &codes){
     this->student_name_ = student_name;
     this->student_code_ = student_code;
     if (codes.size() <= 7) {
@@ -64,8 +64,8 @@ bool Student::operator<(const Student &other) const {
 bool Student::removeFromUC(const std::string &uc) {
     auto it = std::find_if(enrolled_classes_.begin(), enrolled_classes_.end(),
                            [uc](const std::pair<std::string, std::string> &obj) {
-        return uc == obj.first;
-    });
+                               return uc == obj.first;
+                           });
     if (it != enrolled_classes_.end()) {
         enrolled_classes_.erase(it);
         return true;
