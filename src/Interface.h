@@ -302,7 +302,7 @@ private:
 
     static bool hour_comparer(const std::string& s1, const std::string& s2);
 
-    Student get_student_by_id(const std::vector<Student> &v);
+    Student get_student_by_id(const std::set<Student> &v);
 
     static void alphabetic_sort_vector_of_wstrings(std::vector<std::wstring> &v);
 

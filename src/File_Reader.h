@@ -33,7 +33,7 @@ public:
      * @brief used to instantiate students
      * @param students vector where students will be stored
      */
-    void instantiateStudents(std::vector<Student> *students);
+    void instantiateStudents(std::set<Student> *students);
     void classListing(std::map<std::string, std::list<std::string>> *c);
     /**
      * @brief scans shcanges.csv for recent changes

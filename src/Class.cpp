@@ -5,7 +5,7 @@
 
 #include "Class.h"
 
-Class::Class(const std::string &class_code, const std::vector<Lecture> &lectures, const std::vector<Student>  &students) {
+Class::Class(const std::string &class_code, const std::vector<Lecture> &lectures, const std::set<Student>  &students) {
     class_code_ = class_code;
     for (const auto &l : lectures) {
         if (l.class_code() == class_code_) {
