@@ -25,6 +25,12 @@
 class Application {
 public:
 
+    std::vector<std::pair<std::string, std::string>> check_year(const std::string& c);
+
+    std::vector<std::pair<std::string, std::string>> class_id_student_number();
+
+    std::vector<std::pair<std::string, std::string>> enrolled_students_in_ucs();
+
     /**
      * @brief Default constructor for the Application class.
      */

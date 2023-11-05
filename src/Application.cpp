@@ -222,6 +222,16 @@ std::vector<std::pair<std::string, std::string>> Application::students_from_uc(c
     }
 }
 
+std::vector<std::pair<std::string, std::string>> Application::enrolled_students_in_ucs() {
+    std::vector<std::pair<std::string, std::string>> ucEnrollments;
+    for (const UC &uc: *ucs_) {
+        int numStudents = uc.enrolled_students().size();
+        ucEnrollments.emplace_back(uc.uc_code(), std::to_string(numStudents));
+    }
+    return ucEnrollments;
+}
+
+
 std::vector<std::string> Application::classes_from_uc(const std::string& uc_code){
     std::vector<std::string> vector;
     for (const UC& UC : *ucs_) {
@@ -274,6 +284,15 @@ bool Application::schedule_is_conflicting(const Student &student, const Lecture 
     Schedule schedule(student, *lectures_);
     return schedule.conflicts(lecture);
 }
+
+std::vector<std::pair<std::string, std::string>> Application::class_id_student_number(){
+    std::vector<std::pair<std::string, std::string>> v;
+    for (const Class& c : *classes_){
+        v.emplace_back(c.class_code(), std::to_string(c.countEnrolledStudents()));
+    }
+    return v;
+}
+
 
 std::string Application::add_student_to_uc(const std::string &student_code, const std::string &uc, const std::string &c,
                                            const bool &no_write) {
@@ -427,4 +446,18 @@ std::vector<std::string> Application::get_latest_change() {
     File_Reader f("../dataset/changes.csv");
     changes_ = f.read_changes();
     return changes_.top();
+}
+
+std::vector<std::pair<std::string, std::string>> Application::check_year(const std::string& c){
+    std::vector<std::pair<std::string, std::string>> v;
+    for (const Student& s : *students_){
+        for (const std::string& str : s.enrolled_classes_id()){
+            std::pair<std::string, std::string> p = {s.student_name(), s.student_code()};
+            if (str.substr(0,1) == c && find(v.begin(), v.end(), p) == v.end()){
+
+                v.emplace_back(p);
+            }
+        }
+    }
+    return v;
 }

@@ -10,6 +10,13 @@ Student Interface::get_student_by_id(const std::set<Student>& v){
     if (it != v.end()) return *it;
 }
 
+Student Interface::get_student_by_id_with_parameters(const std::set<Student>& v, const std::wstring& wstr){
+    auto it = std::find_if(v.begin(), v.end(), [wstr](const Student &s) {
+        return convert_to_wstring(s.student_code()) == wstr;
+    });
+    if (it != v.end()) return *it;
+}
+
 bool Interface::earlier_day(const std::string& s1, const std::string& s2)   {
     int idx1 = 0;
     int idx2 = 0;
@@ -49,8 +56,70 @@ void Interface::alphabetic_sort_vector_of_pairs_of_wstrings(std::vector<std::pai
     });
 }
 
+void Interface::reverse_alphabetic_sort_vector_of_pairs_of_wstrings(std::vector<std::pair<std::wstring, std::wstring>> &v) {
+    std::sort(v.begin(), v.end(), [](const auto &a, const auto &b) {
+        return a.first > b.first;
+    });
+}
+
 void Interface::alphabetic_sort_vector_of_wstrings(std::vector<std::wstring> &v){
     std::sort(v.begin(), v.end(), [](const auto& a, const auto& b){return a < b;});
+}
+
+void Interface::reverse_alphabetic_sort_vector_of_wstrings(std::vector<std::wstring> &v){
+    std::sort(v.begin(), v.end(), [](const auto& a, const auto& b){return a > b;});
+}
+
+std::wstring Interface::class_get_nums_students(const std::wstring& class_id){
+    for(const auto& p : class_number_students) {
+        if(p.first == class_id) return p.second;
+    }
+}
+
+std::wstring Interface::ucs_get_nums_students(const std::wstring& uc_id){
+    for(const auto& p : ucs_number_students) {
+        if(p.first == uc_id) return p.second;
+    }
+}
+
+void Interface::sort_classes_by_number_of_students_ascending(std::vector<std::wstring> &v){
+    class_number_students = convert_to_wstring_vector_of_pairs(app_.class_id_student_number());
+    std::sort(v.begin(), v.end(), [this](const auto& a, const auto& b){
+        if(class_get_nums_students(a) == class_get_nums_students(b)) {
+            return a < b;
+        }
+        else { return std::stoi(class_get_nums_students(a)) < std::stoi(class_get_nums_students(b));}
+    });
+}
+
+void Interface::sort_classes_by_number_of_students_descending(std::vector<std::wstring> &v){
+    class_number_students = convert_to_wstring_vector_of_pairs(app_.class_id_student_number());
+    std::sort(v.begin(), v.end(), [this](const auto& a, const auto& b){
+        if(class_get_nums_students(a) == class_get_nums_students(b)) {
+            return a < b;
+        }
+        else { return std::stoi(class_get_nums_students(a)) > std::stoi(class_get_nums_students(b));}
+    });
+}
+
+void Interface::sort_ucs_by_number_of_students_descending(std::vector<std::wstring> &v){
+    ucs_number_students = convert_to_wstring_vector_of_pairs(app_.enrolled_students_in_ucs());
+    std::sort(v.begin(), v.end(), [this](const auto& a, const auto& b){
+        if(ucs_get_nums_students(a) == ucs_get_nums_students(b)) {
+            return a < b;
+        }
+        else { return std::stoi(ucs_get_nums_students(a)) > std::stoi(ucs_get_nums_students(b));}
+    });
+}
+
+void Interface::sort_ucs_by_number_of_students_ascending(std::vector<std::wstring> &v){
+    ucs_number_students = convert_to_wstring_vector_of_pairs(app_.enrolled_students_in_ucs());
+    std::sort(v.begin(), v.end(), [this](const auto& a, const auto& b){
+        if(ucs_get_nums_students(a) == ucs_get_nums_students(b)) {
+            return a < b;
+        }
+        else { return std::stoi(ucs_get_nums_students(a)) < std::stoi(ucs_get_nums_students(b));}
+    });
 }
 
 void Interface::lecture_sorter(std::vector<Lecture> &v){
@@ -209,7 +278,7 @@ std::wstring Interface::only_numbers(const std::wstring& w, bool allow_zeros = t
 }
 
 void Interface::print_feedback(const std::wstring& ws){
-    std::wcout << L"\n ->->->->->->->->->->     " << w_bold << w_underline << ws << w_end << L"     <-<-<-<-<-<-<-<-<-<-" << std::endl;
+    std::wcout << L"\n ====================[  " << w_bold << w_underline << ws << w_end << L"  ]====================" << std::endl;
 }
 
 void Interface::print_title(const std::vector<std::wstring>& t){
@@ -222,7 +291,7 @@ void Interface::print_options(){
     for (const std::wstring& s : Options[location]){
         if (s == Options[location][selected] && !table_mode){
             if (Options[location][selected].substr(0, 6) == L"Search"){
-                if (location == 3 || location == 6 || location == 17 || location == 22) {
+                if (location == 3 || location == 6 || location == 17 || location == 22 || location == 27) {
                     std::wcout << L"< " << w_underline << w_bold << w_red << L"Search for students name or ID ->"
                                << w_end << L"   " << write << L"   >" << std::endl << L"\n";
                 }
@@ -312,26 +381,63 @@ void Interface::list_booker_vector_of_wstrings(std::vector<std::wstring> wv) {
     booked_list_vector_of_wstrings.push_back(v);
 }
 
+void Interface::aditional_filter_students(std::vector<std::pair<std::wstring, std::wstring>>& vw, int filter_mode){
+    if (filter_mode == 0){
+        alphabetic_sort_vector_of_pairs_of_wstrings(vw);
+    }
+    if (filter_mode == 1){
+        reverse_alphabetic_sort_vector_of_pairs_of_wstrings(vw);
+    }
+}
+
+void Interface::aditional_filter_classes(std::vector<std::wstring>& vw, int filter_mode){
+    if (filter_mode == 0){
+        alphabetic_sort_vector_of_wstrings(vw);
+    }
+    if (filter_mode == 1){
+        reverse_alphabetic_sort_vector_of_wstrings(vw);
+    }
+    if (filter_mode == 2){
+        sort_classes_by_number_of_students_ascending(vw);
+    }
+    if (filter_mode == 3){
+        sort_classes_by_number_of_students_descending(vw);
+    }
+}
+
+void Interface::aditional_filter_ucs(std::vector<std::wstring>& vw, int filter_mode){
+    if (filter_mode == 0){
+        alphabetic_sort_vector_of_wstrings(vw);
+    }
+    if (filter_mode == 1){
+        reverse_alphabetic_sort_vector_of_wstrings(vw);
+    }
+    if (filter_mode == 2){
+        sort_ucs_by_number_of_students_ascending(vw);
+    }
+    if (filter_mode == 3){
+        sort_ucs_by_number_of_students_descending(vw);
+    }
+}
+
 void Interface::booked_list_filter(const std::vector<std::pair<std::wstring, std::wstring>>& vw, std::vector<std::pair<std::wstring, std::wstring>>& filtered_vw){
     filtered_vw.clear();
-    if(!(write.empty()) && write != write_default){
+    if (!(write.empty()) && write != write_default) {
         std::wstring smooth_write = smooth_string(write);
-        if (isalnum(smooth_write[0]) && !isalpha(smooth_write[0])){
-            for (const std::pair<std::wstring, std::wstring>& p : vw){
-                if(smooth_string(p.second).substr(0, smooth_write.size()) == smooth_write){
+        if (isalnum(smooth_write[0]) && !isalpha(smooth_write[0])) {
+            for (const std::pair<std::wstring, std::wstring> &p: vw) {
+                if (smooth_string(p.second).substr(0, smooth_write.size()) == smooth_write) {
+                    filtered_vw.push_back(p);
+                }
+            }
+        } else {
+            for (const std::pair<std::wstring, std::wstring> &p: vw) {
+                if (smooth_string(p.first).substr(0, smooth_write.size()) == smooth_write) {
                     filtered_vw.push_back(p);
                 }
             }
         }
-        else{
-            for (const std::pair<std::wstring, std::wstring>& p : vw){
-                if(smooth_string(p.first).substr(0, smooth_write.size()) == smooth_write){
-                    filtered_vw.push_back(p);
-                }
-            }
-        }
-    }
-    else{
+    } else {
         filtered_vw = vw;
     }
 }
@@ -347,7 +453,7 @@ void Interface::booked_list_filter_vector_of_wstrings(const std::vector<std::wst
         std::wstring smooth_write = smooth_string(write);
         for (const std::wstring &s: vw) {
             if ((smooth_write == smooth_string(s).substr(0,smooth_write.size()) && write_has_letters) ||
-            ((smooth_write == only_numbers(smooth_string(s), false).substr(0, smooth_write.size())  || (smooth_write == only_numbers(smooth_string(s)).substr(0, smooth_write.size())) ) && !write_has_letters)) {
+                ((smooth_write == only_numbers(smooth_string(s), false).substr(0, smooth_write.size())  || (smooth_write == only_numbers(smooth_string(s)).substr(0, smooth_write.size())) ) && !write_has_letters)) {
                 filtered_vw.push_back(s);
             }
         }
@@ -357,7 +463,7 @@ void Interface::booked_list_filter_vector_of_wstrings(const std::vector<std::wst
     write_has_letters = false;
 }
 
-void Interface::booked_list_printer(){
+void Interface::booked_list_printer(const std::vector<std::pair<std::wstring, std::wstring>>& vw){
     std::wcout << L"\n\n" << w_bold << L" ------------------------------------------------ " << w_end << L"\n";
     int idx = 0;
     for (const std::pair<std::wstring, std::wstring>& p : booked_list[page]){
@@ -382,10 +488,11 @@ void Interface::booked_list_printer(){
         }
         idx ++;
     }
-    if (filtered_w_student_list.empty()){std::wcout << "|" << w_italic << L"  No results                                    " << w_end << "|" << std::endl;}
+    if (vw.empty()){std::wcout << "|" << w_italic << L"  No results                                    " << w_end << "|" << std::endl;}
     std::wcout << L"|------------------------------------------------|" << std::endl;
     std::wcout << L"|" << std::wstring(44 - std::to_string(page + 1).size() - std::to_string(booked_list.size()).size(), ' ') << page + 1 << L"/" << booked_list.size() << L"   |" << std::endl;
     std::wcout << w_bold << L" ------------------------------------------------ " << w_end << std::endl;
+    std::wcout << w_italic << L"Number of students : " << w_end_italic << w_bold<< vw.size() << w_end << std::endl;
 }
 
 void Interface::booked_list_printer_vector_of_wstrings(const std::vector<std::wstring>& wv) {
@@ -439,8 +546,8 @@ void Interface::schedule_printer(const Schedule& schedule){
                        << std::wstring(14 - convert_to_wstring(better_representation(lec.duration())).size() -
                                        convert_to_wstring(better_representation(lec.end_hour())).size()
                                        - convert_to_wstring(better_representation(lec.start_hour())).size(), L' ')
-                    << L" || " << convert_to_wstring(lec.class_code()) << std::wstring(8 - convert_to_wstring(lec.class_code()).size(), L' ')
-                    << L"|" << std::endl;
+                       << L" || " << convert_to_wstring(lec.class_code()) << std::wstring(8 - convert_to_wstring(lec.class_code()).size(), L' ')
+                       << L"|" << std::endl;
             day_printed = true;
         }
     }
@@ -462,8 +569,8 @@ void Interface::schedule_printer(const Schedule& schedule){
                        << std::wstring(14 - convert_to_wstring(better_representation(lec.duration())).size() -
                                        convert_to_wstring(better_representation(lec.end_hour())).size()
                                        - convert_to_wstring(better_representation(lec.start_hour())).size(), L' ')
-                    << L" || " << convert_to_wstring(lec.class_code()) << std::wstring(8 - convert_to_wstring(lec.class_code()).size(), L' ')
-                    << L"|" << std::endl;
+                       << L" || " << convert_to_wstring(lec.class_code()) << std::wstring(8 - convert_to_wstring(lec.class_code()).size(), L' ')
+                       << L"|" << std::endl;
             day_printed = true;
         }
     }
@@ -485,8 +592,8 @@ void Interface::schedule_printer(const Schedule& schedule){
                        << std::wstring(14 - convert_to_wstring(better_representation(lec.duration())).size() -
                                        convert_to_wstring(better_representation(lec.end_hour())).size()
                                        - convert_to_wstring(better_representation(lec.start_hour())).size(), L' ')
-                    << L" || " << convert_to_wstring(lec.class_code()) << std::wstring(8 - convert_to_wstring(lec.class_code()).size(), L' ')
-                    << L"|" << std::endl;
+                       << L" || " << convert_to_wstring(lec.class_code()) << std::wstring(8 - convert_to_wstring(lec.class_code()).size(), L' ')
+                       << L"|" << std::endl;
             day_printed = true;
         }
     }
@@ -508,8 +615,8 @@ void Interface::schedule_printer(const Schedule& schedule){
                        << std::wstring(14 - convert_to_wstring(better_representation(lec.duration())).size() -
                                        convert_to_wstring(better_representation(lec.end_hour())).size()
                                        - convert_to_wstring(better_representation(lec.start_hour())).size(), L' ')
-                    << L" || " << convert_to_wstring(lec.class_code()) << std::wstring(8 - convert_to_wstring(lec.class_code()).size(), L' ')
-                    << L"|" << std::endl;
+                       << L" || " << convert_to_wstring(lec.class_code()) << std::wstring(8 - convert_to_wstring(lec.class_code()).size(), L' ')
+                       << L"|" << std::endl;
             day_printed = true;
         }
     }
@@ -555,10 +662,10 @@ int Interface::tem_acento(const std::wstring& s) {
 }
 
 void Interface::basicInputResponse(wchar_t& user_in) {
-    if (location == 3 || location == 4 || location == 6 || location == 11 || location == 13 || location == 14 || location == 15 || location == 17 || location == 18 || location == 19 || location == 22 || location == 23 || location == 25) {
-        if (user_in == '\t' && ((!filtered_w_student_list.empty() && (location == 3 || location == 6 || location == 17 || location == 14 || location == 13 || location == 22))
-        || (!filtered_w_class_code_list.empty() && (location == 4 || location == 11 || location == 19 || location == 25))
-        || (!filtered_w_uc_list.empty() && (location == 15 || location == 18 || location == 23)))){
+    if (location == 3 || location == 4 || location == 6 || location == 11 || location == 13 || location == 14 || location == 15 || location == 17 || location == 18 || location == 19 || location == 22 || location == 23 || location == 25 || location == 27) {
+        if (user_in == '\t' && ((!filtered_w_student_list.empty() && (location == 3 || location == 6 || location == 17 || location == 14 || location == 13 || location == 22 || location == 27))
+                                || (!filtered_w_class_code_list.empty() && (location == 4 || location == 11 || location == 19 || location == 25))
+                                || (!filtered_w_uc_list.empty() && (location == 15 || location == 18 || location == 23)))){
             table_mode = !table_mode;
             selected = 0;
             selected_in_page = 0;
@@ -566,7 +673,7 @@ void Interface::basicInputResponse(wchar_t& user_in) {
         if (user_in == 'n'){
             page ++;
             selected_in_page = 0;
-            if(location == 3 || location == 6 || location == 14 || location == 17 || location == 22) {
+            if(location == 3 || location == 6 || location == 14 || location == 17 || location == 22 || location == 27) {
                 if (page >= booked_list.size()) {
                     page--;
                 }
@@ -595,13 +702,55 @@ void Interface::basicInputResponse(wchar_t& user_in) {
             selected ++;
             if (selected >= Options[location].size()) {selected = 0;}
         }
+        if ((location == 3 || location == 6 || location == 22 || location == 27 || location == 17) && selected == 1) {
+            if (user_in == 'C') {
+                select_filter--;
+                if (select_filter < 0) {
+                    select_filter = student_sort_write.size() - 1;
+                }
+            }
+            if (user_in == 'D') {
+                select_filter ++;
+                if (select_filter > student_sort_write.size() - 1) {
+                    select_filter = 0;
+                }
+            }
+        }
+        if ((location == 4 || location == 11) && selected == 1) {
+            if (user_in == 'C') {
+                select_filter--;
+                if (select_filter < 0) {
+                    select_filter = class_sort_write.size() - 1;
+                }
+            }
+            if (user_in == 'D') {
+                select_filter ++;
+                if (select_filter > class_sort_write.size() - 1) {
+                    select_filter = 0;
+                }
+            }
+        }
+        if ((location == 15) && selected == 1) {
+            if (user_in == 'C') {
+                select_filter--;
+                if (select_filter < 0) {
+                    select_filter = uc_sort_write.size() - 1;
+                }
+            }
+            if (user_in == 'D') {
+                select_filter ++;
+                if (select_filter > uc_sort_write.size() - 1) {
+                    select_filter = 0;
+                }
+            }
+        }
     }
     else{
-        if (user_in == 'A' && (location == 3 || location == 6 || location == 14 || location == 17 || location == 22)) {
+        if (user_in == 'A' && (location == 3 || location == 6 || location == 14 || location == 17 || location == 22 || location == 27)) {
             if (selected_in_page > 0) { selected_in_page -= 1; }
             else { selected_in_page = booked_list[page].size() - 1; }
         }
-        if (user_in == 'B' && (location == 3 || location == 6 || location == 14 || location == 17 || location == 22)){
+        if (user_in == 'B' && (location == 3 || location == 6 || location == 14 || location == 17 || location == 22 || location == 27)){
             selected_in_page ++;
             if (selected_in_page > booked_list[page].size() - 1){selected_in_page = 0;}
         }
@@ -632,6 +781,9 @@ void Interface::basicInputResponse(wchar_t& user_in) {
                         location = 20;
                         break;
                     case 2:
+                        directory += Options[location][selected];
+                        selected = 0;
+                        location = 28;
                         break;
                     case 3:
                         location = -1;
@@ -641,6 +793,7 @@ void Interface::basicInputResponse(wchar_t& user_in) {
                 }
                 break;
             case 1:
+                select_filter = 0;
                 switch (selected){
                     case 0:
                         earlier_directory = directory;
@@ -708,19 +861,19 @@ void Interface::basicInputResponse(wchar_t& user_in) {
                 }
                 break;
             case 3:
-            case 6:
                 switch (table_mode){
                     case false:
                         switch (selected){
                             case 0:
-                                break;
                             case 1:
-                                location == 6 ? directory = L"Consult" : directory = L"Consult > Schedules";
-                                location == 6 ? location = 1 : location = 2;
+                                break;
+                            case 2:
+                                directory = L"Consult > Schedules";
+                                location = 2;
                                 selected = 0;
                                 write = write_default;
                                 break;
-                            case 2:
+                            case 3:
                                 location = 0;
                                 selected = 0;
                                 directory = L"";
@@ -735,8 +888,64 @@ void Interface::basicInputResponse(wchar_t& user_in) {
                             default:
                                 if (selected_in_page >= 0 && selected_in_page < number_names[page == booked_list.size() - 1]) {
                                     s_analised = booked_list[page][selected_in_page].first + L"(" + booked_list[page][selected_in_page].second + L")";
-                                    earlier_directory.substr(0, 19) == L"Consult > Schedules" ? directory = L"Consult > Schedules > " + s_analised : directory = L"Consult > " + s_analised;
-                                    location == 3 ? location = 5 : location = 7;
+                                    directory = L"Consult > Schedules > " + s_analised;
+                                    location = 5;
+                                    selected = 0;
+                                    selected_in_page = 0;
+                                    page = 0;
+                                    write = write_default;
+                                    table_mode = !table_mode;
+                                }
+                                else if (booked_list[page][selected_in_page].first == L"Next") {
+                                    page++;
+                                    selected_in_page = 0;
+                                }
+                                else if (booked_list[page][selected_in_page].first == L"Previous") {
+                                    page--;
+                                    selected_in_page = 0;
+                                }
+                                else if (booked_list[page][selected_in_page].first == L"First") {
+                                    page = 0;
+                                    selected_in_page = 0;
+                                }
+                                else if (booked_list[page][selected_in_page].first == L"Last") {
+                                    page = booked_list.size() - 1;
+                                    selected_in_page = 0;
+                                }
+                        }
+                        break;
+                }
+                break;
+            case 6:
+                switch (table_mode){
+                    case false:
+                        switch (selected){
+                            case 0:
+                            case 1:
+                                break;
+                            case 2:
+                                directory = L"Consult";
+                                location = 1;
+                                selected = 0;
+                                write = write_default;
+                                break;
+                            case 3:
+                                location = 0;
+                                selected = 0;
+                                directory = L"";
+                                write = write_default;
+                                break;
+                            default:
+                                break;
+                        }
+                        break;
+                    case true:
+                        switch (selected_in_page) {
+                            default:
+                                if (selected_in_page >= 0 && selected_in_page < number_names[page == booked_list.size() - 1]) {
+                                    s_analised = booked_list[page][selected_in_page].first + L"(" + booked_list[page][selected_in_page].second + L")";
+                                    directory = L"Consult > " + s_analised;
+                                    location = 7;
                                     selected = 0;
                                     selected_in_page = 0;
                                     page = 0;
@@ -769,14 +978,15 @@ void Interface::basicInputResponse(wchar_t& user_in) {
                     case false:
                         switch (selected){
                             case 0:
-                                break;
                             case 1:
+                                break;
+                            case 2:
                                 location == 11 ? directory = L"Consult" : directory = L"Consult > Schedules";
                                 location == 11 ? location = 1 : location = 2;
                                 selected = 0;
                                 write = write_default;
                                 break;
-                            case 2:
+                            case 3:
                                 location = 0;
                                 selected = 0;
                                 directory = L"";
@@ -866,7 +1076,9 @@ void Interface::basicInputResponse(wchar_t& user_in) {
                         if (location == 6 && earlier_directory.substr(0, 12) == L"Consult > UC"){
                             location = 17;
                         }
-                        earlier_directory = directory;
+                        if (location == 6 && earlier_directory.substr(0, 12) == L"Consult > Ye"){
+                            location = 27;
+                        }
                         location == 5 ? directory = L"Consult > Schedules > " + s_analised : directory = L"Consult > Students";
                         if (location == 14){
                             directory = L"Consult > Class " + c_analised + L" > Students";
@@ -874,6 +1086,10 @@ void Interface::basicInputResponse(wchar_t& user_in) {
                         if (location == 17){
                             directory = L"Consult > UC " + uc_analised + L" > Students";
                         }
+                        if (location == 27){
+                            directory = earlier_directory;
+                        }
+                        earlier_directory = directory;
                         page = 0;
                         selected = 0;
                         break;
@@ -976,54 +1192,54 @@ void Interface::basicInputResponse(wchar_t& user_in) {
                 }
                 break;
             case 13:
-                    switch (table_mode) {
-                        case false:
-                            switch (selected) {
-                                case 0:
-                                    earlier_directory = directory;
-                                    directory = L"Consult > " + s_analised;
-                                    location = 7;
-                                    break;
-                                case 1:
-                                    location = 0;
+                switch (table_mode) {
+                    case false:
+                        switch (selected) {
+                            case 0:
+                                earlier_directory = directory;
+                                directory = L"Consult > " + s_analised;
+                                location = 7;
+                                break;
+                            case 1:
+                                location = 0;
+                                selected = 0;
+                                directory = L"";
+                                break;
+                        }
+                        break;
+                    case true:
+                        switch (selected_in_page) {
+                            default:
+                                if (selected_in_page >= 0 && selected_in_page < number_names[page == booked_list_vector_of_wstrings.size() - 1]) {
+                                    c_analised = booked_list_vector_of_wstrings[page][selected_in_page];
+                                    directory = L"Consult > Class" + c_analised;
+                                    page = 0;
+                                    location = 10;
                                     selected = 0;
-                                    directory = L"";
-                                    break;
-                            }
-                            break;
-                        case true:
-                            switch (selected_in_page) {
-                                default:
-                                    if (selected_in_page >= 0 && selected_in_page < number_names[page == booked_list_vector_of_wstrings.size() - 1]) {
-                                        c_analised = booked_list_vector_of_wstrings[page][selected_in_page];
-                                        directory = L"Consult > Class" + c_analised;
-                                        page = 0;
-                                        location = 10;
-                                        selected = 0;
-                                        selected_in_page = 0;
-                                        write = write_default;
-                                        table_mode = !table_mode;
-                                    }
-                                    else if (booked_list_vector_of_wstrings[page][selected_in_page] == L"Next Page ['n']") {
-                                        page++;
-                                        selected_in_page = 0;
-                                    }
-                                    else if (booked_list_vector_of_wstrings[page][selected_in_page] == L"Previous Page ['p']") {
-                                        page--;
-                                        selected_in_page = 0;
-                                    }
-                                    else if (booked_list_vector_of_wstrings[page][selected_in_page] == L"First Page") {
-                                        page = 0;
-                                        selected_in_page = 0;
-                                    }
-                                    else if (booked_list_vector_of_wstrings[page][selected_in_page] == L"Last Page") {
-                                        page = booked_list_vector_of_wstrings.size() - 1;
-                                        selected_in_page = 0;
-                                    }
-                            }
-                            break;
-                            break;
-                    }
+                                    selected_in_page = 0;
+                                    write = write_default;
+                                    table_mode = !table_mode;
+                                }
+                                else if (booked_list_vector_of_wstrings[page][selected_in_page] == L"Next Page ['n']") {
+                                    page++;
+                                    selected_in_page = 0;
+                                }
+                                else if (booked_list_vector_of_wstrings[page][selected_in_page] == L"Previous Page ['p']") {
+                                    page--;
+                                    selected_in_page = 0;
+                                }
+                                else if (booked_list_vector_of_wstrings[page][selected_in_page] == L"First Page") {
+                                    page = 0;
+                                    selected_in_page = 0;
+                                }
+                                else if (booked_list_vector_of_wstrings[page][selected_in_page] == L"Last Page") {
+                                    page = booked_list_vector_of_wstrings.size() - 1;
+                                    selected_in_page = 0;
+                                }
+                        }
+                        break;
+                        break;
+                }
                 break;
             case 14:
                 switch (table_mode) {
@@ -1072,7 +1288,7 @@ void Interface::basicInputResponse(wchar_t& user_in) {
                                 }
                         }
                         break;
-                    break;
+                        break;
                 }
                 break;
             case 15:
@@ -1080,15 +1296,16 @@ void Interface::basicInputResponse(wchar_t& user_in) {
                     case false:
                         switch (selected) {
                             case 0:
-                                break;
                             case 1:
+                                break;
+                            case 2:
                                 location = 1;
                                 selected = 0;
                                 page = 0;
                                 directory = L"Consult";
                                 write = write_default;
                                 break;
-                            case 2:
+                            case 3:
                                 location = 0;
                                 selected = 0;
                                 directory = L"";
@@ -1161,14 +1378,15 @@ void Interface::basicInputResponse(wchar_t& user_in) {
                     case false:
                         switch (selected){
                             case 0:
-                                break;
                             case 1:
+                                break;
+                            case 2:
                                 directory = L"Consult > UC " + uc_analised;
                                 location = 16;
                                 selected = 0;
                                 write = write_default;
                                 break;
-                            case 2:
+                            case 3:
                                 location = 0;
                                 selected = 0;
                                 directory = L"";
@@ -1259,7 +1477,7 @@ void Interface::basicInputResponse(wchar_t& user_in) {
                                 }
                         }
                         break;
-                    break;
+                        break;
                 }
                 break;
             case 19:
@@ -1309,7 +1527,7 @@ void Interface::basicInputResponse(wchar_t& user_in) {
                                 }
                         }
                         break;
-                    break;
+                        break;
                 }
                 break;
             case 20:
@@ -1364,14 +1582,15 @@ void Interface::basicInputResponse(wchar_t& user_in) {
                     case false:
                         switch (selected){
                             case 0:
-                                break;
                             case 1:
+                                break;
+                            case 2:
                                 earlier_directory.substr(0, 24) == L"Make change request > UC" ? location = 21 : location = 20;
                                 location == 21 ? directory = L"Make change request > UC" : directory = L"Make change request";
                                 selected = 0;
                                 write = write_default;
                                 break;
-                            case 2:
+                            case 3:
                                 location = 0;
                                 selected = 0;
                                 directory = L"";
@@ -1461,8 +1680,8 @@ void Interface::basicInputResponse(wchar_t& user_in) {
                                     }
                                     if (directory.substr(0, 23) == L"Make change request > S") {
                                         directory = L"Make change request > Switch " + s_analised + L" class " +
-                                                convert_to_wstring(app_.students_class_from_uc(convert_to_string((uc_analised)), get_student_by_id(app_.students())))
-                                                + L" to class";
+                                                    convert_to_wstring(app_.students_class_from_uc(convert_to_string((uc_analised)), get_student_by_id(app_.students())))
+                                                    + L" to class";
                                         location = 25;
                                     }
                                     selected = 0;
@@ -1563,16 +1782,17 @@ void Interface::basicInputResponse(wchar_t& user_in) {
                                 }
                         }
                         break;
-                    break;
+                        break;
                 }
                 break;
             case 26:
                 switch (selected){
                     case 0:
-                        break;
                     case 1:
-                        break;
                     case 2:
+                        directory += L" > " + Options[location][selected];
+                        location = 27;
+                        selected = 0;
                         break;
                     case 3:
                         location = 1;
@@ -1584,6 +1804,88 @@ void Interface::basicInputResponse(wchar_t& user_in) {
                         selected = 0;
                         directory = L"";
                         break;
+                }
+                break;
+            case 27:
+                switch (table_mode){
+                    case false:
+                        switch (selected){
+                            case 0:
+                            case 1:
+                                break;
+                            case 2:
+                                location = 26;
+                                selected = 0;
+                                directory = L"Consult > Year";
+                                write = write_default;
+                                break;
+                            case 3:
+                                location = 0;
+                                selected = 0;
+                                directory = L"";
+                                write = write_default;
+                                break;
+                            default:
+                                break;
+                        }
+                        break;
+                    case true:
+                        switch (selected_in_page) {
+                            default:
+                                if (selected_in_page >= 0 && selected_in_page < number_names[page == booked_list.size() - 1]) {
+                                    s_analised = booked_list[page][selected_in_page].first + L"(" + booked_list[page][selected_in_page].second + L")";
+                                    earlier_directory = directory;
+                                    location = 7;
+                                    directory = L"Consult > " + s_analised;
+                                    selected = 0;
+                                    selected_in_page = 0;
+                                    page = 0;
+                                    write = write_default;
+                                    table_mode = !table_mode;
+                                }
+                                else if (booked_list[page][selected_in_page].first == L"Next") {
+                                    page++;
+                                    selected_in_page = 0;
+                                }
+                                else if (booked_list[page][selected_in_page].first == L"Previous") {
+                                    page--;
+                                    selected_in_page = 0;
+                                }
+                                else if (booked_list[page][selected_in_page].first == L"First") {
+                                    page = 0;
+                                    selected_in_page = 0;
+                                }
+                                else if (booked_list[page][selected_in_page].first == L"Last") {
+                                    page = booked_list.size() - 1;
+                                    selected_in_page = 0;
+                                }
+                        }
+                        break;
+                }
+                break;
+            case 28:
+                switch (selected) {
+                    case 0:
+                        location = 29;
+                        directory += L" > Revert change";
+                        break;
+                    case 1:
+                        directory = L"";
+                        location = 0;
+                        selected = 0;
+                        break;
+                }
+                break;
+            case 29:
+                switch (selected) {
+                    case 0:
+                        location = 28;
+                        directory = L"History";
+                        break;
+                    case 1:
+                        location = 0;
+                        directory = L"";
+                        selected = 0;
                 }
                 break;
             default:
@@ -1622,7 +1924,7 @@ void Interface::InputResponse_inWriteMode(wchar_t &user_in) {
             write.pop_back();
         }
     }
-    if (location == 3 || location == 6 || location == 17 || location == 22){
+    if (location == 3 || location == 6 || location == 17 || location == 22 || location == 27){
         if (write.size() > 40 && write != write_default){
             write.pop_back();
         }
@@ -1645,8 +1947,8 @@ void Interface::inputer(){
             write_mode = false;
             basicInputResponse(user_input);
         }
-        else if ((user_input == 9 || (user_input == '\n')) && ((!filtered_w_student_list.empty() && (location == 3 || location == 6 || location == 17 || location == 22))
-        || (!filtered_w_class_code_list.empty() && (location == 4 || location == 11)) || (!filtered_w_uc_list.empty() && (location == 15 || location == 18 || location == 23)))){
+        else if ((user_input == 9 || (user_input == '\n')) && ((!filtered_w_student_list.empty() && (location == 3 || location == 6 || location == 17 || location == 22 || location == 27))
+                                                               || (!filtered_w_class_code_list.empty() && (location == 4 || location == 11)) || (!filtered_w_uc_list.empty() && (location == 15 || location == 18 || location == 23)))){
             write_mode = false;
             table_mode = true;
         }
@@ -1713,6 +2015,7 @@ void Interface::run(){
                 } else {
                     Options[location][0] = L"Search for Student";
                 }
+                Options[location][1] = student_sort_write[select_filter];
                 print_options();
                 std::wcout << L"\n\n" << w_italic << Helper << w_end_italic << std::endl;
                 std::wcout << w_italic << Helper_Students << w_end_italic << std::endl;
@@ -1720,14 +2023,21 @@ void Interface::run(){
                     write_mode = true;
                 }
                 booked_list_filter(w_student_list, filtered_w_student_list);
+                if (filtered_w_student_list.empty()) {
+                    aditional_filter_students(w_student_list, select_filter);
+                }
+                else{
+                    aditional_filter_students(filtered_w_student_list, select_filter);
+                }
                 list_booker(filtered_w_student_list);
-                booked_list_printer();
+                booked_list_printer(filtered_w_student_list);
                 inputer();
                 break;
             case 4:                                                 // CONSULT SCHEDULE CLASS
             case 11:                                               // CONSULT CLASS
                 system("clear");
                 print_directory();
+                Options[location][1] = class_sort_write[select_filter];
                 if (!write.empty() && write != write_default) {
                     Options[location][0] = L"Searching for: " + w_end + write + w_bold;
                 } else {
@@ -1740,6 +2050,12 @@ void Interface::run(){
                     write_mode = true;
                 }
                 booked_list_filter_vector_of_wstrings(w_class_code_list, filtered_w_class_code_list);
+                if (filtered_w_class_code_list.empty()) {
+                    aditional_filter_classes(w_class_code_list, select_filter);
+                }
+                else{
+                    aditional_filter_classes(filtered_w_class_code_list, select_filter);
+                }
                 list_booker_vector_of_wstrings(filtered_w_class_code_list);
                 booked_list_printer_vector_of_wstrings(filtered_w_class_code_list);
                 inputer();
@@ -1810,13 +2126,14 @@ void Interface::run(){
                 std::wcout << L"\n\n" << w_italic << Helper << w_end_italic << std::endl;
                 std::wcout << w_italic << Helper_Classes << w_end_italic << std::endl;
                 list_booker(filtered_w_student_list);
-                booked_list_printer();
+                booked_list_printer(w_student_list);
                 inputer();
                 break;
             }
             case 15:                     //consul ucs
                 system("clear");
                 print_directory();
+                Options[location][1] = uc_sort_write[select_filter];
                 if (!write.empty() && write != write_default) {
                     Options[location][0] = L"Searching for: " + w_end + write + w_bold;
                 } else {
@@ -1829,6 +2146,12 @@ void Interface::run(){
                     write_mode = true;
                 }
                 booked_list_filter_vector_of_wstrings(w_uc_list, filtered_w_uc_list);
+                if (filtered_w_uc_list.empty()) {
+                    aditional_filter_ucs(w_uc_list, select_filter);
+                }
+                else{
+                    aditional_filter_ucs(filtered_w_uc_list, select_filter);
+                }
                 list_booker_vector_of_wstrings(filtered_w_uc_list);
                 booked_list_printer_vector_of_wstrings(filtered_w_uc_list);
                 inputer();
@@ -1837,6 +2160,7 @@ void Interface::run(){
                 system("clear");
                 save_filtered_w_student_list = convert_to_wstring_vector_of_pairs(app_.students_from_uc(convert_to_string(uc_analised)));
                 alphabetic_sort_vector_of_pairs_of_wstrings(save_filtered_w_student_list);
+                Options[location][1] = class_sort_write[select_filter];
                 print_directory();
                 if (!write.empty() && write != write_default) {
                     Options[location][0] = L"Searching for: " + w_end + write + w_bold;
@@ -1849,9 +2173,15 @@ void Interface::run(){
                 if (Options[location][selected].substr(0, 6) == L"Search" && !table_mode) {
                     write_mode = true;
                 }
-                booked_list_filter(w_student_list, filtered_w_student_list);
-                list_booker(save_filtered_w_student_list);
-                booked_list_printer();
+                booked_list_filter(save_filtered_w_student_list, filtered_w_student_list);
+                if (filtered_w_student_list.empty()) {
+                    aditional_filter_students(w_student_list, select_filter);
+                }
+                else{
+                    aditional_filter_students(filtered_w_student_list, select_filter);
+                }
+                list_booker(filtered_w_student_list);
+                booked_list_printer(filtered_w_student_list);
                 inputer();
                 break;
             case 18:
@@ -1890,6 +2220,7 @@ void Interface::run(){
                 system("clear");
                 print_directory();
                 print_options();
+                std::wcout << L"\n\n" << w_italic << Helper << w_end_italic << std::endl;
                 if (!done) {
                     if (directory.substr(0, 28) == L"Make change request > UC > R") {
                         feedback = convert_to_wstring(app_.remove_student_from_uc(
@@ -1913,6 +2244,75 @@ void Interface::run(){
                     done = true;
                 }
                 print_feedback(feedback);
+                inputer();
+                break;
+            case 27:
+                system("clear");
+                print_directory();
+                Options[location][1] = student_sort_write[select_filter];
+                if (directory == L"Consult > Year > First year"){
+                    save_filtered_w_student_list = convert_to_wstring_vector_of_pairs(app_.check_year("1"));
+                }
+                if (directory == L"Consult > Year > Second year"){
+                    save_filtered_w_student_list = convert_to_wstring_vector_of_pairs(app_.check_year("2"));
+                }
+                if (directory == L"Consult > Year > Third year"){
+                    save_filtered_w_student_list = convert_to_wstring_vector_of_pairs(app_.check_year("3"));
+                }
+                alphabetic_sort_vector_of_pairs_of_wstrings(save_filtered_w_student_list);
+                if (!write.empty() && write != write_default) {
+                    Options[location][0] = L"Searching for: " + w_end + write + w_bold;
+                } else {
+                    Options[location][0] = L"Search for Student";
+                }
+                print_options();
+                std::wcout << L"\n\n" << w_italic << Helper << w_end_italic << std::endl;
+                std::wcout << w_italic << Helper_Students << w_end_italic << std::endl;
+                if (Options[location][selected].substr(0, 6) == L"Search" && !table_mode) {
+                    write_mode = true;
+                }
+                booked_list_filter(save_filtered_w_student_list, filtered_w_student_list);
+                if (filtered_w_student_list.empty()) {
+                    aditional_filter_students(w_student_list, select_filter);
+                }
+                else{
+                    aditional_filter_students(filtered_w_student_list, select_filter);
+                }
+                list_booker(filtered_w_student_list);
+                booked_list_printer(w_student_list);
+                inputer();
+                break;
+            case 28:
+                system("clear");
+                if (convert_to_wstring(app_.get_latest_change()[0]) == L"SWITCH") {
+                    Options[location][0] = L"Revert switch " + convert_to_wstring(get_student_by_id_with_parameters(app_.students(), convert_to_wstring(app_.get_latest_change()[1])).student_name())
+                                           + L"(" + convert_to_wstring(app_.get_latest_change()[1]) + L") from Class "
+                                           + convert_to_wstring(app_.get_latest_change()[3]) + L" to Class " + convert_to_wstring(app_.get_latest_change()[4]);
+                }
+                if (convert_to_wstring(app_.get_latest_change()[0]) == L"REMOVEFROMUC") {
+                    Options[location][0] = L"Revert removing of " + convert_to_wstring(get_student_by_id_with_parameters(app_.students(), convert_to_wstring(app_.get_latest_change()[1])).student_name())
+                                           + L"(" + convert_to_wstring(app_.get_latest_change()[1]) + L") from UC "
+                                           + convert_to_wstring(app_.get_latest_change()[3]);
+                }
+                if (convert_to_wstring(app_.get_latest_change()[0]) == L"ADDTOUC") {
+                    Options[location][0] = L"Revert addition of " + convert_to_wstring(get_student_by_id_with_parameters(app_.students(), convert_to_wstring(app_.get_latest_change()[1])).student_name())
+                                           + L"(" + convert_to_wstring(app_.get_latest_change()[1]) + L") to UC "
+                                           + convert_to_wstring(app_.get_latest_change()[3]) + L" class " + convert_to_wstring(app_.get_latest_change()[4]);
+                }
+                if (convert_to_wstring(app_.get_latest_change()[0]) == L"There are no changes"){
+                    Options[location][0] = L"There are no changes";
+                }
+                print_directory();
+                print_options();
+                std::wcout << L"\n\n" << w_italic << Helper << w_end_italic << std::endl;
+                inputer();
+                break;
+            case 29:
+                system("clear");
+                print_directory();
+                print_options();
+                std::wcout << L"\n\n" << w_italic << Helper << w_end_italic << std::endl;
+                std::wcout << L"\n\n===================[  " << convert_to_wstring(app_.reverse_change()) << L"  ]====================" << std::endl;
                 inputer();
                 break;
         }

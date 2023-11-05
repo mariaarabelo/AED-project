@@ -43,6 +43,8 @@ private:
 
     unsigned long selected = 0;
 
+    int select_filter = 0;
+
     int selected_in_page = 0;
 
     int page = 0;
@@ -67,6 +69,9 @@ private:
     std::vector<std::pair<std::wstring, std::wstring>> w_student_list;
     std::vector<std::pair<std::wstring, std::wstring>> filtered_w_student_list;
     std::vector<std::pair<std::wstring, std::wstring>> save_filtered_w_student_list;
+
+    std::vector<std::pair<std::wstring, std::wstring>> class_number_students;
+    std::vector<std::pair<std::wstring, std::wstring>> ucs_number_students;
 
 
     std::vector<std::string> class_code_list;
@@ -128,11 +133,14 @@ private:
             },
             {
                     L"Search for Student",
+                    L"Sort by ",
+                    L"Show students in at least 0 UCs",
                     L"Back",
                     L"Main Menu"
             },
             {
                     L"Search for Class",
+                    L"Sort by",
                     L"Back",
                     L"Main Menu"
             },
@@ -143,6 +151,7 @@ private:
             },
             {
                     L"Search for Student",
+                    L"Sort by",
                     L"Back",
                     L"Main Menu"
             },
@@ -170,6 +179,7 @@ private:
             },
             {
                     L"Search for Class",
+                    L"Sort by",
                     L"Back",
                     L"Main Menu"
             },
@@ -187,6 +197,7 @@ private:
             },
             {
                     L"Search for UC",
+                    L"Sort by",
                     L"Back",
                     L"Main Menu"
             },
@@ -198,6 +209,7 @@ private:
             },
             {
                     L"Search for Student",
+                    L"Sort by",
                     L"Back",
                     L"Main Menu"
             },
@@ -222,6 +234,7 @@ private:
             },
             {
                     L"Search for Student",
+                    L"Sort by",
                     L"Back",
                     L"Main Menu"
             },
@@ -243,8 +256,41 @@ private:
                     L"Third year",
                     L"Back",
                     L"Main Menu"
+            },
+            {
+                    L"Search for Student",
+                    L"Sort by",
+                    L"Back",
+                    L"Main Menu"
+            },
+            {
+                    L"Last change",
+                    L"Main Menu"
+            },
+            {
+                    L"Back",
+                    L"Main Menu"
             }
     };
+
+
+    std::vector<std::wstring> student_sort_write {
+            L"Sort by A-Z",
+            L"Sort by Z-A",
+    };
+    std::vector<std::wstring> class_sort_write {
+            L"Sort by A-Z",
+            L"Sort by Z-A",
+            L"Sort by number of students ascending",
+            L"Sort by number of students descending"
+    };
+    std::vector<std::wstring> uc_sort_write {
+            L"Sort by A-Z",
+            L"Sort by Z-A",
+            L"Sort by number of students ascending",
+            L"Sort by number of students descending"
+    };
+
 
     std::wstring Helper = L" Use 'up' and 'down' arrow keys to navigate and 'enter' to select";
     std::wstring Helper_Students = L" Use 'tab' to interact and stop interacting with the students list";
@@ -263,8 +309,6 @@ private:
     void basicInputResponse(wchar_t &user_in);
 
     void list_booker(std::vector<std::pair<std::wstring, std::wstring>> l);
-
-    void booked_list_printer();
 
     static int tem_acento(const std::wstring &s);
 
@@ -308,9 +352,36 @@ private:
 
     static void alphabetic_sort_vector_of_pairs_of_wstrings(std::vector<std::pair<std::wstring, std::wstring>> &v);
 
-    void booked_list_filter(const std::vector<std::pair<std::wstring, std::wstring>> &vw, std::vector<std::pair<std::wstring, std::wstring>> &filtered_vw);
-
     void print_feedback(const std::wstring &ws);
+
+    static Student get_student_by_id_with_parameters(const std::set<Student> &v, const std::wstring &wstr);
+
+    void booked_list_filter(const std::vector<std::pair<std::wstring, std::wstring>> &vw,
+                            std::vector<std::pair<std::wstring, std::wstring>> &filtered_vw);
+
+    static void reverse_alphabetic_sort_vector_of_pairs_of_wstrings(std::vector<std::pair<std::wstring, std::wstring>> &v);
+
+    static void aditional_filter_students(std::vector<std::pair<std::wstring, std::wstring>> &vw, int filter_mode);
+
+    void aditional_filter_classes(std::vector<std::wstring> &vw, int filter_mode);
+
+    static void reverse_alphabetic_sort_vector_of_wstrings(std::vector<std::wstring> &v);
+
+    void sort_classes_by_number_of_students_ascending(std::vector<std::wstring> &v);
+
+    std::wstring class_get_nums_students(const std::wstring& class_id);
+
+    void sort_classes_by_number_of_students_descending(std::vector<std::wstring> &v);
+
+    void sort_ucs_by_number_of_students_descending(std::vector<std::wstring> &v);
+
+    std::wstring ucs_get_nums_students(const std::wstring &uc_id);
+
+    void sort_ucs_by_number_of_students_ascending(std::vector<std::wstring> &v);
+
+    void aditional_filter_ucs(std::vector<std::wstring> &vw, int filter_mode);
+
+    void booked_list_printer(const std::vector<std::pair<std::wstring, std::wstring>> &vw);
 };
 
 //------------------------------------------------------------------------------------------------------------//
