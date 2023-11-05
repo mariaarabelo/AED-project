@@ -14,13 +14,6 @@ Lecture::Lecture(const std::string &class_code, const  std::string &uc_code, con
     type_ = type;
 }
 
-void Lecture::printLecture() const{
-    std::cout << class_code_ << " || " <<
-    uc_code_ << "\n " << weekday_ << "\n" << "Starts at " <<
-    start_hour_ << " and ends at " << std::stof(start_hour_) + std::stof(duration_) << " (duration of "<< duration_ << "h)\n" <<
-    type_ << "\n";
-}
-
 const std::string &Lecture::class_code() const{
     return class_code_;
 }

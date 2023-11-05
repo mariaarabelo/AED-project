@@ -1,0 +1,91 @@
+\hypertarget{classSchedule}{}\doxysection{Schedule Class Reference}
+\label{classSchedule}\index{Schedule@{Schedule}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classSchedule_ae043a0e8f303e90b74c5feae16e6b582}{Schedule}} (const \mbox{\hyperlink{classStudent}{Student}} \&student, const std\+::vector$<$ \mbox{\hyperlink{classLecture}{Lecture}} $>$ \&lectures)
+\begin{DoxyCompactList}\small\item\em Constructor for \mbox{\hyperlink{classSchedule}{Schedule}} class This function instantiates a \mbox{\hyperlink{classSchedule}{Schedule}} for a \mbox{\hyperlink{classStudent}{Student}}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classSchedule_abbec617d4e40a3af3312a2e40a376de9}{Schedule}} (const \mbox{\hyperlink{classClass}{Class}} \&c)
+\begin{DoxyCompactList}\small\item\em Constructor for \mbox{\hyperlink{classSchedule}{Schedule}} class This function instantiates a \mbox{\hyperlink{classSchedule}{Schedule}} for a \mbox{\hyperlink{classClass}{Class}}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classSchedule_abe86da163319d54c9966038d6326b4fe}{Schedule}} (const \mbox{\hyperlink{classUC}{UC}} \&uc)
+\begin{DoxyCompactList}\small\item\em Constructor for \mbox{\hyperlink{classSchedule}{Schedule}} class This function instantiates a \mbox{\hyperlink{classSchedule}{Schedule}} for a \mbox{\hyperlink{classUC}{UC}}. \end{DoxyCompactList}\item 
+const std\+::vector$<$ \mbox{\hyperlink{classLecture}{Lecture}} $>$ \& \mbox{\hyperlink{classSchedule_a308da5720fe4fa135538aef48e955c7f}{get\+\_\+lectures}} () const
+\begin{DoxyCompactList}\small\item\em Getter for lectures field. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classSchedule_ac81ec9cc8624ce05752827ab6d5f7b91}\label{classSchedule_ac81ec9cc8624ce05752827ab6d5f7b91}} 
+void \mbox{\hyperlink{classSchedule_ac81ec9cc8624ce05752827ab6d5f7b91}{print\+Schedule}} () const
+\begin{DoxyCompactList}\small\item\em Prints schedule. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classSchedule_ae5bebc36473a56781efd92563e94cc40}\label{classSchedule_ae5bebc36473a56781efd92563e94cc40}} 
+bool {\bfseries conflicts} (const \mbox{\hyperlink{classLecture}{Lecture}} \&lecture)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classSchedule_ae043a0e8f303e90b74c5feae16e6b582}\label{classSchedule_ae043a0e8f303e90b74c5feae16e6b582}} 
+\index{Schedule@{Schedule}!Schedule@{Schedule}}
+\index{Schedule@{Schedule}!Schedule@{Schedule}}
+\doxysubsubsection{\texorpdfstring{Schedule()}{Schedule()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily Schedule\+::\+Schedule (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classStudent}{Student}} \&}]{student,  }\item[{const std\+::vector$<$ \mbox{\hyperlink{classLecture}{Lecture}} $>$ \&}]{lectures }\end{DoxyParamCaption})}
+
+
+
+Constructor for \mbox{\hyperlink{classSchedule}{Schedule}} class This function instantiates a \mbox{\hyperlink{classSchedule}{Schedule}} for a \mbox{\hyperlink{classStudent}{Student}}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em student} & \\
+\hline
+{\em lectures} & Vector of all lectures \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classSchedule_abbec617d4e40a3af3312a2e40a376de9}\label{classSchedule_abbec617d4e40a3af3312a2e40a376de9}} 
+\index{Schedule@{Schedule}!Schedule@{Schedule}}
+\index{Schedule@{Schedule}!Schedule@{Schedule}}
+\doxysubsubsection{\texorpdfstring{Schedule()}{Schedule()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily Schedule\+::\+Schedule (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classClass}{Class}} \&}]{c }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Constructor for \mbox{\hyperlink{classSchedule}{Schedule}} class This function instantiates a \mbox{\hyperlink{classSchedule}{Schedule}} for a \mbox{\hyperlink{classClass}{Class}}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em c} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classSchedule_abe86da163319d54c9966038d6326b4fe}\label{classSchedule_abe86da163319d54c9966038d6326b4fe}} 
+\index{Schedule@{Schedule}!Schedule@{Schedule}}
+\index{Schedule@{Schedule}!Schedule@{Schedule}}
+\doxysubsubsection{\texorpdfstring{Schedule()}{Schedule()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily Schedule\+::\+Schedule (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classUC}{UC}} \&}]{uc }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Constructor for \mbox{\hyperlink{classSchedule}{Schedule}} class This function instantiates a \mbox{\hyperlink{classSchedule}{Schedule}} for a \mbox{\hyperlink{classUC}{UC}}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em uc} & \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classSchedule_a308da5720fe4fa135538aef48e955c7f}\label{classSchedule_a308da5720fe4fa135538aef48e955c7f}} 
+\index{Schedule@{Schedule}!get\_lectures@{get\_lectures}}
+\index{get\_lectures@{get\_lectures}!Schedule@{Schedule}}
+\doxysubsubsection{\texorpdfstring{get\_lectures()}{get\_lectures()}}
+{\footnotesize\ttfamily const std\+::vector$<$ \mbox{\hyperlink{classLecture}{Lecture}} $>$ \& Schedule\+::get\+\_\+lectures (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Getter for lectures field. 
+
+\begin{DoxyReturn}{Returns}
+const reference to lectures field 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/Schedule.\+h\item 
+src/Schedule.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,157 @@
+\hypertarget{classClass}{}\doxysection{Class Class Reference}
+\label{classClass}\index{Class@{Class}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classClass_aa16e29290c0899da2c1ee6e1fa2ad917}{Class}} (const std\+::string \&\mbox{\hyperlink{classClass_a77252202bcf60c9139ae61eca56319b0}{class\+\_\+code}}, const std\+::vector$<$ \mbox{\hyperlink{classLecture}{Lecture}} $>$ \&\mbox{\hyperlink{classClass_a635af5fe866b4f196d3fed4b6c1131e3}{lectures}}, const std\+::vector$<$ \mbox{\hyperlink{classStudent}{Student}} $>$ \&students)
+\begin{DoxyCompactList}\small\item\em Constructor for \mbox{\hyperlink{classClass}{Class}} class. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classClass_a77252202bcf60c9139ae61eca56319b0}{class\+\_\+code}} () const
+\begin{DoxyCompactList}\small\item\em Getter for class\+\_\+code field. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classClass_a71e9b758a43ba61ff5e9c290b3fcf399}\label{classClass_a71e9b758a43ba61ff5e9c290b3fcf399}} 
+void \mbox{\hyperlink{classClass_a71e9b758a43ba61ff5e9c290b3fcf399}{print\+Lectures}} () const
+\begin{DoxyCompactList}\small\item\em Prints all lectures in class. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classLecture}{Lecture}} \mbox{\hyperlink{classClass_aea0eb5c58cd7d81103fab02fe3908c5d}{get\+Lecture}} (const std\+::string \&code) const
+\begin{DoxyCompactList}\small\item\em Getter for a given \mbox{\hyperlink{classLecture}{Lecture}}. \end{DoxyCompactList}\item 
+const std\+::vector$<$ \mbox{\hyperlink{classLecture}{Lecture}} $>$ \& \mbox{\hyperlink{classClass_a635af5fe866b4f196d3fed4b6c1131e3}{lectures}} () const
+\begin{DoxyCompactList}\small\item\em Getter of all lectures. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{classClass_adbe9d6fc1fa4d1b223b33035fe52f064}{count\+Enrolled\+Students}} () const
+\begin{DoxyCompactList}\small\item\em Number of enrolled students in class. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classClass_ad7a0ae5a450dc5580cb3a81ed80f0648}\label{classClass_ad7a0ae5a450dc5580cb3a81ed80f0648}} 
+std\+::vector$<$ std\+::pair$<$ std\+::string, std\+::string $>$ $>$ {\bfseries get\+Enrolled\+Students} () const
+\item 
+bool \mbox{\hyperlink{classClass_a4eaea50658afca6ddec9085cc66a653b}{remove\+\_\+student\+\_\+from\+\_\+class}} (const \mbox{\hyperlink{classStudent}{Student}} \&student, const std\+::string \&uc)
+\begin{DoxyCompactList}\small\item\em Removes student from class. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classClass_a256f240d612037e768999097ae0d5d51}{add\+\_\+student\+\_\+to\+\_\+class}} (const \mbox{\hyperlink{classStudent}{Student}} \&student, const std\+::string \&uc)
+\begin{DoxyCompactList}\small\item\em Adds a student to the class. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classClass_a9783e7432037eedebfa69eac150484b0}\label{classClass_a9783e7432037eedebfa69eac150484b0}} 
+bool {\bfseries operator$<$} (const \mbox{\hyperlink{classClass}{Class}} \&other) const
+\item 
+\mbox{\Hypertarget{classClass_acff6a8af6b36774a3c880a293eaec3d9}\label{classClass_acff6a8af6b36774a3c880a293eaec3d9}} 
+int {\bfseries get\+\_\+student\+\_\+count} (const std\+::string \&uc) const
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classClass_aa16e29290c0899da2c1ee6e1fa2ad917}\label{classClass_aa16e29290c0899da2c1ee6e1fa2ad917}} 
+\index{Class@{Class}!Class@{Class}}
+\index{Class@{Class}!Class@{Class}}
+\doxysubsubsection{\texorpdfstring{Class()}{Class()}}
+{\footnotesize\ttfamily Class\+::\+Class (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{class\+\_\+code,  }\item[{const std\+::vector$<$ \mbox{\hyperlink{classLecture}{Lecture}} $>$ \&}]{lectures,  }\item[{const std\+::vector$<$ \mbox{\hyperlink{classStudent}{Student}} $>$ \&}]{students }\end{DoxyParamCaption})}
+
+
+
+Constructor for \mbox{\hyperlink{classClass}{Class}} class. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em class\+\_\+code} & The code of the class \\
+\hline
+{\em lectures} & Vector with all existing lectures \\
+\hline
+{\em students} & Vector with all existing students \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classClass_a256f240d612037e768999097ae0d5d51}\label{classClass_a256f240d612037e768999097ae0d5d51}} 
+\index{Class@{Class}!add\_student\_to\_class@{add\_student\_to\_class}}
+\index{add\_student\_to\_class@{add\_student\_to\_class}!Class@{Class}}
+\doxysubsubsection{\texorpdfstring{add\_student\_to\_class()}{add\_student\_to\_class()}}
+{\footnotesize\ttfamily bool Class\+::add\+\_\+student\+\_\+to\+\_\+class (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classStudent}{Student}} \&}]{student,  }\item[{const std\+::string \&}]{uc }\end{DoxyParamCaption})}
+
+
+
+Adds a student to the class. 
+
+Add student to the class. If he already exists, enroll him in the ucs 
+\begin{DoxyParams}{Parameters}
+{\em student} & student to be added \\
+\hline
+{\em uc} & ucs where he will be enrolled \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if student not in class, false if he is 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classClass_a77252202bcf60c9139ae61eca56319b0}\label{classClass_a77252202bcf60c9139ae61eca56319b0}} 
+\index{Class@{Class}!class\_code@{class\_code}}
+\index{class\_code@{class\_code}!Class@{Class}}
+\doxysubsubsection{\texorpdfstring{class\_code()}{class\_code()}}
+{\footnotesize\ttfamily std\+::string Class\+::class\+\_\+code (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Getter for class\+\_\+code field. 
+
+\begin{DoxyReturn}{Returns}
+A string with the class code 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classClass_adbe9d6fc1fa4d1b223b33035fe52f064}\label{classClass_adbe9d6fc1fa4d1b223b33035fe52f064}} 
+\index{Class@{Class}!countEnrolledStudents@{countEnrolledStudents}}
+\index{countEnrolledStudents@{countEnrolledStudents}!Class@{Class}}
+\doxysubsubsection{\texorpdfstring{countEnrolledStudents()}{countEnrolledStudents()}}
+{\footnotesize\ttfamily size\+\_\+t Class\+::count\+Enrolled\+Students (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Number of enrolled students in class. 
+
+\begin{DoxyReturn}{Returns}
+size\+\_\+t with enrolled students 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classClass_aea0eb5c58cd7d81103fab02fe3908c5d}\label{classClass_aea0eb5c58cd7d81103fab02fe3908c5d}} 
+\index{Class@{Class}!getLecture@{getLecture}}
+\index{getLecture@{getLecture}!Class@{Class}}
+\doxysubsubsection{\texorpdfstring{getLecture()}{getLecture()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classLecture}{Lecture}} Class\+::get\+Lecture (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{code }\end{DoxyParamCaption}) const}
+
+
+
+Getter for a given \mbox{\hyperlink{classLecture}{Lecture}}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em code} & Code of the lecture \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The \mbox{\hyperlink{classLecture}{Lecture}} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classClass_a635af5fe866b4f196d3fed4b6c1131e3}\label{classClass_a635af5fe866b4f196d3fed4b6c1131e3}} 
+\index{Class@{Class}!lectures@{lectures}}
+\index{lectures@{lectures}!Class@{Class}}
+\doxysubsubsection{\texorpdfstring{lectures()}{lectures()}}
+{\footnotesize\ttfamily const std\+::vector$<$ \mbox{\hyperlink{classLecture}{Lecture}} $>$ \& Class\+::lectures (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Getter of all lectures. 
+
+\begin{DoxyReturn}{Returns}
+const reference to all lectures 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classClass_a4eaea50658afca6ddec9085cc66a653b}\label{classClass_a4eaea50658afca6ddec9085cc66a653b}} 
+\index{Class@{Class}!remove\_student\_from\_class@{remove\_student\_from\_class}}
+\index{remove\_student\_from\_class@{remove\_student\_from\_class}!Class@{Class}}
+\doxysubsubsection{\texorpdfstring{remove\_student\_from\_class()}{remove\_student\_from\_class()}}
+{\footnotesize\ttfamily bool Class\+::remove\+\_\+student\+\_\+from\+\_\+class (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classStudent}{Student}} \&}]{student,  }\item[{const std\+::string \&}]{uc }\end{DoxyParamCaption})}
+
+
+
+Removes student from class. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em student} & student to be removed \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if student can be removed, false if he cannot 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/Class.\+h\item 
+src/Class.\+cpp\end{DoxyCompactItemize}

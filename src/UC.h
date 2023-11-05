@@ -53,11 +53,6 @@ public:
     const std::list<Student> &enrolled_students() const;
 
     /**
-     * @brief Prints the students enrolled in the UC
-     */
-    void printEnrolledStudents();
-
-    /**
      * @brief Getter for the UC code
      * @return
      */

@@ -13,6 +13,9 @@
 #include "Lecture.h"
 #include "UC.h"
 
+/**
+ * @brief The class do define a Schedule
+ */
 class Schedule {
 private:
     std::vector<Lecture> lectures_;
@@ -47,10 +50,10 @@ public:
     const std::vector<Lecture> &get_lectures() const;
 
     /**
-     * @brief Prints schedule
+     * @brief Check if there are conflicts with a lecture in the schedule
+     * @param lecture the lecture
+     * @return true if there is conflict, false if there is not
      */
-    void printSchedule() const;
-
     bool conflicts(const Lecture &lecture);
 
 };

@@ -37,12 +37,6 @@ const std::list<Student> &UC::enrolled_students() const {
     return enrolled_students_;
 }
 
-void UC::printEnrolledStudents() {
-    for (const auto &s : enrolled_students_) {
-        s.printStudent();
-    }
-}
-
 unsigned UC::countEnrolledStudents() const {
     return (unsigned)enrolled_students_.size();
 }
