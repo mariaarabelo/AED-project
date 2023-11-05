@@ -258,6 +258,18 @@ bool Application::will_classes_be_balanced(const std::string &uc, const std::str
     return true;
 }
 
+std::string Application::students_class_from_uc(const std::string& uc_code, const Student& student){
+    std::vector<std::string> vector = classes_from_uc(uc_code);
+    for (std::string s1 : vector){
+        for (const std::string& s2 : student.enrolled_classes_id()){
+            if (s1 == s2){
+                return s1;
+            }
+        }
+    }
+
+}
+
 bool Application::schedule_is_conflicting(const Student &student, const Lecture &lecture) const {
     Schedule schedule(student, *lectures_);
     return schedule.conflicts(lecture);
