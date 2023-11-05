@@ -58,6 +58,8 @@ public:
     std::string switch_student_class(const std::string &student_code, const std::string &uc,
                                      const std::string &old_class, const std::string &new_class);
 
+    std::string students_class_from_uc(const std::string &uc_code, const Student &student);
+
 
 private:
     std::vector<Lecture> *lectures_;
@@ -103,8 +105,6 @@ private:
      * @brief Getter for a vector of pairs containing student names and IDs.
      * @return A const reference to the vector of pairs.
      */
-    const std::vector<std::pair<std::string, std::string>> &Students_name_id();
-
     bool will_classes_be_balanced(const std::string &uc, const std::string &c) const;
 
     bool schedule_is_conflicting(const Student &student, const Lecture &lecture)const;

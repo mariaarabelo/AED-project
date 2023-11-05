@@ -11,7 +11,7 @@ Student Interface::get_student_by_id(const std::vector<Student>& v){
     }
 }
 
-bool Interface::earlier_day(const std::string& s1, const std::string& s2){
+bool Interface::earlier_day(const std::string& s1, const std::string& s2)   {
     int idx1 = 0;
     int idx2 = 0;
     std::list<std::string> l = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
@@ -209,6 +209,10 @@ std::wstring Interface::only_numbers(const std::wstring& w, bool allow_zeros = t
     return nw;
 }
 
+void Interface::print_feedback(const std::wstring& ws){
+    std::wcout << L"\n ->->->->->->->->->->     " << w_bold << w_underline << ws << w_end << L"     <-<-<-<-<-<-<-<-<-<-" << std::endl;
+}
+
 void Interface::print_title(const std::vector<std::wstring>& t){
     for (const std::wstring& s : t){
         std::wcout << s << std::endl;
@@ -219,7 +223,7 @@ void Interface::print_options(){
     for (const std::wstring& s : Options[location]){
         if (s == Options[location][selected] && !table_mode){
             if (Options[location][selected].substr(0, 6) == L"Search"){
-                if (location == 3 || location == 6 || location == 17) {
+                if (location == 3 || location == 6 || location == 17 || location == 22) {
                     std::wcout << L"< " << w_underline << w_bold << w_red << L"Search for students name or ID ->"
                                << w_end << L"   " << write << L"   >" << std::endl << L"\n";
                 }
@@ -552,10 +556,10 @@ int Interface::tem_acento(const std::wstring& s) {
 }
 
 void Interface::basicInputResponse(wchar_t& user_in) {
-    if (location == 3 || location == 4 || location == 6 || location == 11 || location == 13 || location == 14 || location == 15 || location == 17 || location == 18 || location == 19) {
-        if (user_in == '\t' && ((!filtered_w_student_list.empty() && (location == 3 || location == 6 || location == 17 || location == 14 || location == 13))
-        || (!filtered_w_class_code_list.empty() && (location == 4 || location == 11 || location == 19))
-        || (!filtered_w_uc_list.empty() && (location == 15 || location == 18)))){
+    if (location == 3 || location == 4 || location == 6 || location == 11 || location == 13 || location == 14 || location == 15 || location == 17 || location == 18 || location == 19 || location == 22 || location == 23 || location == 25) {
+        if (user_in == '\t' && ((!filtered_w_student_list.empty() && (location == 3 || location == 6 || location == 17 || location == 14 || location == 13 || location == 22))
+        || (!filtered_w_class_code_list.empty() && (location == 4 || location == 11 || location == 19 || location == 25))
+        || (!filtered_w_uc_list.empty() && (location == 15 || location == 18 || location == 23)))){
             table_mode = !table_mode;
             selected = 0;
             selected_in_page = 0;
@@ -563,7 +567,7 @@ void Interface::basicInputResponse(wchar_t& user_in) {
         if (user_in == 'n'){
             page ++;
             selected_in_page = 0;
-            if(location == 3 || location == 6 || location == 14 || location == 17) {
+            if(location == 3 || location == 6 || location == 14 || location == 17 || location == 22) {
                 if (page >= booked_list.size()) {
                     page--;
                 }
@@ -594,19 +598,19 @@ void Interface::basicInputResponse(wchar_t& user_in) {
         }
     }
     else{
-        if (user_in == 'A' && (location == 3 || location == 6 || location == 14 || location == 17)) {
+        if (user_in == 'A' && (location == 3 || location == 6 || location == 14 || location == 17 || location == 22)) {
             if (selected_in_page > 0) { selected_in_page -= 1; }
             else { selected_in_page = booked_list[page].size() - 1; }
         }
-        if (user_in == 'B' && (location == 3 || location == 6 || location == 14 || location == 17)){
+        if (user_in == 'B' && (location == 3 || location == 6 || location == 14 || location == 17 || location == 22)){
             selected_in_page ++;
             if (selected_in_page > booked_list[page].size() - 1){selected_in_page = 0;}
         }
-        if (user_in == 'A' && (location == 4 || location == 11 || location == 13 || location == 15 || location == 18 || location == 19)) {
+        if (user_in == 'A' && (location == 4 || location == 11 || location == 13 || location == 15 || location == 18 || location == 19 || location == 23 || location == 25)) {
             if (selected_in_page > 0) { selected_in_page -= 1; }
             else { selected_in_page = booked_list_vector_of_wstrings[page].size() - 1; }
         }
-        if (user_in == 'B' && (location == 4 || location == 11 || location == 13 || location == 15 || location == 18 || location == 19)){
+        if (user_in == 'B' && (location == 4 || location == 11 || location == 13 || location == 15 || location == 18 || location == 19 || location == 23 || location == 25)){
             selected_in_page ++;
             if (selected_in_page > booked_list_vector_of_wstrings[page].size() - 1){selected_in_page = 0;}
         }
@@ -1154,8 +1158,8 @@ void Interface::basicInputResponse(wchar_t& user_in) {
                             case 0:
                                 break;
                             case 1:
-                                directory = L"Consult > UCs";
-                                location = 15;
+                                directory = L"Consult > UC " + uc_analised;
+                                location = 16;
                                 selected = 0;
                                 write = write_default;
                                 break;
@@ -1308,9 +1312,13 @@ void Interface::basicInputResponse(wchar_t& user_in) {
                     case 0:
                         location = 21;
                         earlier_directory = directory;
-                        directory += L" > Classes";
+                        directory += L" > UC";
                         break;
                     case 1:
+                        location = 22;
+                        selected = 0;
+                        earlier_directory = directory;
+                        directory += L" > Switch Classes";
                         break;
                     case 2:
                         location = 0;
@@ -1318,6 +1326,239 @@ void Interface::basicInputResponse(wchar_t& user_in) {
                         directory = L"";
                         break;
                         break;
+                }
+                break;
+            case 21:
+                switch (selected){
+                    case 0:
+                        location = 22;
+                        earlier_directory = directory;
+                        directory += L" > Remove Student from UC";
+                        break;
+                    case 1:
+                        location = 22;
+                        selected = 0;
+                        earlier_directory = directory;
+                        directory += L" > Add Student to UC";
+                        break;
+                    case 2:
+                        location = 20;
+                        selected = 0;
+                        earlier_directory = directory;
+                        directory = L"Make change request";
+                        break;
+                    case 3:
+                        location = 0;
+                        selected = 0;
+                        directory = L"";
+                        break;
+                }
+                break;
+            case 22:
+                switch (table_mode){
+                    case false:
+                        switch (selected){
+                            case 0:
+                                break;
+                            case 1:
+                                earlier_directory.substr(0, 24) == L"Make change request > UC" ? location = 21 : location = 20;
+                                location == 21 ? directory = L"Make change request > UC" : directory = L"Make change request";
+                                selected = 0;
+                                write = write_default;
+                                break;
+                            case 2:
+                                location = 0;
+                                selected = 0;
+                                directory = L"";
+                                write = write_default;
+                                break;
+                            default:
+                                break;
+                        }
+                        break;
+                    case true:
+                        switch (selected_in_page) {
+                            default:
+                                if (selected_in_page >= 0 && selected_in_page < number_names[page == booked_list.size() - 1]) {
+                                    s_analised = booked_list[page][selected_in_page].first + L"(" + booked_list[page][selected_in_page].second + L")";
+                                    if (directory.substr(0, 28) == L"Make change request > UC > R") {
+                                        directory = L"Make change request > UC > Remove " + s_analised + L" from UC";
+                                    }
+                                    if (directory.substr(0, 28) == L"Make change request > UC > A") {
+                                        directory = L"Make change request > UC > Add " + s_analised + L" to UC";
+                                    }
+                                    if (directory.substr(0, 23) == L"Make change request > S") {
+                                        directory = L"Make change request > Switch " + s_analised + L" class";
+                                    }
+                                    location = 23;
+                                    selected = 0;
+                                    selected_in_page = 0;
+                                    page = 0;
+                                    write = write_default;
+                                    table_mode = !table_mode;
+                                }
+                                else if (booked_list[page][selected_in_page].first == L"Next") {
+                                    page++;
+                                    selected_in_page = 0;
+                                }
+                                else if (booked_list[page][selected_in_page].first == L"Previous") {
+                                    page--;
+                                    selected_in_page = 0;
+                                }
+                                else if (booked_list[page][selected_in_page].first == L"First") {
+                                    page = 0;
+                                    selected_in_page = 0;
+                                }
+                                else if (booked_list[page][selected_in_page].first == L"Last") {
+                                    page = booked_list.size() - 1;
+                                    selected_in_page = 0;
+                                }
+                        }
+                        break;
+                }
+                break;
+            case 23:
+                switch (table_mode) {
+                    case false:
+                        switch (selected) {
+                            case 0:
+                                if (directory.substr(0, 28) == L"Make change request > UC > R") {
+                                    directory = L"Make change request > UC > Remove Student from UC";
+                                }
+                                if (directory.substr(0, 28) == L"Make change request > UC > A") {
+                                    directory = L"Make change request > UC > Add Student to UC";
+                                }
+                                if (directory.substr(0, 23) == L"Make change request > S") {
+                                    directory = L"Make change request > Switch Classes";
+                                }
+                                location = 22;
+                                break;
+                            case 1:
+                                location = 0;
+                                selected = 0;
+                                directory = L"";
+                                break;
+                        }
+                        break;
+                    case true:
+                        switch (selected_in_page) {
+                            default:
+                                if (selected_in_page >= 0 && selected_in_page < number_names[page == booked_list_vector_of_wstrings.size() - 1]) {
+                                    uc_analised = booked_list_vector_of_wstrings[page][selected_in_page];
+                                    directory += L" " + uc_analised;
+                                    page = 0;
+                                    if (directory.substr(0, 28) == L"Make change request > UC > R") {
+                                        location = 24;
+                                    }
+                                    if (directory.substr(0, 28) == L"Make change request > UC > A") {
+                                        location = 25;
+                                        directory += L" and to Class";
+                                    }
+                                    if (directory.substr(0, 23) == L"Make change request > S") {
+                                        directory = L"Make change request > Switch " + s_analised + L" class " +
+                                                convert_to_wstring(app_.students_class_from_uc(convert_to_string((uc_analised)), get_student_by_id(app_.students())))
+                                                + L" to class";
+                                        location = 25;
+                                    }
+                                    selected = 0;
+                                    selected_in_page = 0;
+                                    write = write_default;
+                                    table_mode = !table_mode;
+                                }
+                                else if (booked_list_vector_of_wstrings[page][selected_in_page] == L"Next Page ['n']") {
+                                    page++;
+                                    selected_in_page = 0;
+                                }
+                                else if (booked_list_vector_of_wstrings[page][selected_in_page] == L"Previous Page ['p']") {
+                                    page--;
+                                    selected_in_page = 0;
+                                }
+                                else if (booked_list_vector_of_wstrings[page][selected_in_page] == L"First Page") {
+                                    page = 0;
+                                    selected_in_page = 0;
+                                }
+                                else if (booked_list_vector_of_wstrings[page][selected_in_page] == L"Last Page") {
+                                    page = booked_list_vector_of_wstrings.size() - 1;
+                                    selected_in_page = 0;
+                                }
+                        }
+                        break;
+                }
+                break;
+            case 24:
+                switch (selected) {
+                    case 0:
+                        earlier_directory = directory;
+                        if (directory.substr(0, 23) == L"Make change request > S") {
+                            directory = L"Make change request";
+                            location = 20;
+                        }
+                        else {
+                            directory = L"Make change request > UC";
+                            location = 21;
+                        }
+                        break;
+                    case 1:
+                        location = 0;
+                        selected = 0;
+                        directory = L"";
+                        break;
+                }
+                done = false;
+                break;
+            case 25:
+                switch (table_mode) {
+                    case false:
+                        switch (selected) {
+                            case 0:
+                                earlier_directory = directory;
+                                if (directory.substr(0, 23) == L"Make change request > S") {
+                                    directory = L"Make change request > Switch " + s_analised + L" class";
+                                }
+                                else {
+                                    directory = L"Make change request > UC > Add " + s_analised + L" to UC";
+                                }
+                                location = 23;
+                                break;
+                            case 1:
+                                location = 0;
+                                selected = 0;
+                                directory = L"";
+                                break;
+                        }
+                        break;
+                    case true:
+                        switch (selected_in_page) {
+                            default:
+                                if (selected_in_page >= 0 && selected_in_page < number_names[page == booked_list_vector_of_wstrings.size() - 1]) {
+                                    c_analised = booked_list_vector_of_wstrings[page][selected_in_page];
+                                    directory += L" " + c_analised;
+                                    page = 0;
+                                    location = 24;
+                                    selected = 0;
+                                    selected_in_page = 0;
+                                    write = write_default;
+                                    table_mode = !table_mode;
+                                }
+                                else if (booked_list_vector_of_wstrings[page][selected_in_page] == L"Next Page ['n']") {
+                                    page++;
+                                    selected_in_page = 0;
+                                }
+                                else if (booked_list_vector_of_wstrings[page][selected_in_page] == L"Previous Page ['p']") {
+                                    page--;
+                                    selected_in_page = 0;
+                                }
+                                else if (booked_list_vector_of_wstrings[page][selected_in_page] == L"First Page") {
+                                    page = 0;
+                                    selected_in_page = 0;
+                                }
+                                else if (booked_list_vector_of_wstrings[page][selected_in_page] == L"Last Page") {
+                                    page = booked_list_vector_of_wstrings.size() - 1;
+                                    selected_in_page = 0;
+                                }
+                        }
+                        break;
+                    break;
                 }
                 break;
             default:
@@ -1351,12 +1592,12 @@ void Interface::InputResponse_inWriteMode(wchar_t &user_in) {
             write.pop_back();
         }
     }
-    if (location == 15 || location == 18){
+    if (location == 15 || location == 18 || location == 23){
         if (write.size() > 8 && write != write_default){
             write.pop_back();
         }
     }
-    if (location == 3 || location == 6 || location == 17){
+    if (location == 3 || location == 6 || location == 17 || location == 22){
         if (write.size() > 40 && write != write_default){
             write.pop_back();
         }
@@ -1379,8 +1620,8 @@ void Interface::inputer(){
             write_mode = false;
             basicInputResponse(user_input);
         }
-        else if ((user_input == 9 || (user_input == '\n')) && ((!filtered_w_student_list.empty() && (location == 3 || location == 6 || location == 17))
-        || (!filtered_w_class_code_list.empty() && (location == 4 || location == 11)) || (!filtered_w_uc_list.empty() && (location == 15 || location == 18)))){
+        else if ((user_input == 9 || (user_input == '\n')) && ((!filtered_w_student_list.empty() && (location == 3 || location == 6 || location == 17 || location == 22))
+        || (!filtered_w_class_code_list.empty() && (location == 4 || location == 11)) || (!filtered_w_uc_list.empty() && (location == 15 || location == 18 || location == 23)))){
             write_mode = false;
             table_mode = true;
         }
@@ -1438,6 +1679,7 @@ void Interface::run(){
                 break;
             case 3:                      // CONSULT SCHEDULE STUDENT
             case 6:                      // consult students
+            case 22:                      // mkchr remove uc choose student
                 system("clear");
                 print_directory();
                 if (!write.empty() && write != write_default) {
@@ -1565,7 +1807,7 @@ void Interface::run(){
                 booked_list_printer_vector_of_wstrings(filtered_w_uc_list);
                 inputer();
                 break;
-            case 17:                  //consult uc(name) classes
+            case 17:                  //consult uc(name) students
                 system("clear");
                 save_filtered_w_student_list = convert_to_wstring_vector_of_pairs(app_.students_from_uc(convert_to_string(uc_analised)));
                 alphabetic_sort_vector_of_pairs_of_wstrings(save_filtered_w_student_list);
@@ -1581,24 +1823,32 @@ void Interface::run(){
                 if (Options[location][selected].substr(0, 6) == L"Search" && !table_mode) {
                     write_mode = true;
                 }
-                booked_list_filter(save_filtered_w_student_list, filtered_w_student_list);
-                list_booker(filtered_w_student_list);
+                booked_list_filter(w_student_list, filtered_w_student_list);
+                list_booker(save_filtered_w_student_list);
                 booked_list_printer();
                 inputer();
                 break;
             case 18:
+            case 23:
                 system("clear");
-                filtered_w_uc_list = convert_to_wstring_vector_of_strings(get_student_by_id(app_.students()).enrolled_ucs_id());
-                alphabetic_sort_vector_of_wstrings(filtered_w_uc_list);
+                if (location == 23 && (directory.substr(0, 28) == L"Make change request > UC > R" || directory.substr(0, 23) == L"Make change request > S") || location == 18) {
+                    filtered_w_uc_list = convert_to_wstring_vector_of_strings(
+                            get_student_by_id(app_.students()).enrolled_ucs_id());
+                    alphabetic_sort_vector_of_wstrings(filtered_w_uc_list);
+                }
+                if(location == 23 && directory.substr(0, 28) == L"Make change request > UC > A") {
+                    filtered_w_uc_list = convert_to_wstring_vector_of_strings(uc_list);
+                }
                 print_directory();
                 print_options();
                 std::wcout << L"\n\n" << w_italic << Helper << w_end_italic << std::endl;
-                std::wcout << w_italic << Helper_Students << w_end_italic << std::endl;
+                std::wcout << w_italic << Helper_UCs << w_end_italic << std::endl;
                 list_booker_vector_of_wstrings(filtered_w_uc_list);
                 booked_list_printer_vector_of_wstrings(filtered_w_uc_list);
                 inputer();
                 break;
             case 19:
+            case 25:      //make change request > uc > add to uc >> choose class
                 system("clear");
                 filtered_w_class_code_list = convert_to_wstring_vector_of_strings(app_.classes_from_uc(convert_to_string(uc_analised)));
                 alphabetic_sort_vector_of_wstrings(filtered_w_class_code_list);
@@ -1608,6 +1858,35 @@ void Interface::run(){
                 std::wcout << w_italic << Helper_Classes     << w_end_italic << std::endl;
                 list_booker_vector_of_wstrings(filtered_w_class_code_list);
                 booked_list_printer_vector_of_wstrings(filtered_w_class_code_list);
+                inputer();
+                break;
+            case 24:
+                system("clear");
+                print_directory();
+                print_options();
+                if (!done) {
+                    if (directory.substr(0, 28) == L"Make change request > UC > R") {
+                        feedback = convert_to_wstring(app_.remove_student_from_uc(
+                                convert_to_string(s_analised.substr(s_analised.find_first_of(L'(') + 1, 9)),
+                                convert_to_string(uc_analised),
+                                app_.students_class_from_uc(convert_to_string((uc_analised)),
+                                                            get_student_by_id(app_.students()))));
+                    }
+                    if (directory.substr(0, 28) == L"Make change request > UC > A") {
+                        feedback = convert_to_wstring(app_.add_student_to_uc(
+                                convert_to_string(s_analised.substr(s_analised.find_first_of(L'(') + 1, 9)),
+                                convert_to_string(uc_analised),
+                                convert_to_string(c_analised)));
+                    }
+                    if (directory.substr(0, 23) == L"Make change request > S") {
+                        feedback = convert_to_wstring(app_.switch_student_class(convert_to_string(s_analised.substr(s_analised.find_first_of(L'(') + 1, 9)),
+                                                                                convert_to_string(uc_analised),
+                                                                                app_.students_class_from_uc(convert_to_string(uc_analised), get_student_by_id(app_.students())),
+                                                                                convert_to_string(c_analised)));
+                    }
+                    done = true;
+                }
+                print_feedback(feedback);
                 inputer();
                 break;
         }

@@ -11,8 +11,6 @@
 #include <codecvt>
 #include <termios.h>
 #include <unistd.h>
-#include <termios.h>
-#include <unistd.h>
 #include <vector>
 #include <string>
 #include <locale>
@@ -59,6 +57,7 @@ private:
     bool write_mode = false;
     bool day_printed = false;
     bool write_has_letters = false;
+    bool done = false;
 
     Application app_;
 
@@ -91,6 +90,8 @@ private:
     std::wstring s_analised;
     std::wstring c_analised;
     std::wstring uc_analised;
+
+    std::wstring feedback;
 
 
     std::vector<std::wstring> Horarinator = {
@@ -208,12 +209,32 @@ private:
                     L"Main Menu"
             },
             {
-                    L"UCs",
-                    L"Classes",
+                    L"UC",
+                    L"Switch Classes",
                     L"Main Menu"
             },
             {
-                    L""
+                    L"Remove Student from UC",
+                    L"Add Student to a UC",
+                    L"Back",
+                    L"Main Menu"
+            },
+            {
+                    L"Search for Student",
+                    L"Back",
+                    L"Main Menu"
+            },
+            {
+                    L"Back",
+                    L"Main Menu"
+            },
+            {
+                    L"Back",
+                    L"Main Menu"
+            },
+            {
+                    L"Back",
+                    L"Main Menu"
             }
     };
 
@@ -280,6 +301,8 @@ private:
     static void alphabetic_sort_vector_of_pairs_of_wstrings(std::vector<std::pair<std::wstring, std::wstring>> &v);
 
     void booked_list_filter(const std::vector<std::pair<std::wstring, std::wstring>> &vw, std::vector<std::pair<std::wstring, std::wstring>> &filtered_vw);
+
+    void print_feedback(const std::wstring &ws);
 };
 
 //------------------------------------------------------------------------------------------------------------//
