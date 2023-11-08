@@ -74,16 +74,86 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a4aaa5868d72f64b92cde3459967ab357"><td class="memItemLeft" align="right" valign="top"><a id="a4aaa5868d72f64b92cde3459967ab357"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>File_Reader</b> (const std::string &amp;file_name)</td></tr>
 <tr class="separator:a4aaa5868d72f64b92cde3459967ab357"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a566c3803bc988fe66edf63ead114cabe"><td class="memItemLeft" align="right" valign="top"><a id="a566c3803bc988fe66edf63ead114cabe"></a>
-std::vector&lt; <a class="el" href="classLecture.html">Lecture</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>instatiateLectures</b> ()</td></tr>
+<tr class="memitem:a566c3803bc988fe66edf63ead114cabe"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="classLecture.html">Lecture</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFile__Reader.html#a566c3803bc988fe66edf63ead114cabe">instatiateLectures</a> ()</td></tr>
+<tr class="memdesc:a566c3803bc988fe66edf63ead114cabe"><td class="mdescLeft">&#160;</td><td class="mdescRight">used to instantiate the Lectures  <a href="classFile__Reader.html#a566c3803bc988fe66edf63ead114cabe">More...</a><br /></td></tr>
 <tr class="separator:a566c3803bc988fe66edf63ead114cabe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a22f398615db142c603f9f4902b542528"><td class="memItemLeft" align="right" valign="top"><a id="a22f398615db142c603f9f4902b542528"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>instantiateStudents</b> (std::vector&lt; <a class="el" href="classStudent.html">Student</a> &gt; *students)</td></tr>
-<tr class="separator:a22f398615db142c603f9f4902b542528"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf24c798961b3199c9bdb32df83739f3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFile__Reader.html#aaf24c798961b3199c9bdb32df83739f3">instantiateStudents</a> (std::set&lt; <a class="el" href="classStudent.html">Student</a> &gt; *students)</td></tr>
+<tr class="memdesc:aaf24c798961b3199c9bdb32df83739f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">used to instantiate students  <a href="classFile__Reader.html#aaf24c798961b3199c9bdb32df83739f3">More...</a><br /></td></tr>
+<tr class="separator:aaf24c798961b3199c9bdb32df83739f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac3b4927cc3a0e82ccf607410ecae9503"><td class="memItemLeft" align="right" valign="top"><a id="ac3b4927cc3a0e82ccf607410ecae9503"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>classListing</b> (std::map&lt; std::string, std::list&lt; std::string &gt;&gt; *c)</td></tr>
 <tr class="separator:ac3b4927cc3a0e82ccf607410ecae9503"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e56d2735f71bb318d1e1ab4e2da7685"><td class="memItemLeft" align="right" valign="top">std::stack&lt; std::vector&lt; std::string &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFile__Reader.html#a4e56d2735f71bb318d1e1ab4e2da7685">read_changes</a> ()</td></tr>
+<tr class="memdesc:a4e56d2735f71bb318d1e1ab4e2da7685"><td class="mdescLeft">&#160;</td><td class="mdescRight">scans shcanges.csv for recent changes  <a href="classFile__Reader.html#a4e56d2735f71bb318d1e1ab4e2da7685">More...</a><br /></td></tr>
+<tr class="separator:a4e56d2735f71bb318d1e1ab4e2da7685"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="aaf24c798961b3199c9bdb32df83739f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf24c798961b3199c9bdb32df83739f3">&#9670;&nbsp;</a></span>instantiateStudents()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void File_Reader::instantiateStudents </td>
+          <td>(</td>
+          <td class="paramtype">std::set&lt; <a class="el" href="classStudent.html">Student</a> &gt; *&#160;</td>
+          <td class="paramname"><em>students</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>used to instantiate students </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">students</td><td>vector where students will be stored </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a566c3803bc988fe66edf63ead114cabe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a566c3803bc988fe66edf63ead114cabe">&#9670;&nbsp;</a></span>instatiateLectures()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; <a class="el" href="classLecture.html">Lecture</a> &gt; File_Reader::instatiateLectures </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>used to instantiate the Lectures </p>
+<dl class="section return"><dt>Returns</dt><dd>vector of all lectures </dd></dl>
+
+</div>
+</div>
+<a id="a4e56d2735f71bb318d1e1ab4e2da7685"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e56d2735f71bb318d1e1ab4e2da7685">&#9670;&nbsp;</a></span>read_changes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::stack&lt; std::vector&lt; std::string &gt; &gt; File_Reader::read_changes </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>scans shcanges.csv for recent changes </p>
+<dl class="section return"><dt>Returns</dt><dd>stack with the most recent changes in the form of a vector of strings </dd></dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>src/<a class="el" href="File__Reader_8h_source.html">File_Reader.h</a></li>
 <li>src/File_Reader.cpp</li>

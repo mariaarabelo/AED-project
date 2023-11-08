@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['lectures_42',['lectures',['../classClass.html#a635af5fe866b4f196d3fed4b6c1131e3',1,'Class']]]
+  ['instantiatestudents_54',['instantiateStudents',['../classFile__Reader.html#aaf24c798961b3199c9bdb32df83739f3',1,'File_Reader']]],
+  ['instatiatelectures_55',['instatiateLectures',['../classFile__Reader.html#a566c3803bc988fe66edf63ead114cabe',1,'File_Reader']]]
 ];

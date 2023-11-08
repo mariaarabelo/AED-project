@@ -6,15 +6,59 @@
 \mbox{\Hypertarget{classFile__Reader_a4aaa5868d72f64b92cde3459967ab357}\label{classFile__Reader_a4aaa5868d72f64b92cde3459967ab357}} 
 {\bfseries File\+\_\+\+Reader} (const std\+::string \&file\+\_\+name)
 \item 
-\mbox{\Hypertarget{classFile__Reader_a566c3803bc988fe66edf63ead114cabe}\label{classFile__Reader_a566c3803bc988fe66edf63ead114cabe}} 
-std\+::vector$<$ \mbox{\hyperlink{classLecture}{Lecture}} $>$ {\bfseries instatiate\+Lectures} ()
-\item 
-\mbox{\Hypertarget{classFile__Reader_a22f398615db142c603f9f4902b542528}\label{classFile__Reader_a22f398615db142c603f9f4902b542528}} 
-void {\bfseries instantiate\+Students} (std\+::vector$<$ \mbox{\hyperlink{classStudent}{Student}} $>$ $\ast$students)
-\item 
+std\+::vector$<$ \mbox{\hyperlink{classLecture}{Lecture}} $>$ \mbox{\hyperlink{classFile__Reader_a566c3803bc988fe66edf63ead114cabe}{instatiate\+Lectures}} ()
+\begin{DoxyCompactList}\small\item\em used to instantiate the Lectures \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classFile__Reader_aaf24c798961b3199c9bdb32df83739f3}{instantiate\+Students}} (std\+::set$<$ \mbox{\hyperlink{classStudent}{Student}} $>$ $\ast$students)
+\begin{DoxyCompactList}\small\item\em used to instantiate students \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classFile__Reader_ac3b4927cc3a0e82ccf607410ecae9503}\label{classFile__Reader_ac3b4927cc3a0e82ccf607410ecae9503}} 
 void {\bfseries class\+Listing} (std\+::map$<$ std\+::string, std\+::list$<$ std\+::string $>$$>$ $\ast$c)
-\end{DoxyCompactItemize}
+\item 
+std\+::stack$<$ std\+::vector$<$ std\+::string $>$ $>$ \mbox{\hyperlink{classFile__Reader_a4e56d2735f71bb318d1e1ab4e2da7685}{read\+\_\+changes}} ()
+\begin{DoxyCompactList}\small\item\em scans shcanges.\+csv for recent changes \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classFile__Reader_aaf24c798961b3199c9bdb32df83739f3}\label{classFile__Reader_aaf24c798961b3199c9bdb32df83739f3}} 
+\index{File\_Reader@{File\_Reader}!instantiateStudents@{instantiateStudents}}
+\index{instantiateStudents@{instantiateStudents}!File\_Reader@{File\_Reader}}
+\doxysubsubsection{\texorpdfstring{instantiateStudents()}{instantiateStudents()}}
+{\footnotesize\ttfamily void File\+\_\+\+Reader\+::instantiate\+Students (\begin{DoxyParamCaption}\item[{std\+::set$<$ \mbox{\hyperlink{classStudent}{Student}} $>$ $\ast$}]{students }\end{DoxyParamCaption})}
+
+
+
+used to instantiate students 
+
+
+\begin{DoxyParams}{Parameters}
+{\em students} & vector where students will be stored \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classFile__Reader_a566c3803bc988fe66edf63ead114cabe}\label{classFile__Reader_a566c3803bc988fe66edf63ead114cabe}} 
+\index{File\_Reader@{File\_Reader}!instatiateLectures@{instatiateLectures}}
+\index{instatiateLectures@{instatiateLectures}!File\_Reader@{File\_Reader}}
+\doxysubsubsection{\texorpdfstring{instatiateLectures()}{instatiateLectures()}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{classLecture}{Lecture}} $>$ File\+\_\+\+Reader\+::instatiate\+Lectures (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+used to instantiate the Lectures 
+
+\begin{DoxyReturn}{Returns}
+vector of all lectures 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classFile__Reader_a4e56d2735f71bb318d1e1ab4e2da7685}\label{classFile__Reader_a4e56d2735f71bb318d1e1ab4e2da7685}} 
+\index{File\_Reader@{File\_Reader}!read\_changes@{read\_changes}}
+\index{read\_changes@{read\_changes}!File\_Reader@{File\_Reader}}
+\doxysubsubsection{\texorpdfstring{read\_changes()}{read\_changes()}}
+{\footnotesize\ttfamily std\+::stack$<$ std\+::vector$<$ std\+::string $>$ $>$ File\+\_\+\+Reader\+::read\+\_\+changes (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+scans shcanges.\+csv for recent changes 
+
+\begin{DoxyReturn}{Returns}
+stack with the most recent changes in the form of a vector of strings 
+\end{DoxyReturn}
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}

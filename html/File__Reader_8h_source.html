@@ -79,28 +79,33 @@ $(function() {
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;fstream&gt;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;sstream&gt;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;utility&gt;</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;list&gt;</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;map&gt;</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;iostream&gt;</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &quot;Class.h&quot;</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &quot;UC.h&quot;</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &quot;Student.h&quot;</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="classFile__Reader.html">   20</a></span>&#160;<span class="keyword">class </span><a class="code" href="classFile__Reader.html">File_Reader</a> {</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    std::ifstream file_;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    std::vector&lt;std::vector&lt;std::string&gt;&gt; data_;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classFile__Reader.html">File_Reader</a>(<span class="keyword">const</span> std::string &amp;file_name);</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    std::vector&lt;Lecture&gt; instatiateLectures();</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keywordtype">void</span> instantiateStudents(std::vector&lt;Student&gt; *students);</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keywordtype">void</span> classListing(std::map&lt;std::string, std::list&lt;std::string&gt;&gt; *c);</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;};</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#endif </span><span class="comment">//AED_PROJECT_FILE_READER_H</span></div>
-<div class="ttc" id="aclassFile__Reader_html"><div class="ttname"><a href="classFile__Reader.html">File_Reader</a></div><div class="ttdef"><b>Definition:</b> File_Reader.h:20</div></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;stack&gt;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;sstream&gt;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;utility&gt;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;list&gt;</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;map&gt;</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;iostream&gt;</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &quot;Class.h&quot;</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &quot;UC.h&quot;</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &quot;Student.h&quot;</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="classFile__Reader.html">   21</a></span>&#160;<span class="keyword">class </span><a class="code" href="classFile__Reader.html">File_Reader</a> {</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    std::ifstream file_;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    std::vector&lt;std::vector&lt;std::string&gt;&gt; data_;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classFile__Reader.html">File_Reader</a>(<span class="keyword">const</span> std::string &amp;file_name);</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    std::vector&lt;Lecture&gt; <a class="code" href="classFile__Reader.html#a566c3803bc988fe66edf63ead114cabe">instatiateLectures</a>();</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classFile__Reader.html#aaf24c798961b3199c9bdb32df83739f3">instantiateStudents</a>(std::set&lt;Student&gt; *students);</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordtype">void</span> classListing(std::map&lt;std::string, std::list&lt;std::string&gt;&gt; *c);</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    std::stack&lt;std::vector&lt;std::string&gt;&gt; <a class="code" href="classFile__Reader.html#a4e56d2735f71bb318d1e1ab4e2da7685">read_changes</a>();</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;};</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="preprocessor">#endif </span><span class="comment">//AED_PROJECT_FILE_READER_H</span></div>
+<div class="ttc" id="aclassFile__Reader_html"><div class="ttname"><a href="classFile__Reader.html">File_Reader</a></div><div class="ttdef"><b>Definition:</b> File_Reader.h:21</div></div>
+<div class="ttc" id="aclassFile__Reader_html_a4e56d2735f71bb318d1e1ab4e2da7685"><div class="ttname"><a href="classFile__Reader.html#a4e56d2735f71bb318d1e1ab4e2da7685">File_Reader::read_changes</a></div><div class="ttdeci">std::stack&lt; std::vector&lt; std::string &gt; &gt; read_changes()</div><div class="ttdoc">scans shcanges.csv for recent changes</div><div class="ttdef"><b>Definition:</b> File_Reader.cpp:87</div></div>
+<div class="ttc" id="aclassFile__Reader_html_a566c3803bc988fe66edf63ead114cabe"><div class="ttname"><a href="classFile__Reader.html#a566c3803bc988fe66edf63ead114cabe">File_Reader::instatiateLectures</a></div><div class="ttdeci">std::vector&lt; Lecture &gt; instatiateLectures()</div><div class="ttdoc">used to instantiate the Lectures</div><div class="ttdef"><b>Definition:</b> File_Reader.cpp:12</div></div>
+<div class="ttc" id="aclassFile__Reader_html_aaf24c798961b3199c9bdb32df83739f3"><div class="ttname"><a href="classFile__Reader.html#aaf24c798961b3199c9bdb32df83739f3">File_Reader::instantiateStudents</a></div><div class="ttdeci">void instantiateStudents(std::set&lt; Student &gt; *students)</div><div class="ttdoc">used to instantiate students</div><div class="ttdef"><b>Definition:</b> File_Reader.cpp:34</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

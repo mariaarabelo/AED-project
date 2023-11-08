@@ -1,5 +1,14 @@
 \hypertarget{classSchedule}{}\doxysection{Schedule Class Reference}
 \label{classSchedule}\index{Schedule@{Schedule}}
+
+
+The class do define a \mbox{\hyperlink{classSchedule}{Schedule}}.  
+
+
+
+
+{\ttfamily \#include $<$Schedule.\+h$>$}
+
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -11,13 +20,12 @@
 \begin{DoxyCompactList}\small\item\em Constructor for \mbox{\hyperlink{classSchedule}{Schedule}} class This function instantiates a \mbox{\hyperlink{classSchedule}{Schedule}} for a \mbox{\hyperlink{classUC}{UC}}. \end{DoxyCompactList}\item 
 const std\+::vector$<$ \mbox{\hyperlink{classLecture}{Lecture}} $>$ \& \mbox{\hyperlink{classSchedule_a308da5720fe4fa135538aef48e955c7f}{get\+\_\+lectures}} () const
 \begin{DoxyCompactList}\small\item\em Getter for lectures field. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classSchedule_ac81ec9cc8624ce05752827ab6d5f7b91}\label{classSchedule_ac81ec9cc8624ce05752827ab6d5f7b91}} 
-void \mbox{\hyperlink{classSchedule_ac81ec9cc8624ce05752827ab6d5f7b91}{print\+Schedule}} () const
-\begin{DoxyCompactList}\small\item\em Prints schedule. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classSchedule_ae5bebc36473a56781efd92563e94cc40}\label{classSchedule_ae5bebc36473a56781efd92563e94cc40}} 
-bool {\bfseries conflicts} (const \mbox{\hyperlink{classLecture}{Lecture}} \&lecture)
-\end{DoxyCompactItemize}
+bool \mbox{\hyperlink{classSchedule_ae5bebc36473a56781efd92563e94cc40}{conflicts}} (const \mbox{\hyperlink{classLecture}{Lecture}} \&lecture)
+\begin{DoxyCompactList}\small\item\em Check if there are conflicts with a lecture in the schedule. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
+
+\doxysubsection{Detailed Description}
+The class do define a \mbox{\hyperlink{classSchedule}{Schedule}}. 
 
 \doxysubsection{Constructor \& Destructor Documentation}
 \mbox{\Hypertarget{classSchedule_ae043a0e8f303e90b74c5feae16e6b582}\label{classSchedule_ae043a0e8f303e90b74c5feae16e6b582}} 
@@ -70,6 +78,24 @@ Constructor for \mbox{\hyperlink{classSchedule}{Schedule}} class This function i
 
 
 \doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classSchedule_ae5bebc36473a56781efd92563e94cc40}\label{classSchedule_ae5bebc36473a56781efd92563e94cc40}} 
+\index{Schedule@{Schedule}!conflicts@{conflicts}}
+\index{conflicts@{conflicts}!Schedule@{Schedule}}
+\doxysubsubsection{\texorpdfstring{conflicts()}{conflicts()}}
+{\footnotesize\ttfamily bool Schedule\+::conflicts (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classLecture}{Lecture}} \&}]{lecture }\end{DoxyParamCaption})}
+
+
+
+Check if there are conflicts with a lecture in the schedule. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em lecture} & the lecture \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if there is conflict, false if there is not 
+\end{DoxyReturn}
 \mbox{\Hypertarget{classSchedule_a308da5720fe4fa135538aef48e955c7f}\label{classSchedule_a308da5720fe4fa135538aef48e955c7f}} 
 \index{Schedule@{Schedule}!get\_lectures@{get\_lectures}}
 \index{get\_lectures@{get\_lectures}!Schedule@{Schedule}}

@@ -12,43 +12,57 @@ The \mbox{\hyperlink{classApplication}{Application}} class for managing and inte
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
+\mbox{\Hypertarget{classApplication_a1f14b7c9ba674669b9fc6cc401aa42f3}\label{classApplication_a1f14b7c9ba674669b9fc6cc401aa42f3}} 
+std\+::vector$<$ std\+::pair$<$ std\+::string, std\+::string $>$ $>$ {\bfseries check\+\_\+year} (const std\+::string \&c)
+\item 
+\mbox{\Hypertarget{classApplication_a2c15e82de7dc2279a5c2791033488085}\label{classApplication_a2c15e82de7dc2279a5c2791033488085}} 
+std\+::vector$<$ std\+::pair$<$ std\+::string, std\+::string $>$ $>$ {\bfseries class\+\_\+id\+\_\+student\+\_\+number} ()
+\item 
+\mbox{\Hypertarget{classApplication_a9b9c7d588af0cefd92d402ec62f87d28}\label{classApplication_a9b9c7d588af0cefd92d402ec62f87d28}} 
+std\+::vector$<$ std\+::pair$<$ std\+::string, std\+::string $>$ $>$ {\bfseries enrolled\+\_\+students\+\_\+in\+\_\+ucs} ()
+\item 
 \mbox{\Hypertarget{classApplication_afa8cc05ce6b6092be5ecdfdae44e05f8}\label{classApplication_afa8cc05ce6b6092be5ecdfdae44e05f8}} 
 \mbox{\hyperlink{classApplication_afa8cc05ce6b6092be5ecdfdae44e05f8}{Application}} ()
 \begin{DoxyCompactList}\small\item\em Default constructor for the \mbox{\hyperlink{classApplication}{Application}} class. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classApplication_a748bca84fefb9c12661cfaa2f623748d}\label{classApplication_a748bca84fefb9c12661cfaa2f623748d}} 
 \mbox{\hyperlink{classApplication_a748bca84fefb9c12661cfaa2f623748d}{$\sim$\+Application}} ()
 \begin{DoxyCompactList}\small\item\em Destructor for the \mbox{\hyperlink{classApplication}{Application}} class. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classApplication_ab5b6bf71e72ce9044374169987569101}\label{classApplication_ab5b6bf71e72ce9044374169987569101}} 
-void {\bfseries test} ()
+\mbox{\Hypertarget{classApplication_ac8b344e5b2e9a2870cb074a00a96807b}\label{classApplication_ac8b344e5b2e9a2870cb074a00a96807b}} 
+const std\+::set$<$ \mbox{\hyperlink{classStudent}{Student}} $>$ \& {\bfseries students} ()
 \item 
-const std\+::vector$<$ \mbox{\hyperlink{classStudent}{Student}} $>$ \& \mbox{\hyperlink{classApplication_a619369dde8812f0ab65a40292d03235b}{students}} ()
-\begin{DoxyCompactList}\small\item\em Getter for the students. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classApplication_ac0a0670a0a562712da347872f34ff845}\label{classApplication_ac0a0670a0a562712da347872f34ff845}} 
 const std\+::vector$<$ \mbox{\hyperlink{classLecture}{Lecture}} $>$ \& {\bfseries lectures} ()
 \item 
-\mbox{\Hypertarget{classApplication_a1c8f53f820d21eed9bf72ad51b5bf29b}\label{classApplication_a1c8f53f820d21eed9bf72ad51b5bf29b}} 
-std\+::vector$<$ std\+::pair$<$ std\+::string, std\+::string $>$ $>$ {\bfseries students\+\_\+name\+\_\+id} ()
-\item 
+std\+::vector$<$ std\+::pair$<$ std\+::string, std\+::string $>$ $>$ \mbox{\hyperlink{classApplication_a1c8f53f820d21eed9bf72ad51b5bf29b}{students\+\_\+name\+\_\+id}} ()
+\begin{DoxyCompactList}\small\item\em returns a vector of pairs, holding student code and name \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classApplication_a0363c47d01190e9a1259391ac1440dff}\label{classApplication_a0363c47d01190e9a1259391ac1440dff}} 
 std\+::vector$<$ std\+::string $>$ {\bfseries class\+\_\+codes} ()
 \item 
 \mbox{\Hypertarget{classApplication_ac39430bb20c29d076b387de2fa6f6bde}\label{classApplication_ac39430bb20c29d076b387de2fa6f6bde}} 
 std\+::vector$<$ std\+::string $>$ {\bfseries ucs\+\_\+codes} ()
 \item 
-\mbox{\Hypertarget{classApplication_a9363017554e10d8f5e073465006935a2}\label{classApplication_a9363017554e10d8f5e073465006935a2}} 
-std\+::vector$<$ std\+::pair$<$ std\+::string, std\+::string $>$ $>$ {\bfseries students\+\_\+from\+\_\+uc} (const std\+::string \&uc\+\_\+code)
-\item 
+std\+::vector$<$ std\+::pair$<$ std\+::string, std\+::string $>$ $>$ \mbox{\hyperlink{classApplication_a9363017554e10d8f5e073465006935a2}{students\+\_\+from\+\_\+uc}} (const std\+::string \&uc\+\_\+code)
+\begin{DoxyCompactList}\small\item\em Get students enrolled in \mbox{\hyperlink{classUC}{UC}}. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classApplication_a38bc7c083263de1ba2184c4fd33663c0}\label{classApplication_a38bc7c083263de1ba2184c4fd33663c0}} 
 std\+::vector$<$ std\+::string $>$ {\bfseries classes\+\_\+from\+\_\+uc} (const std\+::string \&uc\+\_\+code)
 \item 
-\mbox{\Hypertarget{classApplication_a65edfa7decd0af1b54517ec7b77fc90d}\label{classApplication_a65edfa7decd0af1b54517ec7b77fc90d}} 
-std\+::string {\bfseries add\+\_\+student\+\_\+to\+\_\+uc} (const std\+::string \&student, const std\+::string \&uc, const std\+::string \&c)
+std\+::string \mbox{\hyperlink{classApplication_a708d4ed6fd7d4c6625ad48945a957a86}{add\+\_\+student\+\_\+to\+\_\+uc}} (const std\+::string \&student, const std\+::string \&uc, const std\+::string \&c, const bool \&no\+\_\+write=false)
+\begin{DoxyCompactList}\small\item\em Add a student to an uc. Complexity is O(n + m + p). \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classApplication_a56629444e9750eb042354777d5f3579f}{remove\+\_\+student\+\_\+from\+\_\+uc}} (const std\+::string \&student\+\_\+code, const std\+::string \&uc, const std\+::string \&c, const bool \&no\+\_\+write=false)
+\begin{DoxyCompactList}\small\item\em Remove a student from an uc. Complexity is O(n + m + p). \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classApplication_ab6a1d50853cbcb460260777df31bbbfd}{switch\+\_\+student\+\_\+class}} (const std\+::string \&student\+\_\+code, const std\+::string \&uc, const std\+::string \&old\+\_\+class, const std\+::string \&new\+\_\+class, const bool \&no\+\_\+write=false)
+\begin{DoxyCompactList}\small\item\em Switch a student from one class no another. Complexity is O(n + m + p). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classApplication_a57345b349b1fa07757a84fc4845134ed}\label{classApplication_a57345b349b1fa07757a84fc4845134ed}} 
+std\+::string {\bfseries students\+\_\+class\+\_\+from\+\_\+uc} (const std\+::string \&uc\+\_\+code, const \mbox{\hyperlink{classStudent}{Student}} \&student)
 \item 
-\mbox{\Hypertarget{classApplication_a1cb88cc868538e0dc76f061ce915f7da}\label{classApplication_a1cb88cc868538e0dc76f061ce915f7da}} 
-std\+::string {\bfseries remove\+\_\+student\+\_\+from\+\_\+uc} (const std\+::string \&student\+\_\+code, const std\+::string \&uc, const std\+::string \&c)
+\mbox{\Hypertarget{classApplication_ac069119f1f95b7372ffe0fe9d5861a8f}\label{classApplication_ac069119f1f95b7372ffe0fe9d5861a8f}} 
+std\+::string {\bfseries reverse\+\_\+change} ()
 \item 
-\mbox{\Hypertarget{classApplication_a76b952fac406afe4d4da23212e35d34b}\label{classApplication_a76b952fac406afe4d4da23212e35d34b}} 
-std\+::string {\bfseries switch\+\_\+student\+\_\+class} (const std\+::string \&student\+\_\+code, const std\+::string \&uc, const std\+::string \&old\+\_\+class, const std\+::string \&new\+\_\+class)
+\mbox{\Hypertarget{classApplication_a880e367a21ab5d2050f92e4ea3565b83}\label{classApplication_a880e367a21ab5d2050f92e4ea3565b83}} 
+std\+::vector$<$ std\+::string $>$ {\bfseries get\+\_\+latest\+\_\+change} ()
+\item 
+\mbox{\Hypertarget{classApplication_a52bdb585495bfd91f33d25264eeb62e4}\label{classApplication_a52bdb585495bfd91f33d25264eeb62e4}} 
+std\+::vector$<$ std\+::pair$<$ std\+::string, std\+::string $>$ $>$ {\bfseries students\+\_\+in\+\_\+n\+\_\+ucs} (int n)
 \end{DoxyCompactItemize}
 
 
@@ -56,18 +70,110 @@ std\+::string {\bfseries switch\+\_\+student\+\_\+class} (const std\+::string \&
 The \mbox{\hyperlink{classApplication}{Application}} class for managing and interacting with university data. 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{classApplication_a619369dde8812f0ab65a40292d03235b}\label{classApplication_a619369dde8812f0ab65a40292d03235b}} 
-\index{Application@{Application}!students@{students}}
-\index{students@{students}!Application@{Application}}
-\doxysubsubsection{\texorpdfstring{students()}{students()}}
-{\footnotesize\ttfamily const std\+::vector$<$ \mbox{\hyperlink{classStudent}{Student}} $>$ \& Application\+::students (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+\mbox{\Hypertarget{classApplication_a708d4ed6fd7d4c6625ad48945a957a86}\label{classApplication_a708d4ed6fd7d4c6625ad48945a957a86}} 
+\index{Application@{Application}!add\_student\_to\_uc@{add\_student\_to\_uc}}
+\index{add\_student\_to\_uc@{add\_student\_to\_uc}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{add\_student\_to\_uc()}{add\_student\_to\_uc()}}
+{\footnotesize\ttfamily std\+::string Application\+::add\+\_\+student\+\_\+to\+\_\+uc (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{student,  }\item[{const std\+::string \&}]{uc,  }\item[{const std\+::string \&}]{c,  }\item[{const bool \&}]{no\+\_\+write = {\ttfamily false} }\end{DoxyParamCaption})}
 
 
 
-Getter for the students. 
+Add a student to an uc. Complexity is O(n + m + p). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em student} & the student \\
+\hline
+{\em uc} & the uc \\
+\hline
+{\em c} & the class \\
+\hline
+{\em no\+\_\+write} & optional, true if no write into students\+\_\+classes file \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string holding the result of the operation 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classApplication_a56629444e9750eb042354777d5f3579f}\label{classApplication_a56629444e9750eb042354777d5f3579f}} 
+\index{Application@{Application}!remove\_student\_from\_uc@{remove\_student\_from\_uc}}
+\index{remove\_student\_from\_uc@{remove\_student\_from\_uc}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{remove\_student\_from\_uc()}{remove\_student\_from\_uc()}}
+{\footnotesize\ttfamily std\+::string Application\+::remove\+\_\+student\+\_\+from\+\_\+uc (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{student\+\_\+code,  }\item[{const std\+::string \&}]{uc,  }\item[{const std\+::string \&}]{c,  }\item[{const bool \&}]{no\+\_\+write = {\ttfamily false} }\end{DoxyParamCaption})}
+
+
+
+Remove a student from an uc. Complexity is O(n + m + p). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em student\+\_\+code} & the student \\
+\hline
+{\em uc} & the uc \\
+\hline
+{\em c} & the class \\
+\hline
+{\em no\+\_\+write} & optional, true if no write into students\+\_\+classes file \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string holding the result of the operation 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classApplication_a9363017554e10d8f5e073465006935a2}\label{classApplication_a9363017554e10d8f5e073465006935a2}} 
+\index{Application@{Application}!students\_from\_uc@{students\_from\_uc}}
+\index{students\_from\_uc@{students\_from\_uc}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{students\_from\_uc()}{students\_from\_uc()}}
+{\footnotesize\ttfamily std\+::vector$<$ std\+::pair$<$ std\+::string, std\+::string $>$ $>$ Application\+::students\+\_\+from\+\_\+uc (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{uc\+\_\+code }\end{DoxyParamCaption})}
+
+
+
+Get students enrolled in \mbox{\hyperlink{classUC}{UC}}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em uc\+\_\+code} & code of the \mbox{\hyperlink{classUC}{UC}} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+vector of pairs that holds student\textquotesingle{}s code and name 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classApplication_a1c8f53f820d21eed9bf72ad51b5bf29b}\label{classApplication_a1c8f53f820d21eed9bf72ad51b5bf29b}} 
+\index{Application@{Application}!students\_name\_id@{students\_name\_id}}
+\index{students\_name\_id@{students\_name\_id}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{students\_name\_id()}{students\_name\_id()}}
+{\footnotesize\ttfamily std\+::vector$<$ std\+::pair$<$ std\+::string, std\+::string $>$ $>$ Application\+::students\+\_\+name\+\_\+id (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+returns a vector of pairs, holding student code and name 
 
 \begin{DoxyReturn}{Returns}
-A const reference to the vector of students. 
+vector of pairs holding student code and name 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classApplication_ab6a1d50853cbcb460260777df31bbbfd}\label{classApplication_ab6a1d50853cbcb460260777df31bbbfd}} 
+\index{Application@{Application}!switch\_student\_class@{switch\_student\_class}}
+\index{switch\_student\_class@{switch\_student\_class}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{switch\_student\_class()}{switch\_student\_class()}}
+{\footnotesize\ttfamily std\+::string Application\+::switch\+\_\+student\+\_\+class (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{student\+\_\+code,  }\item[{const std\+::string \&}]{uc,  }\item[{const std\+::string \&}]{old\+\_\+class,  }\item[{const std\+::string \&}]{new\+\_\+class,  }\item[{const bool \&}]{no\+\_\+write = {\ttfamily false} }\end{DoxyParamCaption})}
+
+
+
+Switch a student from one class no another. Complexity is O(n + m + p). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em student\+\_\+code} & student \\
+\hline
+{\em uc} & uc \\
+\hline
+{\em old\+\_\+class} & the old class \\
+\hline
+{\em new\+\_\+class} & the new class \\
+\hline
+{\em no\+\_\+write} & optional, true if no write into students\+\_\+classes file \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string holding the result of the operation 
 \end{DoxyReturn}
 
 

@@ -84,34 +84,32 @@ $(function() {
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &quot;Lecture.h&quot;</span></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &quot;UC.h&quot;</span></div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="classSchedule.html">   16</a></span>&#160;<span class="keyword">class </span><a class="code" href="classSchedule.html">Schedule</a> {</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    std::vector&lt;Lecture&gt; lectures_;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <a class="code" href="classSchedule.html#ae043a0e8f303e90b74c5feae16e6b582">Schedule</a>(<span class="keyword">const</span> <a class="code" href="classStudent.html">Student</a> &amp;student, <span class="keyword">const</span> std::vector&lt;Lecture&gt; &amp;lectures);</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classSchedule.html#ae043a0e8f303e90b74c5feae16e6b582">Schedule</a>(<span class="keyword">const</span> <a class="code" href="classClass.html">Class</a> &amp;c);</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classSchedule.html#ae043a0e8f303e90b74c5feae16e6b582">Schedule</a>(<span class="keyword">const</span> <a class="code" href="classUC.html">UC</a> &amp;uc);</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keyword">const</span> std::vector&lt;Lecture&gt; &amp;<a class="code" href="classSchedule.html#a308da5720fe4fa135538aef48e955c7f">get_lectures</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classSchedule.html#ac81ec9cc8624ce05752827ab6d5f7b91">printSchedule</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordtype">bool</span> conflicts(<span class="keyword">const</span> <a class="code" href="classLecture.html">Lecture</a> &amp;lecture);</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;};</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="classSchedule.html">   19</a></span>&#160;<span class="keyword">class </span><a class="code" href="classSchedule.html">Schedule</a> {</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    std::vector&lt;Lecture&gt; lectures_;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <a class="code" href="classSchedule.html#ae043a0e8f303e90b74c5feae16e6b582">Schedule</a>(<span class="keyword">const</span> <a class="code" href="classStudent.html">Student</a> &amp;student, <span class="keyword">const</span> std::vector&lt;Lecture&gt; &amp;lectures);</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classSchedule.html#ae043a0e8f303e90b74c5feae16e6b582">Schedule</a>(<span class="keyword">const</span> <a class="code" href="classClass.html">Class</a> &amp;c);</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classSchedule.html#ae043a0e8f303e90b74c5feae16e6b582">Schedule</a>(<span class="keyword">const</span> <a class="code" href="classUC.html">UC</a> &amp;uc);</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keyword">const</span> std::vector&lt;Lecture&gt; &amp;<a class="code" href="classSchedule.html#a308da5720fe4fa135538aef48e955c7f">get_lectures</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classSchedule.html#ae5bebc36473a56781efd92563e94cc40">conflicts</a>(<span class="keyword">const</span> <a class="code" href="classLecture.html">Lecture</a> &amp;lecture);</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="preprocessor">#endif </span><span class="comment">//AED_PROJECT_SCHEDULE_H</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;};</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="preprocessor">#endif </span><span class="comment">//AED_PROJECT_SCHEDULE_H</span></div>
 <div class="ttc" id="aclassClass_html"><div class="ttname"><a href="classClass.html">Class</a></div><div class="ttdef"><b>Definition:</b> Class.h:16</div></div>
-<div class="ttc" id="aclassLecture_html"><div class="ttname"><a href="classLecture.html">Lecture</a></div><div class="ttdef"><b>Definition:</b> Lecture.h:11</div></div>
-<div class="ttc" id="aclassSchedule_html"><div class="ttname"><a href="classSchedule.html">Schedule</a></div><div class="ttdef"><b>Definition:</b> Schedule.h:16</div></div>
+<div class="ttc" id="aclassLecture_html"><div class="ttname"><a href="classLecture.html">Lecture</a></div><div class="ttdoc">class for a Lecture</div><div class="ttdef"><b>Definition:</b> Lecture.h:13</div></div>
+<div class="ttc" id="aclassSchedule_html"><div class="ttname"><a href="classSchedule.html">Schedule</a></div><div class="ttdoc">The class do define a Schedule.</div><div class="ttdef"><b>Definition:</b> Schedule.h:19</div></div>
 <div class="ttc" id="aclassSchedule_html_a308da5720fe4fa135538aef48e955c7f"><div class="ttname"><a href="classSchedule.html#a308da5720fe4fa135538aef48e955c7f">Schedule::get_lectures</a></div><div class="ttdeci">const std::vector&lt; Lecture &gt; &amp; get_lectures() const</div><div class="ttdoc">Getter for lectures field.</div><div class="ttdef"><b>Definition:</b> Schedule.cpp:77</div></div>
-<div class="ttc" id="aclassSchedule_html_ac81ec9cc8624ce05752827ab6d5f7b91"><div class="ttname"><a href="classSchedule.html#ac81ec9cc8624ce05752827ab6d5f7b91">Schedule::printSchedule</a></div><div class="ttdeci">void printSchedule() const</div><div class="ttdoc">Prints schedule.</div><div class="ttdef"><b>Definition:</b> Schedule.cpp:81</div></div>
 <div class="ttc" id="aclassSchedule_html_ae043a0e8f303e90b74c5feae16e6b582"><div class="ttname"><a href="classSchedule.html#ae043a0e8f303e90b74c5feae16e6b582">Schedule::Schedule</a></div><div class="ttdeci">Schedule(const Student &amp;student, const std::vector&lt; Lecture &gt; &amp;lectures)</div><div class="ttdoc">Constructor for Schedule class This function instantiates a Schedule for a Student.</div><div class="ttdef"><b>Definition:</b> Schedule.cpp:62</div></div>
-<div class="ttc" id="aclassStudent_html"><div class="ttname"><a href="classStudent.html">Student</a></div><div class="ttdef"><b>Definition:</b> Student.h:15</div></div>
+<div class="ttc" id="aclassSchedule_html_ae5bebc36473a56781efd92563e94cc40"><div class="ttname"><a href="classSchedule.html#ae5bebc36473a56781efd92563e94cc40">Schedule::conflicts</a></div><div class="ttdeci">bool conflicts(const Lecture &amp;lecture)</div><div class="ttdoc">Check if there are conflicts with a lecture in the schedule.</div><div class="ttdef"><b>Definition:</b> Schedule.cpp:87</div></div>
+<div class="ttc" id="aclassStudent_html"><div class="ttname"><a href="classStudent.html">Student</a></div><div class="ttdoc">The Student class.</div><div class="ttdef"><b>Definition:</b> Student.h:18</div></div>
 <div class="ttc" id="aclassUC_html"><div class="ttname"><a href="classUC.html">UC</a></div><div class="ttdef"><b>Definition:</b> UC.h:15</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->

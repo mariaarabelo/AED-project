@@ -3,13 +3,10 @@
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classClass_aa16e29290c0899da2c1ee6e1fa2ad917}{Class}} (const std\+::string \&\mbox{\hyperlink{classClass_a77252202bcf60c9139ae61eca56319b0}{class\+\_\+code}}, const std\+::vector$<$ \mbox{\hyperlink{classLecture}{Lecture}} $>$ \&\mbox{\hyperlink{classClass_a635af5fe866b4f196d3fed4b6c1131e3}{lectures}}, const std\+::vector$<$ \mbox{\hyperlink{classStudent}{Student}} $>$ \&students)
+\mbox{\hyperlink{classClass_ac25601668230a6a38cd0e13db42fddea}{Class}} (const std\+::string \&\mbox{\hyperlink{classClass_a77252202bcf60c9139ae61eca56319b0}{class\+\_\+code}}, const std\+::vector$<$ \mbox{\hyperlink{classLecture}{Lecture}} $>$ \&\mbox{\hyperlink{classClass_a635af5fe866b4f196d3fed4b6c1131e3}{lectures}}, const std\+::set$<$ \mbox{\hyperlink{classStudent}{Student}} $>$ \&students)
 \begin{DoxyCompactList}\small\item\em Constructor for \mbox{\hyperlink{classClass}{Class}} class. \end{DoxyCompactList}\item 
 std\+::string \mbox{\hyperlink{classClass_a77252202bcf60c9139ae61eca56319b0}{class\+\_\+code}} () const
 \begin{DoxyCompactList}\small\item\em Getter for class\+\_\+code field. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classClass_a71e9b758a43ba61ff5e9c290b3fcf399}\label{classClass_a71e9b758a43ba61ff5e9c290b3fcf399}} 
-void \mbox{\hyperlink{classClass_a71e9b758a43ba61ff5e9c290b3fcf399}{print\+Lectures}} () const
-\begin{DoxyCompactList}\small\item\em Prints all lectures in class. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classLecture}{Lecture}} \mbox{\hyperlink{classClass_aea0eb5c58cd7d81103fab02fe3908c5d}{get\+Lecture}} (const std\+::string \&code) const
 \begin{DoxyCompactList}\small\item\em Getter for a given \mbox{\hyperlink{classLecture}{Lecture}}. \end{DoxyCompactList}\item 
 const std\+::vector$<$ \mbox{\hyperlink{classLecture}{Lecture}} $>$ \& \mbox{\hyperlink{classClass_a635af5fe866b4f196d3fed4b6c1131e3}{lectures}} () const
@@ -26,17 +23,16 @@ bool \mbox{\hyperlink{classClass_a256f240d612037e768999097ae0d5d51}{add\+\_\+stu
 \mbox{\Hypertarget{classClass_a9783e7432037eedebfa69eac150484b0}\label{classClass_a9783e7432037eedebfa69eac150484b0}} 
 bool {\bfseries operator$<$} (const \mbox{\hyperlink{classClass}{Class}} \&other) const
 \item 
-\mbox{\Hypertarget{classClass_acff6a8af6b36774a3c880a293eaec3d9}\label{classClass_acff6a8af6b36774a3c880a293eaec3d9}} 
-int {\bfseries get\+\_\+student\+\_\+count} (const std\+::string \&uc) const
-\end{DoxyCompactItemize}
+int \mbox{\hyperlink{classClass_acff6a8af6b36774a3c880a293eaec3d9}{get\+\_\+student\+\_\+count}} (const std\+::string \&uc) const
+\begin{DoxyCompactList}\small\item\em Get number of students in an \mbox{\hyperlink{classUC}{UC}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{classClass_aa16e29290c0899da2c1ee6e1fa2ad917}\label{classClass_aa16e29290c0899da2c1ee6e1fa2ad917}} 
+\mbox{\Hypertarget{classClass_ac25601668230a6a38cd0e13db42fddea}\label{classClass_ac25601668230a6a38cd0e13db42fddea}} 
 \index{Class@{Class}!Class@{Class}}
 \index{Class@{Class}!Class@{Class}}
 \doxysubsubsection{\texorpdfstring{Class()}{Class()}}
-{\footnotesize\ttfamily Class\+::\+Class (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{class\+\_\+code,  }\item[{const std\+::vector$<$ \mbox{\hyperlink{classLecture}{Lecture}} $>$ \&}]{lectures,  }\item[{const std\+::vector$<$ \mbox{\hyperlink{classStudent}{Student}} $>$ \&}]{students }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily Class\+::\+Class (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{class\+\_\+code,  }\item[{const std\+::vector$<$ \mbox{\hyperlink{classLecture}{Lecture}} $>$ \&}]{lectures,  }\item[{const std\+::set$<$ \mbox{\hyperlink{classStudent}{Student}} $>$ \&}]{students }\end{DoxyParamCaption})}
 
 
 
@@ -99,6 +95,24 @@ Number of enrolled students in class.
 
 \begin{DoxyReturn}{Returns}
 size\+\_\+t with enrolled students 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classClass_acff6a8af6b36774a3c880a293eaec3d9}\label{classClass_acff6a8af6b36774a3c880a293eaec3d9}} 
+\index{Class@{Class}!get\_student\_count@{get\_student\_count}}
+\index{get\_student\_count@{get\_student\_count}!Class@{Class}}
+\doxysubsubsection{\texorpdfstring{get\_student\_count()}{get\_student\_count()}}
+{\footnotesize\ttfamily int Class\+::get\+\_\+student\+\_\+count (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{uc }\end{DoxyParamCaption}) const}
+
+
+
+Get number of students in an \mbox{\hyperlink{classUC}{UC}}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em uc} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+student count in \mbox{\hyperlink{classUC}{UC}} 
 \end{DoxyReturn}
 \mbox{\Hypertarget{classClass_aea0eb5c58cd7d81103fab02fe3908c5d}\label{classClass_aea0eb5c58cd7d81103fab02fe3908c5d}} 
 \index{Class@{Class}!getLecture@{getLecture}}
